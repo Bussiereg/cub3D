@@ -4,6 +4,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <math.h>
 # include "libft.h"
 # include "get_next_line.h"
 # include "MLX42.h"
