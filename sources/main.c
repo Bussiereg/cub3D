@@ -1,51 +1,5 @@
 #include "cub3d.h"
 
-
-void	terminate(char *str)
-{
-	if (errno == 0)
-		ft_putendl_fd(str, 2);
-	else
-		perror(str);
-	exit(EXIT_FAILURE);
-}
-
-
-int	parse_map(char *file, t_cub3d *cub3d)
-{
-	int y;
-
-	y = 0;
-	(void)file;
-
-	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
-		terminate("Wrong extension !");
-
-	// Read the resolution
-
-	// read the texture info
-	
-	// read and store the RGB color infos
-
-	// find out the size of the map 
-
-	cub3d->m_size_x = 33;
-	cub3d->m_size_y = 14;
-
-	// allocate map
-	
-	cub3d->map = malloc(cub3d->m_size_y * sizeof(int *));
-	// protect and exit correctly
-
-	while (y < cub3d->m_size_y)
-	{
-		cub3d->map[y] = malloc(cub3d->m_size_x * sizeof(int));
-		// protect and exit correctly
-		y++;
-	}
-	return (0);
-}
-
 int	cub3d_init(t_cub3d *cub3d)
 {
 	
@@ -71,14 +25,19 @@ int	main(int argc, char *argv[])
 	t_cub3d		cub3d;
 
 	if (argc != 2)
-		terminate("Incorrect number of arguments !");
-
+		terminate("Incorrect number of arguments!");
 
 	parse_map(argv[1], &cub3d);
 		//if map problem stop here
 	cub3d_init(&cub3d);
 		//if init problem stop here
 
+	int i = 0;
+	while (cub3d.map[i] != 0)
+	{
+		printf("%s\n", cub3d.map[i]);
+		i++;
+	}
 
 	//draw_minimap(&cub3d);
 	/* mlx_key_hook(fdf->mlx, &my_keyhook, fdf);

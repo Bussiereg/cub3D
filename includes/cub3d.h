@@ -5,6 +5,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include "libft.h"
+# include "get_next_line.h"
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
@@ -30,7 +31,7 @@ typedef struct cub3d
 	mlx_image_t		*viewport;
 	mlx_t			*mlx;
 
-	int				**map;
+	char				**map;
 	int				m_size_x;
 	int				m_size_y;
 	
@@ -43,6 +44,9 @@ typedef struct cub3d
 
 }	t_cub3d;
 
+void	terminate(char *str);
+
+int	parse_map(char *file, t_cub3d *cub3d);
 /* void	draw_map(t_fdf *fdf);
 int		parse_map(char *file_name, t_map *map);
 void	text_info(mlx_t *mlx, char *argv, t_map *map);
