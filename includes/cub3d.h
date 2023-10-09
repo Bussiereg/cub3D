@@ -46,6 +46,7 @@ typedef struct cub3d
 
 void	terminate(char *str);
 
+void	draw_minimap_background(t_cub3d *cub3d);
 int	parse_map(char *file, t_cub3d *cub3d);
 /* void	draw_map(t_fdf *fdf);
 int		parse_map(char *file_name, t_map *map);

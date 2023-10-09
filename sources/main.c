@@ -32,12 +32,6 @@ int	main(int argc, char *argv[])
 	cub3d_init(&cub3d);
 		//if init problem stop here
 
-/* 	int i = 0;
-	while (cub3d.map[i] != 0)
-	{
-		printf("%s\n", cub3d.map[i]);
-		i++;
-	} */
 
 	draw_minimap_background(&cub3d);
 	/* mlx_key_hook(fdf->mlx, &my_keyhook, fdf);
