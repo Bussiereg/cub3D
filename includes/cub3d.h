@@ -9,6 +9,9 @@
 # include <stdlib.h>
 # include <errno.h>
 
+// read map
+// allocate map
+// isolate line function
 
 typedef struct point
 {

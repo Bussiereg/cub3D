@@ -1,13 +1,24 @@
 #include "cub3d.h"
 
-int	parse_map(char *file_name, t_cub3d *cub3d)
+
+void	terminate(char *str)
+{
+	if (errno == 0)
+		ft_putendl_fd(str, 2);
+	else
+		perror(str);
+	exit(EXIT_FAILURE);
+}
+
+
+int	parse_map(char *file, t_cub3d *cub3d)
 {
 	int y;
 
 	y = 0;
-	(void)file_name;
+	(void)file;
 
-	if (ft_strnstr(argv[1], ".cub", ft_strlen(argv[1])) == 0)
+	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
 		terminate("Wrong extension !");
 
 	// Read the resolution
@@ -32,7 +43,7 @@ int	parse_map(char *file_name, t_cub3d *cub3d)
 		// protect and exit correctly
 		y++;
 	}
-
+	return (0);
 }
 
 int	cub3d_init(t_cub3d *cub3d)
@@ -69,7 +80,7 @@ int	main(int argc, char *argv[])
 		//if init problem stop here
 
 
-	draw_minimap(&cub3d);
+	//draw_minimap(&cub3d);
 	/* mlx_key_hook(fdf->mlx, &my_keyhook, fdf);
 	mlx_close_hook(fdf->mlx, &win_close, fdf); */
 	mlx_loop(cub3d.mlx);
