@@ -31,15 +31,15 @@ typedef struct cub3d
 	mlx_image_t		*viewport;
 	mlx_t			*mlx;
 
-	char				**map;
+	char			**map;
 	int				m_size_x;
 	int				m_size_y;
 	
-	char			*text_N;
-	char			*text_S;
-	char			*text_W;
-	char			*text_E;
-	int				color_S;
+	mlx_texture_t*	text_N;
+	mlx_texture_t*	text_S;
+	mlx_texture_t*	text_W;
+	mlx_texture_t*	text_E;
+	int				color_C;
 	int				color_F;
 
 }	t_cub3d;
@@ -47,7 +47,8 @@ typedef struct cub3d
 void	terminate(char *str);
 
 void	draw_minimap_background(t_cub3d *cub3d);
-int	parse_map(char *file, t_cub3d *cub3d);
+int		parse_map(char *file, t_cub3d *cub3d);
+void	ft_free_tab(char **tab);
 /* void	draw_map(t_fdf *fdf);
 int		parse_map(char *file_name, t_map *map);
 void	text_info(mlx_t *mlx, char *argv, t_map *map);

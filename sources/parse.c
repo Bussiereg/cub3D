@@ -9,6 +9,58 @@ int	right_map_char(char c)
 		return (0);
 }
 
+int	get_color_info(char *s)
+{
+	(void)s;
+	return (0);
+}
+
+int	get_texture_file(char *file)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		terminate("texture file opening problem");
+	return (fd);
+}
+
+int	info_to_struct(char *line, t_cub3d *cub3d)
+{
+	char **info;
+
+	if (line[0] == 0)
+		return (0);
+	
+	info = ft_split(line, ' ');
+	if (info[3] != 0)
+		terminate("info map error");
+
+	if (ft_strncmp(info[0], "F", 2) == 0)
+		cub3d->color_F = get_color_info(info[1]);
+	if (ft_strncmp(info[0], "C", 2) == 0)
+		cub3d->color_C = get_color_info(info[1]);
+	if (ft_strncmp(info[0], "NO", 2) == 0)
+		cub3d->text_N = mlx_load_png(info[1]);
+		if (!text_N)
+			terminate("texture N error");
+	if (ft_strncmp(info[0], "SO", 2) == 0)
+		cub3d->text_S = mlx_load_png(info[1]);
+		if (!text_S)
+			terminate("texture S error");
+	if (ft_strncmp(info[0], "WE", 2) == 0)
+		cub3d->text_W = mlx_load_png(info[1]);
+		if (!text_W)
+			terminate("texture W error");
+	if (ft_strncmp(info[0], "EA", 2) == 0)
+		cub3d->text_E = mlx_load_png(info[1]);
+		if (!text_E)
+			terminate("texture E error");
+		
+	ft_free_tab(info);
+	return (0);
+}
+
 int	line_to_map(int y, char *line, t_cub3d *cub3d)
 {
 	int	i;
@@ -54,6 +106,30 @@ int	copy_map(char *file, t_cub3d *cub3d)
 	return (0);
 }
 
+int	read_info(char *file, t_cub3d *cub3d)
+{
+	int	fd;
+	int	l;
+	char *line;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		terminate("open failed");
+
+	l = 0;
+	while (l < 8)
+	{	
+		line = get_next_line(fd);
+		if (!line)
+			terminate("parse alloc error");
+		info_to_struct(line, cub3d);
+		free(line);
+		y++;
+	}
+	close(fd);
+	return (0);
+}
+
 int	parse_map(char *file, t_cub3d *cub3d)
 {
 	int y;
@@ -64,12 +140,13 @@ int	parse_map(char *file, t_cub3d *cub3d)
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
 		terminate("Wrong extension !");
 
-	// Read the resolution
-	//	?
+	read_info(file, cub3d);
 	// read the texture info
 	//	?
 	// read and store the RGB color infos
 	//	?
+
+
 	// find out the size of the map 
 	//	?
 	cub3d->m_size_x = 33;
