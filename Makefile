@@ -18,7 +18,8 @@ MD		:= -mkdir -p
 # -----------\ Files & sources \---------------------------------------------- #
 
 HEADERS	:= -I $(INC_DIREC) -I $(LIBMLX)/include/MLX42 -I $(LIBFT_DIR)includes/
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm $(LIBFT_DIR)/libft.a
+LIBS	:= $(LIBMLX)/build/libmlx42.a  -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" \
+		$(LIBFT_DIR)libft.a
 SRCS	:= $(shell find $(SRC_DIREC) -iname "*.c")
 OBJS := $(addprefix $(OBJ_DIREC), $(notdir $(SRCS:.c=.o)))
 

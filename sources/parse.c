@@ -4,8 +4,9 @@ int	right_map_char(char c)
 {
 	if (c == '0' || c == '1' | c == ' ' || c == 'N' 
 		|| c == 'S' || c == 'E' || c == 'W')
-		return (1);
-	return (0);
+		return (0);
+	else
+		return (0);
 }
 
 int	line_to_map(int y, char *line, t_cub3d *cub3d)
@@ -15,9 +16,8 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 	i = 0;
 	while (line[i] != 0)
 	{
-		//printf("++ %s\n", line);
-		if (right_map_char(line[i]) == 0)
-			terminate("Map compromised");
+	/* 	if (right_map_char(line[i]) == 0)
+			terminate("Map compromised"); */
 			// free alloc;
 		if (line[i] == ' ')
 			cub3d->map[y][i] = '.';
