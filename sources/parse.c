@@ -190,6 +190,7 @@ int	parse_map(char *file, t_cub3d *cub3d)
 		y++;
 	}
 	//find the right section for the map 
+	//find the position of the guy
 	copy_map(file, cub3d);
 
 	return (0);
