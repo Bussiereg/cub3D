@@ -3,7 +3,7 @@
 int	cub3d_init(t_cub3d *cub3d)
 {
 
-	cub3d->mlx = mlx_init(1800, 900, "cub3D", false);
+	cub3d->mlx = mlx_init(1800, 900, "SUBMOON", false);
 	if (!cub3d->mlx)
 		terminate("cub3d init error");
 
@@ -34,7 +34,6 @@ int	main(int argc, char *argv[])
 	cub3d_init(&cub3d);
 		//if init problem stop here
 
-	printf("la premiere ligne de la map est:\n%s\n", cub3d.map[1]);
 	cub3d.pos_x = 16 * 36;
 	cub3d.pos_y = 6 * 36;
 	draw_minimap_background(&cub3d);

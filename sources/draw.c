@@ -23,7 +23,10 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 		new_x = x * 36;
 		while (new_x < (x * 36) + 36)
 		{
-			mlx_put_pixel(cub3d->minimap, new_x, new_y, color);
+			if ((new_x == (x * 36) + 35) || (new_y == (y * 36) + 35))
+				mlx_put_pixel(cub3d->minimap, new_x, new_y, 0x0000FFFF);
+			else
+				mlx_put_pixel(cub3d->minimap, new_x, new_y, color);
 			new_x++;
 		}
 		new_y++;

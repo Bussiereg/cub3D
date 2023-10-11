@@ -9,6 +9,7 @@
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
+# define OFFSET 24
 
 // read map
 // allocate map
