@@ -8,11 +8,11 @@ void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4])
 	rgba[3] = (float)((uint8_t)(cl_b) - (uint8_t)(cl_a)) / (float)i;
 }
 
-int	calc_pix_color(int steps, int x)
+int	calc_pix_color(int steps, int x, int l_height)
 {
 	int y;
 
-	y = steps / t_N->height;
+	y = steps * t_N->height / l_height;
 	printf("steps y is = %d\n", steps);
 	printf("height y is = %d\n", t_N->height);
 	
