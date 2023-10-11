@@ -38,7 +38,7 @@ void	draw_line_down_y_long(t_point a, t_point b, int *dist, mlx_image_t *img)
 	while (a.y < b.y)
 	{
 		if (a.x >= 0 && a.y >= 0 && a.x < 900 && a.y <= 900)
-			mlx_put_pixel(img, a.x, a.y, calc_pix_color(i, 0, dist[1]));
+			mlx_put_pixel(img, a.x, a.y, calc_pix_color(i, 5, dist[1]));
 		f = f - dist[0];
 		if (f < 0)
 		{

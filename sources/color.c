@@ -13,12 +13,16 @@ int	calc_pix_color(int steps, int x, int l_height)
 	int y;
 
 	y = steps * t_N->height / l_height;
-	printf("steps y is = %d\n", steps);
-	printf("height y is = %d\n", t_N->height);
-	
-	uint8_t r = t_N->pixels[((y * t_N->width + x *(sizeof(int32_t))))];
-	uint8_t g = t_N->pixels[((y * t_N->width + x +1)*(sizeof(int32_t)))];
-	uint8_t b = t_N->pixels[((y * t_N->width + x+2)*(sizeof(int32_t)))];
+	printf("steps y is = %d\n", y);
+	//printf("height y is = %d\n", t_N->height);
+
+	uint8_t r = t_N->pixels[((y * t_N->width + x) *(sizeof(int32_t)))];
+	printf("steps r is = %d\n", (int)((y * t_N->width + x) *(sizeof(int32_t))));
+	printf("steps r is = %x\n", t_N->pixels[((y * t_N->width + x) *(sizeof(int32_t)))]);
+	printf("steps g is = %d\n", (int)((y * t_N->width + x) *(sizeof(int32_t))+1));
+	printf("steps b is = %d\n", (int)((y * t_N->width + x) *(sizeof(int32_t))+2));
+	uint8_t g = t_N->pixels[((y * t_N->width + x)*(sizeof(int32_t)) +1)];
+	uint8_t b = t_N->pixels[((y * t_N->width + x)*(sizeof(int32_t))+2)];
 	//printf("hex color is = %X\n", r);
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
