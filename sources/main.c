@@ -29,6 +29,7 @@ int	main(int argc, char *argv[])
 
 	parse_map(argv[1], &cub3d);
 		//if map problem stop here
+		
 	cub3d_init(&cub3d);
 		//if init problem stop here
 

@@ -32,29 +32,39 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 	if (line[0] == 0)
 		return (0);
 	
+	//printf("%s\n", line);
 	info = ft_split(line, ' ');
-	if (info[3] != 0)
-		terminate("info map error");
+	if (info[2] != 0)
+		terminate("*info map error");
 
 	if (ft_strncmp(info[0], "F", 2) == 0)
 		cub3d->color_F = get_color_info(info[1]);
 	if (ft_strncmp(info[0], "C", 2) == 0)
 		cub3d->color_C = get_color_info(info[1]);
+
+	printf("%s\n", info[1]);
+	int	fd;
+
+	fd = open(info[1], O_RDONLY);
+	if (fd < 0)
+		terminate("texture file opening problem");
 	if (ft_strncmp(info[0], "NO", 2) == 0)
-		cub3d->text_N = mlx_load_png(info[1]);
-		if (!text_N)
+		cub3d->text_N = mlx_load_png(info[1]);	
+	if (!cub3d->text_N)
 			terminate("texture N error");
+
+
 	if (ft_strncmp(info[0], "SO", 2) == 0)
 		cub3d->text_S = mlx_load_png(info[1]);
-		if (!text_S)
+	if (!cub3d->text_S)
 			terminate("texture S error");
 	if (ft_strncmp(info[0], "WE", 2) == 0)
 		cub3d->text_W = mlx_load_png(info[1]);
-		if (!text_W)
+	if (!cub3d->text_W)
 			terminate("texture W error");
 	if (ft_strncmp(info[0], "EA", 2) == 0)
 		cub3d->text_E = mlx_load_png(info[1]);
-		if (!text_E)
+	if (!cub3d->text_E)
 			terminate("texture E error");
 		
 	ft_free_tab(info);
@@ -124,7 +134,7 @@ int	read_info(char *file, t_cub3d *cub3d)
 			terminate("parse alloc error");
 		info_to_struct(line, cub3d);
 		free(line);
-		y++;
+		l++;
 	}
 	close(fd);
 	return (0);
@@ -135,7 +145,6 @@ int	parse_map(char *file, t_cub3d *cub3d)
 	int y;
 
 	y = 0;
-	(void)file;
 
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
 		terminate("Wrong extension !");
