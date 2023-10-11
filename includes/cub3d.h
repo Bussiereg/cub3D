@@ -61,6 +61,7 @@ int		calc_grad_color(int steps, int cl_a, float rgba[4]);
 void	draw_line(t_point point_a, t_point point_b, mlx_image_t *fdf);
 void	draw_line_down(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
+void	draw_viewport(t_cub3d *cub3d);
 
 
 void	win_close(void *param);

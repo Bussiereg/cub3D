@@ -29,14 +29,12 @@ int	main(int argc, char *argv[])
 		terminate("Incorrect number of arguments!");
 
 	parse_map(argv[1], &cub3d);
-		//if map problem stop here
-
 	cub3d_init(&cub3d);
-		//if init problem stop here
 
 	cub3d.pos_x = 16 * 36;
 	cub3d.pos_y = 6 * 36;
 	draw_minimap_background(&cub3d);
+	draw_viewport(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
 	mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
 	mlx_loop(cub3d.mlx);
