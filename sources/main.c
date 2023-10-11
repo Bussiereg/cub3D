@@ -31,8 +31,8 @@ int	main(int argc, char *argv[])
 	parse_map(argv[1], &cub3d);
 	cub3d_init(&cub3d);
 
-	cub3d.pos_x = 16 * 36;
-	cub3d.pos_y = 6 * 36;
+	cub3d.pos_x = 16 * UNIT;
+	cub3d.pos_y = 6 * UNIT;
 	draw_minimap_background(&cub3d);
 	draw_viewport(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[])
 	return (EXIT_SUCCESS);
 }
 
-	int	to_draw_a_line(t_cub3d *cub3d)
+int	to_draw_a_line(t_cub3d *cub3d)
 {
 	t_point a = {20, 20, 0, 0x550055FF};
 	t_point b = {200, 300, 0, 0x550055FF};

@@ -11,33 +11,33 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 {
     t_cub3d *cub3d = (t_cub3d*)param;
 
-    if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+    if (keydata.key == MLX_KEY_W && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		if ((cub3d->map[(cub3d->pos_y - OFFSET) / 36][cub3d->pos_x / 36]) == '0')
+		if ((cub3d->map[(cub3d->pos_y - OFFSET) / UNIT][cub3d->pos_x / UNIT]) == '0')
 		{
         	cub3d->pos_y -= OFFSET;
 			draw_minimap_background(cub3d);
 		}
 	}
-    else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+    else if (keydata.key == MLX_KEY_A && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
     {
-		if ((cub3d->map[(cub3d->pos_y) / 36][(cub3d->pos_x - OFFSET) / 36]) == '0')
+		if ((cub3d->map[(cub3d->pos_y) / UNIT][(cub3d->pos_x - OFFSET) / UNIT]) == '0')
 		{
 	    	cub3d->pos_x -= OFFSET;
 			draw_minimap_background(cub3d);
 		}
 	}
-    else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
+    else if (keydata.key == MLX_KEY_S && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		if ((cub3d->map[(cub3d->pos_y + OFFSET) / 36][cub3d->pos_x / 36]) == '0')
+		if ((cub3d->map[(cub3d->pos_y + OFFSET) / UNIT][cub3d->pos_x / UNIT]) == '0')
 		{
       		cub3d->pos_y += OFFSET;
 			draw_minimap_background(cub3d);
 		}
 	}
-    else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+    else if (keydata.key == MLX_KEY_D && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		if ((cub3d->map[(cub3d->pos_y) / 36][(cub3d->pos_x + OFFSET) / 36]) == '0')
+		if ((cub3d->map[(cub3d->pos_y) / UNIT][(cub3d->pos_x + OFFSET) / UNIT]) == '0')
 		{
        		cub3d->pos_x += OFFSET;
 			draw_minimap_background(cub3d);
