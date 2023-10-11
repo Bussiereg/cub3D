@@ -14,6 +14,8 @@
 // allocate map
 // isolate line function
 
+mlx_image_t* t_N;
+
 typedef struct point
 {
 	int		x;
@@ -62,6 +64,7 @@ void	draw_line_down(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_viewport(t_cub3d *cub3d);
 
+int	calc_pix_color(int steps, int x);
 
 void	win_close(void *param);
 void my_keyhook(mlx_key_data_t keydata, void *param);

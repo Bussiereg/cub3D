@@ -32,11 +32,13 @@ void	draw_line_down_y_long(t_point a, t_point b, int *dist, mlx_image_t *img)
 
 	i = 0;
 	f = dist[1] / 2;
+	printf("***");
+	//HERE FOR THE TEXTURE STUFF
 	calc_grad_steps(dist[1], a.color, b.color, &*rgba);
 	while (a.y < b.y)
 	{
 		if (a.x >= 0 && a.y >= 0 && a.x < 900 && a.y <= 900)
-			mlx_put_pixel(img, a.x, a.y, calc_grad_color(i, a.color, &*rgba));
+			mlx_put_pixel(img, a.x, a.y, calc_pix_color(i, 0));
 		f = f - dist[0];
 		if (f < 0)
 		{

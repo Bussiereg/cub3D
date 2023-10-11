@@ -29,5 +29,27 @@ void	draw_viewport(t_cub3d *cub3d)
 		}
 		y++;
 	}
+	t_N = mlx_texture_to_image(cub3d->mlx, cub3d->text_N);
+
+	t_point a = {50, 50, 0, 0};
+	t_point b = {50, 500, 0, 0};
+	draw_line(a, b, cub3d->viewport);
+	a.x = 51;
+	b.x = 51;
+	draw_line(a, b, cub3d->viewport);
+	a.x = 52;
+	b.x = 52;
+	draw_line(a, b, cub3d->viewport);
+	a.x = 53;
+	b.x = 53;
+	draw_line(a, b, cub3d->viewport);
+	a.x = 54;
+	b.x = 54;
+	draw_line(a, b, cub3d->viewport);
+	a.x = 55;
+	b.x = 55;
+	draw_line(a, b, cub3d->viewport);
+
 	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 900);
+	mlx_image_to_window(cub3d->mlx, t_N, 10, 10);
 }
