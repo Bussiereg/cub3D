@@ -39,7 +39,7 @@ lib:
 
 $(NAME): $(OBJ_DIREC) $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) 
-	@echo "Minishell compilation: 100%"
+	@echo "Cub3D compilation: 100%"
 
 $(OBJ_DIREC)%.o: $(SRC_DIREC)%.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"

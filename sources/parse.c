@@ -72,8 +72,8 @@ int	parse_map(char *file, t_cub3d *cub3d)
 	//	?
 	// find out the size of the map 
 	//	?
-	cub3d->m_size_x = 33;
-	cub3d->m_size_y = 14;
+	cub3d->m_size_x = 25;
+	cub3d->m_size_y = 25;
 
 	// allocate map
 	

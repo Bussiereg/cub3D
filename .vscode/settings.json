@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "cstdlib": "c",
+        "history.h": "c",
+        "compare": "c",
+        "type_traits": "c",
+        "minishell.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
