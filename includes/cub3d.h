@@ -49,6 +49,12 @@ void	terminate(char *str);
 void	draw_minimap_background(t_cub3d *cub3d);
 int		parse_map(char *file, t_cub3d *cub3d);
 void	ft_free_tab(char **tab);
+void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
+int		calc_grad_color(int steps, int cl_a, float rgba[4]);
+void	draw_line(t_point point_a, t_point point_b, mlx_image_t *fdf);
+void	draw_line_down(t_point a, t_point b, mlx_image_t *fdf);
+void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
+
 /* void	draw_map(t_fdf *fdf);
 int		parse_map(char *file_name, t_map *map);
 void	text_info(mlx_t *mlx, char *argv, t_map *map);
@@ -58,9 +64,6 @@ int		ft_ahextorgba(char *str);
 void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
 int		calc_grad_color(int steps, int cl_a, float rgba[4]);
 
-void	draw_line(t_point point_a, t_point point_b, mlx_image_t *fdf);
-void	draw_line_down(t_point a, t_point b, mlx_image_t *fdf);
-void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 
 int		count_split(char **split);
 int		count_map_colums(char *file_name, t_map *map);
