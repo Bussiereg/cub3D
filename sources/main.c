@@ -30,6 +30,7 @@ int	main(int argc, char *argv[])
 
 	parse_map(argv[1], &cub3d);
 		//if map problem stop here
+
 	cub3d_init(&cub3d);
 		//if init problem stop here
 
@@ -42,4 +43,12 @@ int	main(int argc, char *argv[])
 	mlx_loop(cub3d.mlx);
 	mlx_terminate(cub3d.mlx);
 	return (EXIT_SUCCESS);
+}
+
+	int	to_draw_a_line(t_cub3d *cub3d)
+{
+	t_point a = {20, 20, 0, 0x550055FF};
+	t_point b = {200, 300, 0, 0x550055FF};
+	draw_line(a, b, cub3d->minimap);
+	return (0);
 }
