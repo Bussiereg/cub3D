@@ -11,37 +11,41 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 {
     t_cub3d *cub3d = (t_cub3d*)param;
 
-    if ((keydata.key == MLX_KEY_W || keydata.key == 265) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+    if ((keydata.key == MLX_KEY_UP || keydata.key == 87) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		if ((cub3d->map[(cub3d->pos_y - OFFSET) / UNIT][cub3d->pos_x / UNIT]) == '0')
+		if ((cub3d->map[(int)(cub3d->pos_y + cub3d->pos_dy) / UNIT][(int)(cub3d->pos_x + cub3d->pos_dx)/ UNIT]) == '0')
 		{
-        	cub3d->pos_y -= OFFSET;
+      		cub3d->pos_y += cub3d->pos_dy;
+			cub3d->pos_x += cub3d->pos_dx;
 			draw_minimap_background(cub3d);
 		}
 	}
-    else if ((keydata.key == MLX_KEY_A || keydata.key == 263) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+    else if ((keydata.key == MLX_KEY_DOWN || keydata.key == 83) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
+		if ((cub3d->map[(int)(cub3d->pos_y - cub3d->pos_dy) / UNIT][(int)(cub3d->pos_x - cub3d->pos_dx)/ UNIT]) == '0')
+		{
+      		cub3d->pos_y -= cub3d->pos_dy;
+			cub3d->pos_x -= cub3d->pos_dx;
+			draw_minimap_background(cub3d);
+		}
+	}
+    else if ((keydata.key == MLX_KEY_LEFT || keydata.key == 65) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
     {
-		if ((cub3d->map[(cub3d->pos_y) / UNIT][(cub3d->pos_x - OFFSET) / UNIT]) == '0')
-		{
-	    	cub3d->pos_x -= OFFSET;
-			draw_minimap_background(cub3d);
-		}
+		cub3d->pos_angle -= 0.1;
+		if (cub3d->pos_angle < 0)
+			cub3d->pos_angle += 2 * PI;
+		cub3d->pos_dx = cos(cub3d->pos_angle) * OFFSET;
+		cub3d->pos_dy = sin(cub3d->pos_angle) * OFFSET;
+		draw_minimap_background(cub3d);
 	}
-    else if ((keydata.key == MLX_KEY_S || keydata.key == 264) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+    else if ((keydata.key == MLX_KEY_RIGHT || keydata.key == 68) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		if ((cub3d->map[(cub3d->pos_y + OFFSET) / UNIT][cub3d->pos_x / UNIT]) == '0')
-		{
-      		cub3d->pos_y += OFFSET;
-			draw_minimap_background(cub3d);
-		}
-	}
-    else if ((keydata.key == MLX_KEY_D || keydata.key == 262) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-	{
-		if ((cub3d->map[(cub3d->pos_y) / UNIT][(cub3d->pos_x + OFFSET) / UNIT]) == '0')
-		{
-       		cub3d->pos_x += OFFSET;
-			draw_minimap_background(cub3d);
-		}
+		cub3d->pos_angle += 0.1;
+		if (cub3d->pos_angle > 2 * PI)
+			cub3d->pos_angle -= 2 * PI;
+		cub3d->pos_dx = cos(cub3d->pos_angle) * OFFSET;
+		cub3d->pos_dy = sin(cub3d->pos_angle) * OFFSET;
+		draw_minimap_background(cub3d);
 	}
     if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
         win_close(param);

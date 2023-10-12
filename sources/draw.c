@@ -37,9 +37,13 @@ void	draw_character(t_cub3d *cub3d, unsigned int color)
 {
 	int new_x;
 	int new_y;
+	int x;
+	int y;
 	int i;
 	int j;
 
+	x = cub3d->pos_x;
+	y = cub3d->pos_y;
 	new_x = cub3d->pos_x - 3;
 	new_y = cub3d->pos_y - 3;
 	i = 0;
@@ -53,6 +57,7 @@ void	draw_character(t_cub3d *cub3d, unsigned int color)
 		}
 		i++;
 	}
+	mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx, y + cub3d->pos_dy, color + 40);
 }
 
 void	draw_minimap_background(t_cub3d *cub3d)

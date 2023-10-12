@@ -12,7 +12,7 @@ OBJ_DIREC := build/
 
 # -----------\ Compilation \-------------------------------------------------- #
 
-CFLAGS	:= -Wextra -Wall -Werror -g
+CFLAGS	:= -Wextra -Wall -Werror -g -lm
 MD		:= -mkdir -p
 
 # -----------\ Files & sources \---------------------------------------------- #
@@ -38,7 +38,7 @@ lib:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(NAME): $(OBJ_DIREC) $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) 
+	@$(CC) $(OBJS) $(CFLAGS) $(LIBS) $(HEADERS) -o $(NAME) 
 	@echo "Cub3D compilation: 100%"
 
 $(OBJ_DIREC)%.o: $(SRC_DIREC)%.c

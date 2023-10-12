@@ -4,13 +4,15 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <math.h>
 # include "libft.h"
 # include "get_next_line.h"
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 10
-# define UNIT 35	
+# define UNIT 35
+# define PI 3.1415926535	
 
 // read map
 // allocate map
@@ -31,6 +33,9 @@ typedef struct cub3d
 
 	int				pos_x;
 	int				pos_y;
+	double			pos_angle;
+	double			pos_dx;
+	double			pos_dy;
 
 	mlx_image_t		*minimap;
 	mlx_image_t		*viewport;
