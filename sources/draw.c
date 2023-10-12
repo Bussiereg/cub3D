@@ -62,13 +62,13 @@ void	draw_character(t_cub3d *cub3d, unsigned int color)
 	while (j < (30))
 	{
 		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j, y + cub3d->pos_dy * j, color + 40);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j - 1, y + cub3d->pos_dy * j - 1, color + 40);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j + 1, y + cub3d->pos_dy * j + 1, color + 40);
+		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j - 1, y + cub3d->pos_dy * j, color + 40);
+		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j, y + cub3d->pos_dy * j - 1, color + 40);
+		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j, y + cub3d->pos_dy * j + 1, color + 40);
+		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j + 1, y + cub3d->pos_dy * j, color + 40);
 		j++;
 	}
 	
-	// mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * 15, y + cub3d->pos_dy * 15, color + 40);
-
 }
 
 void	draw_minimap_background(t_cub3d *cub3d)
