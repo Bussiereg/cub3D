@@ -10,7 +10,7 @@
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
-# define OFFSET 1
+# define OFFSET 10
 # define UNIT 35
 # define PI 3.1415926535	
 
