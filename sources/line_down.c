@@ -58,7 +58,6 @@ void	draw_line_text(t_point a, t_point b, int x, mlx_image_t *text, t_cub3d *cub
 	int dy = b.y - a.y;
 	i = 0;
 	f = dy / 2;
-	printf("***");
 	//HERE FOR THE TEXTURE STUFF
 	calc_grad_steps(dy, a.color, b.color, &*rgba);
 	while (a.y < b.y)
