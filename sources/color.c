@@ -8,21 +8,21 @@ void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4])
 	rgba[3] = (float)((uint8_t)(cl_b) - (uint8_t)(cl_a)) / (float)i;
 }
 
-int	calc_pix_color(int steps, int x, int l_height)
+int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height)
 {
 	int y;
 
-	y = steps * t_N->height / l_height;
+	y = steps * text->height / l_height;
 	printf("steps y is = %d\n", y);
 	//printf("height y is = %d\n", t_N->height);
 
-	uint8_t r = t_N->pixels[((y * t_N->width + x) *(sizeof(int32_t)))];
-	printf("steps r is = %d\n", (int)((y * t_N->width + x) *(sizeof(int32_t))));
-	printf("steps r is = %x\n", t_N->pixels[((y * t_N->width + x) *(sizeof(int32_t)))]);
-	printf("steps g is = %d\n", (int)((y * t_N->width + x) *(sizeof(int32_t))+1));
-	printf("steps b is = %d\n", (int)((y * t_N->width + x) *(sizeof(int32_t))+2));
-	uint8_t g = t_N->pixels[((y * t_N->width + x)*(sizeof(int32_t)) +1)];
-	uint8_t b = t_N->pixels[((y * t_N->width + x)*(sizeof(int32_t))+2)];
+	uint8_t r = text->pixels[((y * text->width + x) *(sizeof(int32_t)))];
+	printf("steps r is = %d\n", (int)((y * text->width + x) *(sizeof(int32_t))));
+	printf("steps r is = %x\n", text->pixels[((y * text->width + x) *(sizeof(int32_t)))]);
+	printf("steps g is = %d\n", (int)((y * text->width + x) *(sizeof(int32_t))+1));
+	printf("steps b is = %d\n", (int)((y * text->width + x) *(sizeof(int32_t))+2));
+	uint8_t g = text->pixels[((y * text->width + x)*(sizeof(int32_t)) +1)];
+	uint8_t b = text->pixels[((y * text->width + x)*(sizeof(int32_t))+2)];
 	//printf("hex color is = %X\n", r);
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }

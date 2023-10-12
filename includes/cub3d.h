@@ -14,8 +14,6 @@
 // allocate map
 // isolate line function
 
-mlx_image_t* t_N;
-
 typedef struct point
 {
 	int		x;
@@ -40,10 +38,11 @@ typedef struct cub3d
 	int				m_size_x;
 	int				m_size_y;
 	
-	mlx_texture_t*	text_N;
-	mlx_texture_t*	text_S;
-	mlx_texture_t*	text_W;
-	mlx_texture_t*	text_E;
+	mlx_texture_t		*text_N;
+	mlx_image_t 		*N;
+	mlx_texture_t		*text_S;
+	mlx_texture_t		*text_W;
+	mlx_texture_t		*text_E;
 	int				color_C;
 	int				color_F;
 
@@ -63,9 +62,11 @@ void	draw_line(t_point point_a, t_point point_b, mlx_image_t *fdf);
 void	draw_line_down(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_viewport(t_cub3d *cub3d);
+void	draw_line_text(t_point a, t_point b, int x, mlx_image_t *text, t_cub3d *cub3d);
 
-int	calc_pix_color(int steps, int x, int l_height);
-void	win_close(void *param);
+
+
+int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 void my_keyhook(mlx_key_data_t keydata, void *param);
 
 #endif
