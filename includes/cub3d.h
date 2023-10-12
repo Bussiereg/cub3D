@@ -10,9 +10,9 @@
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
-# define OFFSET 10
-# define UNIT 35
-# define PI 3.1415926535	
+# define OFFSET 5
+# define UNIT 25
+# define PI 3.1415926535
 
 // read map
 // allocate map
@@ -31,8 +31,8 @@ typedef struct cub3d
 	int 			res_x;
 	int				res_y;
 
-	int				pos_x;
-	int				pos_y;
+	double				pos_x;
+	double				pos_y;
 	double			pos_angle;
 	double			pos_dx;
 	double			pos_dy;

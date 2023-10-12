@@ -3,18 +3,18 @@
 int	cub3d_init(t_cub3d *cub3d)
 {
 
-	cub3d->mlx = mlx_init(1800, 900, "SUBMOON", false);
+	cub3d->mlx = mlx_init(1400, 700, "SUBMOON", false);
 	if (!cub3d->mlx)
 		terminate("cub3d init error");
 
-	cub3d->viewport = mlx_new_image(cub3d->mlx, 900, 900);
-	mlx_image_to_window(cub3d->mlx,cub3d->viewport, 900, 0);
+	cub3d->viewport = mlx_new_image(cub3d->mlx, 700, 700);
+	mlx_image_to_window(cub3d->mlx,cub3d->viewport, 700, 0);
 	if (!cub3d->viewport)
 		terminate("cub3d init error");
 
 	// Parse map to get the size of the minimap or always the same size?
 
-	cub3d->minimap = mlx_new_image(cub3d->mlx, 900, 900);
+	cub3d->minimap = mlx_new_image(cub3d->mlx, 700, 700);
 	mlx_image_to_window(cub3d->mlx,cub3d->minimap, 0, 0);
 	if (!cub3d->minimap)
 		terminate("cub3d init error");
@@ -33,7 +33,7 @@ int	main(int argc, char *argv[])
 
 	cub3d.pos_x = 16 * UNIT;
 	cub3d.pos_y = 6 * UNIT;
-	cub3d.pos_angle = (3 * PI) / 2;
+	cub3d.pos_angle = 0;
 	cub3d.pos_dx = cos(cub3d.pos_angle);
 	cub3d.pos_dy = sin(cub3d.pos_angle);
 	draw_minimap_background(&cub3d);
