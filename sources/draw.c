@@ -40,13 +40,13 @@ void	draw_character(t_cub3d *cub3d, unsigned int color)
 	int i;
 	int j;
 
-	new_x = cub3d->pos_x - 2;
-	new_y = cub3d->pos_y - 2;
+	new_x = cub3d->pos_x - 3;
+	new_y = cub3d->pos_y - 3;
 	i = 0;
-	while (i < 5)
+	while (i < 7)
 	{
 		j = 0;
-		while (j < 5)
+		while (j < 7)
 		{
 			mlx_put_pixel(cub3d->minimap, new_x + i, new_y + j, color);
 			j++;
