@@ -34,8 +34,8 @@ int	main(int argc, char *argv[])
 	cub3d.pos_x = 16 * UNIT;
 	cub3d.pos_y = 6 * UNIT;
 	cub3d.pos_angle = (3 * PI) / 2;
-	cub3d.pos_dx = cos(cub3d.pos_angle) * OFFSET;
-	cub3d.pos_dy = sin(cub3d.pos_angle) * OFFSET;
+	cub3d.pos_dx = cos(cub3d.pos_angle);
+	cub3d.pos_dy = sin(cub3d.pos_angle);
 	draw_minimap_background(&cub3d);
 	draw_viewport(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
