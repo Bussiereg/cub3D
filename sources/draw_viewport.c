@@ -36,17 +36,17 @@ void	draw_viewport(t_cub3d *cub3d)
 	t_point a = {50, 50, 0, 0};
 	t_point b = {50, 200, 0, 0};
 
-	float ht = 300;
+	float ht = 400;
 
-	a.y = 900 / 2 - ht / 2;
-	b.y = 900 /2 + ht / 2;
+	a.y = 900 / 2 - ht * 2/3;
+	b.y = 900 /2 + ht * 1/3;
 
 	int i = 0;
 	int xx = 0;
 	while (i < 300)
 	{
 		draw_line_text(a, b, xx, N, cub3d);
-		xx = i * 300 / 300;
+		xx = i * 10 / 300;
 		i++;
 		a.x++;
 		b.x++;
@@ -55,20 +55,20 @@ void	draw_viewport(t_cub3d *cub3d)
 	a.x = 350;
 	b.x = 350;
 
-	ht = 300;
+	ht = 400;
 
-	a.y = 900 / 2 - ht / 2;
-	b.y = 900 /2 + ht / 2;
+	a.y = 900 / 2 - ht * 2/3;
+	b.y = 900 /2 + ht * 1/3;
 
 	i = 0;
 	xx = 0;
-	while (i < 300)
+	while (i < 200)
 	{
-		a.y = 900 / 2 - ht / 2;
-		b.y = 900 /2 + ht / 2;
+		a.y = 900 / 2 - ht * 2/3;
+		b.y = 900 /2 + ht * 1/3;
 		draw_line_text(a, b, xx, N, cub3d);
-		xx = i * 300 / 300;
-		ht = ht - 0.5;
+		xx = i * 10 / 300;
+		ht = ht - 0.7;
 		i++;
 		a.x++;
 		b.x++;
