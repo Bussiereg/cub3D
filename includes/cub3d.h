@@ -31,8 +31,8 @@ typedef struct cub3d
 	int 			res_x;
 	int				res_y;
 
-	double				pos_x;
-	double				pos_y;
+	double			pos_x;
+	double			pos_y;
 	double			pos_angle;
 	double			pos_dx;
 	double			pos_dy;
