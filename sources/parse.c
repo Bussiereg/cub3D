@@ -24,38 +24,75 @@ int	get_color_info(char *str)
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
 
+/* mlx_image_t	*load_texture(char *file, t_cub3d *cub3d)
+{
+	//mlx_texture_t*	text;
+
+	cub3d->text = mlx_load_png(file);
+
+	if (!cub3d->text)
+		return (NULL);
+	printf("w text = %d\n", cub3d->text->width);
+	printf("h text = %d\n", cub3d->text->height);
+	mlx_image_t* image = mlx_new_image(cub3d->mlx, cub3d->text->width, cub3d->text->height);
+	(void)image;
+	printf("HERE\n");
+	mlx_image_t		*text_img = mlx_texture_to_image(cub3d->mlx, cub3d->text);
+
+		printf("HERE\n");
+	return (text_img);
+} */
+
 int	info_to_struct(char *line, t_cub3d *cub3d)
 {
 	char **info;
 
 	if (line[0] == 0)
 		return (0);
-	
 	info = ft_split(line, ' ');
-	if (info[2] != 0)
-		terminate("*info map error");
+	//if (info[2] != 0)
+	//	terminate("info map error");
 
 	if (ft_strncmp(info[0], "F", 2) == 0)
 		cub3d->color_F = get_color_info(info[1]);
 	if (ft_strncmp(info[0], "C", 2) == 0)
 		cub3d->color_C = get_color_info(info[1]);
 
-	if (ft_strncmp(info[0], "NO", 2) == 0)
-		cub3d->text_N = mlx_load_png(info[1]);	
+
+/* 	if (ft_strncmp(info[0], "NO", 2) == 0)
+		cub3d->text_N = load_texture(info[1], cub3d);
 	if (!cub3d->text_N)
 			terminate("texture N error");
+
 	if (ft_strncmp(info[0], "SO", 2) == 0)
-		cub3d->text_S = mlx_load_png(info[1]);
+		cub3d->text_S = load_texture(info[1], cub3d);
 	if (!cub3d->text_S)
 			terminate("texture S error");
 	if (ft_strncmp(info[0], "WE", 2) == 0)
-		cub3d->text_W = mlx_load_png(info[1]);
+		cub3d->text_W = load_texture(info[1], cub3d);
 	if (!cub3d->text_W)
 			terminate("texture W error");
 	if (ft_strncmp(info[0], "EA", 2) == 0)
-		cub3d->text_E = mlx_load_png(info[1]);
+		cub3d->text_E = load_texture(info[1], cub3d);
 	if (!cub3d->text_E)
-			terminate("texture E error");
+			terminate("texture E error"); */
+
+	if (ft_strncmp(info[0], "NO", 2) == 0)
+        cub3d->text_N = mlx_load_png(info[1]);
+    if (!cub3d->text_N)
+            terminate("texture N error");
+    if (ft_strncmp(info[0], "SO", 2) == 0)
+        cub3d->text_S = mlx_load_png(info[1]);
+    if (!cub3d->text_S)
+            terminate("texture S error");
+    if (ft_strncmp(info[0], "WE", 2) == 0)
+        cub3d->text_W = mlx_load_png(info[1]);
+    if (!cub3d->text_W)
+            terminate("texture W error");
+    if (ft_strncmp(info[0], "EA", 2) == 0)
+        cub3d->text_E = mlx_load_png(info[1]);
+    if (!cub3d->text_E)
+            terminate("texture E error");
 		
 	ft_free_tab(info);
 	return (0);
@@ -126,7 +163,6 @@ int	read_map_size(int fd, t_cub3d *cub3d)
 	line = "line";
 	while (line)
 	{
-		//printf("*");
 		line = get_next_line(fd);
 		if (!line)
 			break ;
@@ -153,7 +189,7 @@ int	read_info(char *file, t_cub3d *cub3d)
 
 	l = 0;
 	while (l < 7) //fin th right condition to stop when needed before the map
-	{	
+	{
 		line = get_next_line(fd);
 		if (!line)
 			terminate("parse alloc error");
@@ -174,8 +210,9 @@ int	parse_map(char *file, t_cub3d *cub3d)
 
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
 		terminate("Wrong extension !");
-
 	fd = read_info(file, cub3d);
+
+
 	read_map_size(fd, cub3d);
 
 	printf("m_size_y = %d\n", cub3d->m_size_y);

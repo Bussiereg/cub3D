@@ -24,7 +24,7 @@ void	draw_line_down_x_long(t_point a, t_point b, int *dist, mlx_image_t *img)
 	}
 }
 
-void	draw_line_down_y_long(t_point a, t_point b, int *dist, mlx_image_t *img)
+void	draw_line_down_y_long(t_point a, t_point b, int *dist, mlx_image_t *fdf)
 {
 	float	f;
 	int		i;
@@ -36,12 +36,39 @@ void	draw_line_down_y_long(t_point a, t_point b, int *dist, mlx_image_t *img)
 	while (a.y < b.y)
 	{
 		if (a.x >= 0 && a.y >= 0 && a.x < 900 && a.y <= 900)
-			mlx_put_pixel(img, a.x, a.y, calc_grad_color(i, a.color, &*rgba));
+			mlx_put_pixel(fdf, a.x, a.y, calc_grad_color(i, a.color, &*rgba));
 		f = f - dist[0];
 		if (f < 0)
 		{
 			a.x++;
 			f = f + dist[1];
+		}
+		a.y++;
+		i++;
+	}
+}
+
+void	draw_line_text(t_point a, t_point b, int x, mlx_image_t *text, t_cub3d *cub3d)
+{
+	float	f;
+	int		i;
+	float	rgba[4];
+
+	int dx = b.x - a.x;
+	int dy = b.y - a.y;
+	i = 0;
+	f = dy / 2;
+	//HERE FOR THE TEXTURE STUFF
+	calc_grad_steps(dy, a.color, b.color, &*rgba);
+	while (a.y < b.y)
+	{
+		if (a.x >= 0 && a.y >= 0 && a.x < 900 && a.y <= 900)
+			mlx_put_pixel(cub3d->viewport, a.x, a.y, calc_pix_color(i, text, x, dy));
+		f = f - dx;
+		if (f < 0)
+		{
+			a.x++;
+			f = f + dy;
 		}
 		a.y++;
 		i++;

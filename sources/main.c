@@ -3,7 +3,7 @@
 int	cub3d_init(t_cub3d *cub3d)
 {
 
-	cub3d->mlx = mlx_init(1800, 900, "SUBMOON", false);
+	cub3d->mlx = mlx_init(WIDTH * 2, HEIGHT, "SUBMOON", false);
 	if (!cub3d->mlx)
 		terminate("cub3d init error");
 
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[])
 	draw_minimap_background(&cub3d);
 	draw_viewport(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
-	mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
+	//mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
 	mlx_loop(cub3d.mlx);
 	mlx_terminate(cub3d.mlx);
 	return (EXIT_SUCCESS);
