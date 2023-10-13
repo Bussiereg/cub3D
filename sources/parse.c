@@ -4,7 +4,7 @@ int	right_map_char(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == 'N' 
 		|| c == 'S' || c == 'E' || c == 'W')
-		return (0);
+		return (1);
 	else
 		return (0);
 }
@@ -24,25 +24,6 @@ int	get_color_info(char *str)
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
 
-/* mlx_image_t	*load_texture(char *file, t_cub3d *cub3d)
-{
-	//mlx_texture_t*	text;
-
-	cub3d->text = mlx_load_png(file);
-
-	if (!cub3d->text)
-		return (NULL);
-	printf("w text = %d\n", cub3d->text->width);
-	printf("h text = %d\n", cub3d->text->height);
-	mlx_image_t* image = mlx_new_image(cub3d->mlx, cub3d->text->width, cub3d->text->height);
-	(void)image;
-	printf("HERE\n");
-	mlx_image_t		*text_img = mlx_texture_to_image(cub3d->mlx, cub3d->text);
-
-		printf("HERE\n");
-	return (text_img);
-} */
-
 int	info_to_struct(char *line, t_cub3d *cub3d)
 {
 	char **info;
@@ -58,41 +39,30 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 	if (ft_strncmp(info[0], "C", 2) == 0)
 		cub3d->color_C = get_color_info(info[1]);
 
-
-/* 	if (ft_strncmp(info[0], "NO", 2) == 0)
-		cub3d->text_N = load_texture(info[1], cub3d);
-	if (!cub3d->text_N)
-			terminate("texture N error");
-
-	if (ft_strncmp(info[0], "SO", 2) == 0)
-		cub3d->text_S = load_texture(info[1], cub3d);
-	if (!cub3d->text_S)
-			terminate("texture S error");
-	if (ft_strncmp(info[0], "WE", 2) == 0)
-		cub3d->text_W = load_texture(info[1], cub3d);
-	if (!cub3d->text_W)
-			terminate("texture W error");
-	if (ft_strncmp(info[0], "EA", 2) == 0)
-		cub3d->text_E = load_texture(info[1], cub3d);
-	if (!cub3d->text_E)
-			terminate("texture E error"); */
-
 	if (ft_strncmp(info[0], "NO", 2) == 0)
-        cub3d->text_N = mlx_load_png(info[1]);
-    if (!cub3d->text_N)
-            terminate("texture N error");
-    if (ft_strncmp(info[0], "SO", 2) == 0)
-        cub3d->text_S = mlx_load_png(info[1]);
-    if (!cub3d->text_S)
-            terminate("texture S error");
-    if (ft_strncmp(info[0], "WE", 2) == 0)
-        cub3d->text_W = mlx_load_png(info[1]);
-    if (!cub3d->text_W)
-            terminate("texture W error");
-    if (ft_strncmp(info[0], "EA", 2) == 0)
-        cub3d->text_E = mlx_load_png(info[1]);
-    if (!cub3d->text_E)
-            terminate("texture E error");
+	{
+		cub3d->text_N = mlx_load_png(info[1]);
+		if (!cub3d->text_N)
+			terminate("texture N error");
+	}
+	if (ft_strncmp(info[0], "SO", 2) == 0)
+	{
+		cub3d->text_S = mlx_load_png(info[1]);
+		if (!cub3d->text_S)
+			terminate("texture S error");
+	}
+	if (ft_strncmp(info[0], "WE", 2) == 0)
+	{
+		cub3d->text_W = mlx_load_png(info[1]);
+		if (!cub3d->text_W)
+			terminate("texture W error");
+	}
+	if (ft_strncmp(info[0], "EA", 2) == 0)
+	{
+		cub3d->text_E = mlx_load_png(info[1]);
+		if (!cub3d->text_E)
+			terminate("texture E error");
+	}
 		
 	ft_free_tab(info);
 	return (0);
@@ -105,9 +75,25 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 	i = 0;
 	while (line[i] != 0)
 	{
-	/* 	if (right_map_char(line[i]) == 0)
-			terminate("Map compromised"); */
+		if (right_map_char(line[i]) == 0)
+			terminate("Map compromised");
 			// free alloc;
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
+		{
+			cub3d->pos_x = i * UNIT + UNIT / 2;
+			cub3d->pos_y = y * UNIT + UNIT / 2;
+			if (line[i] == 'N')
+				cub3d->pos_angle = 3 * PI / 2;
+			if (line[i] == 'S')
+				cub3d->pos_angle = PI / 2;
+			if (line[i] == 'W')
+				cub3d->pos_angle = 0;
+			if (line[i] == 'E')
+				cub3d->pos_angle = PI;
+			cub3d->pos_dx = cos(cub3d->pos_angle);
+			cub3d->pos_dy = sin(cub3d->pos_angle);
+			line[i] = '0';
+		}
 		if (line[i] == ' ')
 			cub3d->map[y][i] = '.';
 		else
@@ -227,7 +213,7 @@ int	parse_map(char *file, t_cub3d *cub3d)
 		y++;
 	}
 	//find the right section for the map 
-	//find the position of the guy
+
 	copy_map(file, cub3d);
 
 	return (0);

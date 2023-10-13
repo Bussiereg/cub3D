@@ -2,7 +2,6 @@
 
 int	cub3d_init(t_cub3d *cub3d)
 {
-
 	cub3d->mlx = mlx_init(WIDTH * 2, HEIGHT, "SUBMOON", false);
 	if (!cub3d->mlx)
 		terminate("cub3d init error");
@@ -12,7 +11,10 @@ int	cub3d_init(t_cub3d *cub3d)
 	if (!cub3d->viewport)
 		terminate("cub3d init error");
 
-	// Parse map to get the size of the minimap or always the same size?
+	cub3d->N = mlx_texture_to_image(cub3d->mlx, cub3d->text_N);
+	cub3d->S = mlx_texture_to_image(cub3d->mlx, cub3d->text_S);
+	cub3d->E = mlx_texture_to_image(cub3d->mlx, cub3d->text_E);
+	cub3d->W = mlx_texture_to_image(cub3d->mlx, cub3d->text_W);
 
 	cub3d->minimap = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(cub3d->mlx,cub3d->minimap, 0, 0);
@@ -27,15 +29,10 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		terminate("Incorrect number of arguments!");
-
+	cub3d.w_d_offset = 0;
 	parse_map(argv[1], &cub3d);
 	cub3d_init(&cub3d);
 
-	cub3d.pos_x = 16 * UNIT;
-	cub3d.pos_y = 6 * UNIT;
-	cub3d.pos_angle = 0;
-	cub3d.pos_dx = cos(cub3d.pos_angle);
-	cub3d.pos_dy = sin(cub3d.pos_angle);
 	draw_minimap_background(&cub3d);
 	draw_viewport(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);

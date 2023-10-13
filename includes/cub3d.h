@@ -11,10 +11,11 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 10
-# define UNIT 32
+# define UNIT 20
+# define UNIT_3D 100
 # define PI 3.1415926535
-# define HEIGHT 900
-# define WIDTH 900
+# define HEIGHT 700
+# define WIDTH 700
 
 // read map
 // allocate map
@@ -48,10 +49,16 @@ typedef struct cub3d
 	int				m_size_y;
 	
 	mlx_texture_t		*text_N;
-	mlx_image_t 		*N;
 	mlx_texture_t		*text_S;
 	mlx_texture_t		*text_W;
 	mlx_texture_t		*text_E;
+	float				w_d_offset;
+
+	mlx_image_t 		*N;
+	mlx_image_t 		*S;
+	mlx_image_t 		*E;
+	mlx_image_t 		*W;
+
 	int				color_C;
 	int				color_F;
 
@@ -71,8 +78,6 @@ void	draw_line(t_point point_a, t_point point_b, mlx_image_t *fdf);
 void	draw_line_down(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_viewport(t_cub3d *cub3d);
-void	draw_line_text(t_point a, t_point b, int x, mlx_image_t *text, t_cub3d *cub3d);
-
 
 
 int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
