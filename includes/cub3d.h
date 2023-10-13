@@ -11,7 +11,7 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 10
-# define UNIT 15
+# define UNIT 32
 # define PI 3.1415926535
 # define HEIGHT 900
 # define WIDTH 900

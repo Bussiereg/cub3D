@@ -33,6 +33,66 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 	}
 }
 
+void draw_laser(t_cub3d *cub3d)
+{
+	int r,dof;
+	double rx,ry,mx,my,ra,xo,yo,atan;
+
+	ra = cub3d->pos_angle;
+	r = 0;
+	while (r++ < 1)
+	{
+		// check Horizontal line
+		dof = 0;
+		atan = -(1 / tan(ra));
+		if (ra > PI) // looking up
+		{
+			ry = (((cub3d->pos_y) / UNIT) * UNIT) - 0.0001;
+			rx = ((cub3d->pos_y - ry) * atan) + cub3d->pos_x;
+			yo = -32;
+			xo = - yo * atan;
+		}
+		else if (ra < PI) // looking down
+		{
+			ry = (((cub3d->pos_y) / UNIT) * UNIT) + UNIT;
+			rx = (cub3d->pos_y - ry) * atan + cub3d->pos_x;
+			yo = 32;
+			xo = - yo * atan;
+		}
+		else if (ra == 0 || ra == PI || ra == 2 * PI)
+		{
+			rx = cub3d->pos_x;
+			ry = cub3d->pos_y;
+			dof = 25;
+		}
+		printf("xo: %f\nyo: %f\nrx: %f\nry: %f\npx: %f\npy: %f\nangle: %f\n\n", xo, yo, rx, ry, cub3d->pos_x, cub3d->pos_y, ra);
+		while (dof < 25)
+		{
+			mx = (rx / UNIT);
+			my = (ry / UNIT);
+			if ((int)mx < 0 || (int)mx > 24)
+				break;
+			if ((int)my < 0 || (int)my > 24)
+				break;
+			if (cub3d->map[(int)my][(int)mx] == '1')
+				break;
+			else
+			{
+				rx += xo;
+				ry += yo;
+				dof++;
+			}
+			printf("mx: %d\nmy: %d\n", (int)mx, (int)my);
+		}
+		int j = 0;
+		while (j < (ry - cub3d->pos_y) || j < (cub3d->pos_y -ry))
+		{
+			mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j, cub3d->pos_y + cub3d->pos_dy * j, 0x11FF55FF);
+			j++;
+		}
+	}
+}
+
 void	draw_character(t_cub3d *cub3d, unsigned int color)
 {
 	int new_x;
@@ -94,5 +154,6 @@ void	draw_minimap_background(t_cub3d *cub3d)
 	}
 	// DRAW CHARACTER POINT
 	draw_character(cub3d, 0xFF0000FF);
+	draw_laser(cub3d);
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
 }
