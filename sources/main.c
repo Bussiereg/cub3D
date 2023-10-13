@@ -3,7 +3,7 @@
 int	cub3d_init(t_cub3d *cub3d)
 {
 
-	cub3d->mlx = mlx_init(1800, 900, "SUBMOON", false);
+	cub3d->mlx = mlx_init(WIDTH * 2, HEIGHT, "SUBMOON", false);
 	if (!cub3d->mlx)
 		terminate("cub3d init error");
 

@@ -10,7 +10,9 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 10
-# define UNIT 35	
+# define UNIT 35
+# define HEIGHT 900
+# define WIDTH 900
 
 // read map
 // allocate map
