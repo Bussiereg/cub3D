@@ -1,37 +1,49 @@
 #include "cub3d.h"
 
-void	draw_viewport(t_cub3d *cub3d)
+int	draw_ceiling(t_cub3d *cub3d)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	x = 0;
-	while (y < 450)
+	while (y < HEIGHT / 2)
 	{
 		x = 0;
-		while (x < 900)
+		while (x < WIDTH)
 		{
 			mlx_put_pixel(cub3d->viewport, x, y, cub3d->color_C);
 			x++;
 		}
 		y++;
 	}
-	y = 450;
-	x = 0;
-	while (y < 900)
+	return (0);
+}
+
+int	draw_floor(t_cub3d *cub3d)
+{
+	int	x;
+	int	y;
+
+	y = HEIGHT / 2;
+	while (y < WIDTH)
 	{
 		x = 0;
-		while (x < 900)
+		while (x < WIDTH)
 		{
 			mlx_put_pixel(cub3d->viewport, x, y, cub3d->color_F);
 			x++;
 		}
 		y++;
 	}
-	cub3d->N = mlx_texture_to_image(cub3d->mlx, cub3d->text_N);
-	mlx_image_t *N = cub3d->N;
+	return (0);
+}
 
+void	draw_viewport(t_cub3d *cub3d)
+{
+
+
+	draw_ceiling(cub3d);
+	draw_floor(cub3d);
 	
 	t_point a = {50, 50, 0, 0};
 	t_point b = {50, 200, 0, 0};
@@ -45,7 +57,7 @@ void	draw_viewport(t_cub3d *cub3d)
 	int xx = 0;
 	while (i < 300)
 	{
-		draw_line_text(a, b, xx, N, cub3d);
+		draw_line_text(a, b, xx, cub3d->N, cub3d);
 		xx = i * 10 / 300;
 		i++;
 		a.x++;
@@ -66,7 +78,7 @@ void	draw_viewport(t_cub3d *cub3d)
 	{
 		a.y = 900 / 2 - ht * 2/3;
 		b.y = 900 /2 + ht * 1/3;
-		draw_line_text(a, b, xx, N, cub3d);
+		draw_line_text(a, b, xx, cub3d->N, cub3d);
 		xx = i * 10 / 300;
 		ht = ht - 0.7;
 		i++;

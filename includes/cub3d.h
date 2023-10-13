@@ -11,10 +11,10 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 10
-# define UNIT 15
+# define UNIT 20
 # define PI 3.1415926535
-# define HEIGHT 900
-# define WIDTH 900
+# define HEIGHT 700
+# define WIDTH 700
 
 // read map
 // allocate map
@@ -48,10 +48,15 @@ typedef struct cub3d
 	int				m_size_y;
 	
 	mlx_texture_t		*text_N;
-	mlx_image_t 		*N;
 	mlx_texture_t		*text_S;
 	mlx_texture_t		*text_W;
 	mlx_texture_t		*text_E;
+
+	mlx_image_t 		*N;
+	mlx_image_t 		*S;
+	mlx_image_t 		*E;
+	mlx_image_t 		*W;
+
 	int				color_C;
 	int				color_F;
 
