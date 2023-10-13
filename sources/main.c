@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		terminate("Incorrect number of arguments!");
-
+	cub3d.w_d_offset = 0;
 	parse_map(argv[1], &cub3d);
 	cub3d_init(&cub3d);
 
