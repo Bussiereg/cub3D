@@ -24,7 +24,7 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 		while (new_x < (x * UNIT) + UNIT)
 		{
 			if ((new_x == (x * UNIT) + UNIT -1) || (new_y == (y * UNIT) + UNIT -1))
-				mlx_put_pixel(cub3d->minimap, new_x, new_y, 0x0000FFFF);
+				mlx_put_pixel(cub3d->minimap, new_x, new_y, 0x095275FF);
 			else
 				mlx_put_pixel(cub3d->minimap, new_x, new_y, color);
 			new_x++;
@@ -145,9 +145,9 @@ void	draw_minimap_background(t_cub3d *cub3d)
 		{
 			//draw_rectangle();
 			if (cub3d->map[y][x] == '0')
-				draw_tile(cub3d, x, y, 0xFFFFFFFF);
+				draw_tile(cub3d, x, y, 0xCBEBF4FF);
 			else
-				draw_tile(cub3d, x, y, 0x000000FF);
+				draw_tile(cub3d, x, y, 0x030209FF);
 			x++;
 		}
 		y++;
