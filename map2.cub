@@ -1,9 +1,9 @@
-NO ./IMG_1387.png
-SO ./IMG_1387.png
-WE ./IMG_1387.png
-EA ./IMG_1387.png
+NO ./texture_N.png
+SO ./texture_S.png
+WE ./texture_W.png
+EA ./texture_E.png
 
-F 138,206,226
+F 50,100,0
 C 0,30,60
 
         1111111111111111111111111

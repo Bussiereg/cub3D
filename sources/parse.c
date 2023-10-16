@@ -4,7 +4,7 @@ int	right_map_char(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == 'N' 
 		|| c == 'S' || c == 'E' || c == 'W')
-		return (0);
+		return (1);
 	else
 		return (0);
 }
@@ -30,10 +30,9 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 
 	if (line[0] == 0)
 		return (0);
-	
 	info = ft_split(line, ' ');
-	if (info[2] != 0)
-		terminate("*info map error");
+	//if (info[2] != 0)
+	//	terminate("info map error");
 
 	if (ft_strncmp(info[0], "F", 2) == 0)
 		cub3d->color_F = get_color_info(info[1]);
@@ -41,21 +40,29 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 		cub3d->color_C = get_color_info(info[1]);
 
 	if (ft_strncmp(info[0], "NO", 2) == 0)
-		cub3d->text_N = mlx_load_png(info[1]);	
-	if (!cub3d->text_N)
+	{
+		cub3d->text_N = mlx_load_png(info[1]);
+		if (!cub3d->text_N)
 			terminate("texture N error");
+	}
 	if (ft_strncmp(info[0], "SO", 2) == 0)
+	{
 		cub3d->text_S = mlx_load_png(info[1]);
-	if (!cub3d->text_S)
+		if (!cub3d->text_S)
 			terminate("texture S error");
+	}
 	if (ft_strncmp(info[0], "WE", 2) == 0)
+	{
 		cub3d->text_W = mlx_load_png(info[1]);
-	if (!cub3d->text_W)
+		if (!cub3d->text_W)
 			terminate("texture W error");
+	}
 	if (ft_strncmp(info[0], "EA", 2) == 0)
+	{
 		cub3d->text_E = mlx_load_png(info[1]);
-	if (!cub3d->text_E)
+		if (!cub3d->text_E)
 			terminate("texture E error");
+	}
 		
 	ft_free_tab(info);
 	return (0);
@@ -68,9 +75,25 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 	i = 0;
 	while (line[i] != 0)
 	{
-	/* 	if (right_map_char(line[i]) == 0)
-			terminate("Map compromised"); */
+		if (right_map_char(line[i]) == 0)
+			terminate("Map compromised");
 			// free alloc;
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
+		{
+			cub3d->pos_x = i * UNIT + UNIT / 2;
+			cub3d->pos_y = y * UNIT + UNIT / 2;
+			if (line[i] == 'N')
+				cub3d->pos_angle = 3 * PI / 2;
+			if (line[i] == 'S')
+				cub3d->pos_angle = PI / 2;
+			if (line[i] == 'W')
+				cub3d->pos_angle = 0;
+			if (line[i] == 'E')
+				cub3d->pos_angle = PI;
+			cub3d->pos_dx = cos(cub3d->pos_angle);
+			cub3d->pos_dy = sin(cub3d->pos_angle);
+			line[i] = '0';
+		}
 		if (line[i] == ' ')
 			cub3d->map[y][i] = '.';
 		else
@@ -126,7 +149,6 @@ int	read_map_size(int fd, t_cub3d *cub3d)
 	line = "line";
 	while (line)
 	{
-		//printf("*");
 		line = get_next_line(fd);
 		if (!line)
 			break ;
@@ -153,7 +175,7 @@ int	read_info(char *file, t_cub3d *cub3d)
 
 	l = 0;
 	while (l < 7) //fin th right condition to stop when needed before the map
-	{	
+	{
 		line = get_next_line(fd);
 		if (!line)
 			terminate("parse alloc error");
@@ -174,8 +196,9 @@ int	parse_map(char *file, t_cub3d *cub3d)
 
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
 		terminate("Wrong extension !");
-
 	fd = read_info(file, cub3d);
+
+
 	read_map_size(fd, cub3d);
 
 	printf("m_size_y = %d\n", cub3d->m_size_y);
@@ -190,7 +213,7 @@ int	parse_map(char *file, t_cub3d *cub3d)
 		y++;
 	}
 	//find the right section for the map 
-	//find the position of the guy
+
 	copy_map(file, cub3d);
 
 	return (0);

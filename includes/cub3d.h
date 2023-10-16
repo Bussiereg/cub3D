@@ -10,9 +10,12 @@
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
-# define OFFSET 5
-# define UNIT 25
+# define OFFSET 10
+# define UNIT 20
+# define UNIT_3D 100
 # define PI 3.1415926535
+# define HEIGHT 700
+# define WIDTH 700
 
 // read map
 // allocate map
@@ -22,7 +25,6 @@ typedef struct point
 {
 	int		x;
 	int		y;
-	int		z;
 	int		color;
 }	t_point;
 
@@ -36,6 +38,8 @@ typedef struct cub3d
 	double			pos_angle;
 	double			pos_dx;
 	double			pos_dy;
+	t_point			pos_char;
+	t_point			pos_wall;
 
 	mlx_image_t		*minimap;
 	mlx_image_t		*viewport;
@@ -45,10 +49,17 @@ typedef struct cub3d
 	int				m_size_x;
 	int				m_size_y;
 	
-	mlx_texture_t*	text_N;
-	mlx_texture_t*	text_S;
-	mlx_texture_t*	text_W;
-	mlx_texture_t*	text_E;
+	mlx_texture_t		*text_N;
+	mlx_texture_t		*text_S;
+	mlx_texture_t		*text_W;
+	mlx_texture_t		*text_E;
+	float				w_d_offset;
+
+	mlx_image_t 		*N;
+	mlx_image_t 		*S;
+	mlx_image_t 		*E;
+	mlx_image_t 		*W;
+
 	int				color_C;
 	int				color_F;
 
@@ -70,7 +81,7 @@ void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_viewport(t_cub3d *cub3d);
 
 
-void	win_close(void *param);
+int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 void my_keyhook(mlx_key_data_t keydata, void *param);
 
 #endif
