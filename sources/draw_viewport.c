@@ -1,8 +1,34 @@
 #include "cub3d.h"
 
-int	draw_ceiling(t_cub3d *cub3d)
+int	draw_sky(t_cub3d *cub3d)
 {
 	int	x;
+	int	y;
+	float	rgba[4];
+	int sky_darker;
+	int sky;
+
+	sky = cub3d->color_C;
+	sky_darker = 0x000910FF;
+	calc_grad_steps(HEIGHT / 2, sky_darker, sky, &*rgba);
+	y = 0;
+	while (y < HEIGHT / 2)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			mlx_put_pixel(cub3d->viewport, x, y, calc_grad_color(y, sky_darker, &*rgba));
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int	draw_ceiling(t_cub3d *cub3d)
+{
+	draw_sky(cub3d);
+	/* int	x;
 	int	y;
 
 	y = 0;
@@ -15,7 +41,7 @@ int	draw_ceiling(t_cub3d *cub3d)
 			x++;
 		}
 		y++;
-	}
+	} */
 	return (0);
 }
 
