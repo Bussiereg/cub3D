@@ -4,7 +4,7 @@
         "history.h": "c",
         "compare": "c",
         "type_traits": "c",
-        "minishell.h": "c",
+        "cub3d.h": "c",
         "random": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
