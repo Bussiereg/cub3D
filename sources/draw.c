@@ -84,12 +84,19 @@ void draw_laser(t_cub3d *cub3d)
 			}
 			printf("mx: %d\nmy: %d\n", (int)mx, (int)my);
 		}
-		int j = 0;
-		while (j < (ry - cub3d->pos_y) || j < (cub3d->pos_y -ry))
-		{
-			mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j, cub3d->pos_y + cub3d->pos_dy * j, 0x11FF55FF);
-			j++;
-		}
+		cub3d->pos_char.x = cub3d->pos_x;
+		cub3d->pos_char.y = cub3d->pos_y;
+		cub3d->pos_char.color = 0x00FF00FF;
+		cub3d->pos_wall.x = rx;
+		cub3d->pos_wall.y = ry;
+		cub3d->pos_wall.color = 0x00FF00FF;
+		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
+		// int j = 0;
+		// while (j < (ry - cub3d->pos_y) || j < (cub3d->pos_y -ry))
+		// {
+		// 	mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j, cub3d->pos_y + cub3d->pos_dy * j, 0x11FF55FF);
+		// 	j++;
+		// }
 	}
 }
 

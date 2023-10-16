@@ -38,6 +38,8 @@ typedef struct cub3d
 	double			pos_angle;
 	double			pos_dx;
 	double			pos_dy;
+	t_point			pos_char;
+	t_point			pos_wall;
 
 	mlx_image_t		*minimap;
 	mlx_image_t		*viewport;
