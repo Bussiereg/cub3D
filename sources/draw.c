@@ -47,25 +47,25 @@ void draw_laser(t_cub3d *cub3d)
 		atan = -(1 / tan(ra));
 		if (ra > PI) // looking up
 		{
-			ry = (((cub3d->pos_y) / UNIT) * UNIT) - 0.0001;
+			ry = ((((int)cub3d->pos_y) / UNIT) * UNIT) - 0.0001;
 			rx = ((cub3d->pos_y - ry) * atan) + cub3d->pos_x;
-			yo = -32;
+			yo = - UNIT;
 			xo = - yo * atan;
 		}
 		else if (ra < PI) // looking down
 		{
-			ry = (((cub3d->pos_y) / UNIT) * UNIT) + UNIT;
-			rx = (cub3d->pos_y - ry) * atan + cub3d->pos_x;
-			yo = 32;
+			ry = (((int)(cub3d->pos_y) / UNIT) * UNIT) + UNIT;
+			rx = ((cub3d->pos_y - ry)) * atan + cub3d->pos_x;
+			yo = UNIT;
 			xo = - yo * atan;
 		}
-		else if (ra == 0 || ra == PI || ra == 2 * PI)
+		else if (ra == 0 || ra == PI)
 		{
 			rx = cub3d->pos_x;
 			ry = cub3d->pos_y;
 			dof = 25;
 		}
-		printf("xo: %f\nyo: %f\nrx: %f\nry: %f\npx: %f\npy: %f\nangle: %f\n\n", xo, yo, rx, ry, cub3d->pos_x, cub3d->pos_y, ra);
+		// printf("xo: %f\nyo: %f\nrx: %f\nry: %f\npx: %f\npy: %f\nangle: %f\n\n", xo, yo, rx, ry, cub3d->pos_x, cub3d->pos_y, ra);
 		while (dof < 25)
 		{
 			mx = (rx / UNIT);
@@ -84,19 +84,14 @@ void draw_laser(t_cub3d *cub3d)
 			}
 			printf("mx: %d\nmy: %d\n", (int)mx, (int)my);
 		}
-		cub3d->pos_char.x = cub3d->pos_x;
-		cub3d->pos_char.y = cub3d->pos_y;
+		cub3d->pos_char.x = (int)cub3d->pos_x;
+		cub3d->pos_char.y = (int)cub3d->pos_y;
 		cub3d->pos_char.color = 0x00FF00FF;
-		cub3d->pos_wall.x = rx;
-		cub3d->pos_wall.y = ry;
+		cub3d->pos_wall.x = (int)rx;
+		cub3d->pos_wall.y = (int)ry;
 		cub3d->pos_wall.color = 0x00FF00FF;
+		printf("char.x: %d\nchar.y: %d\nwall.x %d\nwall.y %d\n\n", (cub3d->pos_char.x / UNIT), (cub3d->pos_char.y / UNIT), (cub3d->pos_wall.x / UNIT), (cub3d->pos_wall.y / UNIT));
 		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
-		// int j = 0;
-		// while (j < (ry - cub3d->pos_y) || j < (cub3d->pos_y -ry))
-		// {
-		// 	mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j, cub3d->pos_y + cub3d->pos_dy * j, 0x11FF55FF);
-		// 	j++;
-		// }
 	}
 }
 
@@ -152,7 +147,7 @@ void	draw_minimap_background(t_cub3d *cub3d)
 		{
 			//draw_rectangle();
 			if (cub3d->map[y][x] == '0')
-				draw_tile(cub3d, x, y, 0xCBEBF4FF);
+				draw_tile(cub3d, x, y, 0xFFFFFFFF);
 			else
 				draw_tile(cub3d, x, y, 0x030209FF);
 			x++;
