@@ -58,6 +58,8 @@ void draw_laser(t_cub3d *cub3d)
 	{
 		// check Horizontal line
 	 	dof = 0;
+		hx = cub3d->pos_x;
+		hy = cub3d->pos_y;
 		atan = -(1 / tan(ra));
 		if (ra > PI) // looking up
 		{
@@ -107,6 +109,8 @@ void draw_laser(t_cub3d *cub3d)
 		}
 		// check vertical line
 		dof = 0;
+		vx = cub3d->pos_x;
+		vy = cub3d->pos_y;
 		ntan = -tan(ra);
 		if (ra < ((3 * PI) / 2) && ra > PI2) // looking left
 		{
@@ -117,7 +121,7 @@ void draw_laser(t_cub3d *cub3d)
 		}
 		else if (ra > ((3 * PI) / 2) || ra < PI2) // looking right
 		{
-			rx = (((int)(cub3d->pos_x) / UNIT) * UNIT) + UNIT;
+			rx = (((int)cub3d->pos_x / UNIT) * UNIT) + UNIT;
 			ry = ((cub3d->pos_x - rx) * ntan) + cub3d->pos_y;
 			xo = UNIT;
 			yo = - xo * ntan;
@@ -159,7 +163,7 @@ void draw_laser(t_cub3d *cub3d)
 			ry = vy;
 			rx = vx;
 		}
-		else
+		if (disth < distv)
 		{
 			ry = hy;
 			rx = hx;
