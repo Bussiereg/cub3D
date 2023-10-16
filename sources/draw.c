@@ -86,12 +86,13 @@ void draw_laser(t_cub3d *cub3d)
 		}
 		cub3d->pos_char.x = (int)cub3d->pos_x;
 		cub3d->pos_char.y = (int)cub3d->pos_y;
-		cub3d->pos_char.color = 0x00FF00FF;
+		cub3d->pos_char.color = 0xFF8800FF;
 		cub3d->pos_wall.x = (int)rx;
 		cub3d->pos_wall.y = (int)ry;
-		cub3d->pos_wall.color = 0x00FF00FF;
-		printf("char.x: %d\nchar.y: %d\nwall.x %d\nwall.y %d\n\n", (cub3d->pos_char.x / UNIT), (cub3d->pos_char.y / UNIT), (cub3d->pos_wall.x / UNIT), (cub3d->pos_wall.y / UNIT));
+		cub3d->pos_wall.color = 0xFF8800FF;
 		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
+		printf("char.x: %d   char.y: %d\nwall.x: %d   wall.y: %d\n\n", (cub3d->pos_char.x / UNIT), (cub3d->pos_char.y / UNIT), (cub3d->pos_wall.x / UNIT), (cub3d->pos_wall.y / UNIT));
+		printf("char.x: %d   char.y: %d\nwall.x: %d   wall.y: %d\n\n", (cub3d->pos_char.x), (cub3d->pos_char.y), (cub3d->pos_wall.x), (cub3d->pos_wall.y));
 	}
 }
 
