@@ -12,7 +12,7 @@ OBJ_DIREC := build/
 
 # -----------\ Compilation \-------------------------------------------------- #
 
-CFLAGS	:= -Wextra -Wall -Werror -g -lm
+CFLAGS	:= -Wextra -Wall -Werror -lm
 MD		:= -mkdir -p
 
 # -----------\ Files & sources \---------------------------------------------- #
