@@ -70,9 +70,9 @@ void draw_laser(t_cub3d *cub3d)
 		{
 			mx = (rx / UNIT);
 			my = (ry / UNIT);
-			if ((int)mx < 0 || (int)mx > 24)
+			if ((int)mx < 0 || (int)mx > cub3d->m_size_x)
 				break;
-			if ((int)my < 0 || (int)my > 24)
+			if ((int)my < 0 || (int)my > cub3d->m_size_y)
 				break;
 			if (cub3d->map[(int)my][(int)mx] == '1')
 				break;
