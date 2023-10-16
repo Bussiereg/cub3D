@@ -76,8 +76,8 @@ void	draw_line(t_point point_a, t_point point_b, mlx_image_t *img)
 	else
 	{
 		if (point_a.y < point_b.y)
-			draw_line_down(point_b, point_a, img);
-		else
 			draw_line_up(point_b, point_a, img);
+		else
+			draw_line_down(point_b, point_a, img);
 	}
 }
