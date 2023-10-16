@@ -25,7 +25,6 @@ typedef struct point
 {
 	int		x;
 	int		y;
-	int		z;
 	int		color;
 }	t_point;
 

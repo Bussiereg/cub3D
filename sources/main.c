@@ -44,8 +44,8 @@ int	main(int argc, char *argv[])
 
 int	to_draw_a_line(t_cub3d *cub3d)
 {
-	t_point a = {20, 20, 0, 0x550055FF};
-	t_point b = {200, 300, 0, 0x550055FF};
+	t_point a = {20, 20, 0x550055FF};
+	t_point b = {200, 300, 0x550055FF};
 	draw_line(a, b, cub3d->minimap);
 	return (0);
 }
