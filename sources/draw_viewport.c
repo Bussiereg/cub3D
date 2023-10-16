@@ -15,7 +15,7 @@ int	draw_sky(t_cub3d *cub3d)
 	while (y < HEIGHT / 2)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < WIDTH * 2)
 		{
 			mlx_put_pixel(cub3d->viewport, x, y, calc_grad_color(y, sky_darker, &*rgba));
 			x++;
@@ -82,6 +82,15 @@ void	draw_line_textu(int line_height, int x, int text_x_pos, mlx_image_t *text, 
 		a++;
 		i++;
 	}
+}
+
+void	draw_background(t_cub3d *cub3d)
+{
+
+	draw_ceiling(cub3d);
+	draw_floor(cub3d);
+	
+	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
 }
 
 void	draw_viewport(t_cub3d *cub3d)
@@ -151,9 +160,5 @@ void	draw_viewport(t_cub3d *cub3d)
 		line_height += 0.5;
 		i++;
 	}
-
-
-
-
-	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, HEIGHT);
+	mlx_image_to_window(cub3d->mlx, cub3d->viewport, WIDTH, 0);
 }

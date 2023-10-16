@@ -1,10 +1,10 @@
-NO ./texture_N.png
-SO ./texture_S.png
-WE ./texture_W.png
-EA ./texture_E.png
+NO ./Fire.png
+SO ./Fire.png
+WE ./Fire.png
+EA ./Fire.png
 
-F 50,100,0
-C 0,30,60
+F 252,72,4
+C 131,27,4
 
 1111111111111111111111111
 1000000000000000000000001

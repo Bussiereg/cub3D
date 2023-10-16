@@ -11,6 +11,11 @@ int	cub3d_init(t_cub3d *cub3d)
 	if (!cub3d->viewport)
 		terminate("cub3d init error");
 
+	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH * 2, HEIGHT);
+	mlx_image_to_window(cub3d->mlx,cub3d->background, 0, 0);
+	if (!cub3d->background)
+		terminate("cub3d init error");
+
 	cub3d->N = mlx_texture_to_image(cub3d->mlx, cub3d->text_N);
 	cub3d->S = mlx_texture_to_image(cub3d->mlx, cub3d->text_S);
 	cub3d->E = mlx_texture_to_image(cub3d->mlx, cub3d->text_E);
@@ -33,6 +38,7 @@ int	main(int argc, char *argv[])
 	parse_map(argv[1], &cub3d);
 	cub3d_init(&cub3d);
 
+	//draw_background(&cub3d);
 	draw_minimap_background(&cub3d);
 	draw_viewport(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
