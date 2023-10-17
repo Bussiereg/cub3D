@@ -32,18 +32,34 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 		new_y++;
 	}
 }
+double distance(double ax, double ay, double bx, double by)
+{
+	return (sqrt(((bx - ax) * (bx - ax)) + ((by - ay) * ( by - ay))));
+}
 
 void draw_laser(t_cub3d *cub3d)
 {
 	int r,dof;
-	double rx,ry,mx,my,ra,xo,yo,atan;
+	double rx,ry,ra,xo,yo;
+	int mx, my;
+	double atan;
+	double ntan;
+	double disth = 1000000;
+	double hx = cub3d->pos_x;
+	double hy = cub3d->pos_y;
+	double distv = 1000000;
+	double vx = cub3d->pos_x;
+	double vy = cub3d->pos_y;
 
-	ra = cub3d->pos_angle;
+
+	ra = cub3d->pos_angle - DR * 30;
 	r = 0;
-	while (r++ < 1)
+	while (r++ < 60)
 	{
 		// check Horizontal line
-		dof = 0;
+	 	dof = 0;
+		hx = cub3d->pos_x;
+		hy = cub3d->pos_y;
 		atan = -(1 / tan(ra));
 		if (ra > PI) // looking up
 		{
@@ -59,30 +75,98 @@ void draw_laser(t_cub3d *cub3d)
 			yo = UNIT;
 			xo = - yo * atan;
 		}
-		else if (ra == 0 || ra == PI)
+		else if (ra == 0 || ra == PI) // looking straight
 		{
 			rx = cub3d->pos_x;
 			ry = cub3d->pos_y;
-			dof = 25;
+			dof = cub3d->m_size_y;
 		}
-		// printf("xo: %f\nyo: %f\nrx: %f\nry: %f\npx: %f\npy: %f\nangle: %f\n\n", xo, yo, rx, ry, cub3d->pos_x, cub3d->pos_y, ra);
-		while (dof < 25)
+		while (dof < cub3d->m_size_y)
 		{
-			mx = (rx / UNIT);
-			my = (ry / UNIT);
-			if ((int)mx < 0 || (int)mx > cub3d->m_size_x)
+			mx = ((int)rx / UNIT);
+			my = ((int)ry / UNIT);
+			if (mx < 0)
+				mx = 0;
+			else if (mx >= cub3d->m_size_x - 1)
+				mx = cub3d->m_size_x - 1;
+			if (my < 0)
+				my = 0;
+			else if (my >= cub3d->m_size_y - 1)
+				my = cub3d->m_size_y - 1;
+			if (cub3d->map[my][mx] == '1')
+			{
+ 				hx = rx;
+				hy = ry;
+				disth = distance(cub3d->pos_x, cub3d->pos_y, hx, hy);
 				break;
-			if ((int)my < 0 || (int)my > cub3d->m_size_y)
-				break;
-			if (cub3d->map[(int)my][(int)mx] == '1')
-				break;
+			}
 			else
 			{
 				rx += xo;
 				ry += yo;
 				dof++;
 			}
-			printf("mx: %d\nmy: %d\n", (int)mx, (int)my);
+		}
+		// check vertical line
+		dof = 0;
+		vx = cub3d->pos_x;
+		vy = cub3d->pos_y;
+		ntan = -tan(ra);
+		if (ra < ((3 * PI) / 2) && ra > PI2) // looking left
+		{
+			rx = (((int)cub3d->pos_x / UNIT) * UNIT) - 0.0001;
+			ry = ((cub3d->pos_x - rx) * ntan) + cub3d->pos_y;
+			xo = - UNIT;
+			yo = - xo * ntan;
+		}
+		else if (ra > ((3 * PI) / 2) || ra < PI2) // looking right
+		{
+			rx = (((int)cub3d->pos_x / UNIT) * UNIT) + UNIT;
+			ry = ((cub3d->pos_x - rx) * ntan) + cub3d->pos_y;
+			xo = UNIT;
+			yo = - xo * ntan;
+		}
+		else if (ra == PI2 || ra == ((3 * PI) / 2)) //looking straight up or down
+		{
+			rx = cub3d->pos_x;
+			ry = cub3d->pos_y;
+			dof = cub3d->m_size_x;
+		}
+		while (dof < cub3d->m_size_x)
+		{
+			mx = ((int)rx / UNIT);
+			my = ((int)ry / UNIT);
+			if (mx < 0)
+				mx = 0;
+			if (mx >= cub3d->m_size_x - 1)
+				mx = cub3d->m_size_x - 1;
+			if (my < 0)
+				my = 0;
+			if (my >= cub3d->m_size_y - 1)
+				my = cub3d->m_size_y - 1;
+			if (cub3d->map[my][mx] == '1')
+			{
+				vx = rx;
+				vy = ry;
+				distv = distance(cub3d->pos_x, cub3d->pos_y, vx, vy);
+				break;
+			}
+			else
+			{
+				rx += xo;
+				ry += yo;
+				dof++;
+			}
+		}
+		if (distv < disth)
+		{
+			ry = vy;
+			rx = vx;
+		}
+		if (disth < distv)
+		{
+			ry = hy;
+			rx = hx;
 		}
 		cub3d->pos_char.x = (int)cub3d->pos_x;
 		cub3d->pos_char.y = (int)cub3d->pos_y;
@@ -91,8 +175,21 @@ void draw_laser(t_cub3d *cub3d)
 		cub3d->pos_wall.y = (int)ry;
 		cub3d->pos_wall.color = 0xFF8800FF;
 		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
-		printf("char.x: %d   char.y: %d\nwall.x: %d   wall.y: %d\n\n", (cub3d->pos_char.x / UNIT), (cub3d->pos_char.y / UNIT), (cub3d->pos_wall.x / UNIT), (cub3d->pos_wall.y / UNIT));
+		ra = ra  + DR;
+/* 		cub3d->pos_char.x = (int)cub3d->pos_x;
+		cub3d->pos_char.y = (int)cub3d->pos_y;
+		cub3d->pos_char.color = 0x1188FFFF;
+		cub3d->pos_wall.x = (int)rx;
+		cub3d->pos_wall.y = (int)ry;
+		if (cub3d->pos_wall.y / UNIT >= cub3d->m_size_y)
+			cub3d->pos_wall.y = cub3d->m_size_y * UNIT;
+		if (cub3d->pos_wall.x / UNIT >= cub3d->m_size_x)
+			cub3d->pos_wall.x = cub3d->m_size_x * UNIT;
+		cub3d->pos_wall.color = 0x1188FFFF;
+		printf("rx: %f\nry: %f\nchar.x: %d   char.y: %d\nwall.x: %d   wall.y: %d\n\n",rx, ry, (cub3d->pos_char.x / UNIT), (cub3d->pos_char.y / UNIT), (cub3d->pos_wall.x / UNIT), (cub3d->pos_wall.y / UNIT));
 		printf("char.x: %d   char.y: %d\nwall.x: %d   wall.y: %d\n\n", (cub3d->pos_char.x), (cub3d->pos_char.y), (cub3d->pos_wall.x), (cub3d->pos_wall.y));
+		printf("pa: %f\n", cub3d->pos_angle);
+		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap); */
 	}
 }
 
