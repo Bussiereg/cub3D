@@ -11,7 +11,7 @@ void	draw_line_down_x_long(t_point a, t_point b, int *dist, mlx_image_t *img)
 	calc_grad_steps(dist[0], a.color, b.color, &*rgba);
 	while (a.x < b.x)
 	{
-		if (a.x >= 0 && a.y >= 0 && a.x < 900 && a.y <= 900)
+		if (a.x >= 0 && a.y >= 0 && a.x < WIDTH && a.y <= HEIGHT)
 			mlx_put_pixel(img, a.x, a.y, calc_grad_color(i, a.color, &*rgba));
 		f = f - dist[1];
 		if (f < 0)
@@ -35,7 +35,7 @@ void	draw_line_down_y_long(t_point a, t_point b, int *dist, mlx_image_t *fdf)
 	calc_grad_steps(dist[1], a.color, b.color, &*rgba);
 	while (a.y < b.y)
 	{
-		if (a.x >= 0 && a.y >= 0 && a.x < 900 && a.y <= 900)
+		if (a.x >= 0 && a.y >= 0 && a.x < WIDTH && a.y <= HEIGHT)
 			mlx_put_pixel(fdf, a.x, a.y, calc_grad_color(i, a.color, &*rgba));
 		f = f - dist[0];
 		if (f < 0)
