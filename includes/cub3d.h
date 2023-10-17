@@ -12,12 +12,11 @@
 # include <errno.h>
 # define OFFSET 10
 # define UNIT 27
-# define UNIT_3D 100
 # define PI 3.1415926535
 # define PI2 PI/2
 # define PI3 3*PI/2
 # define HEIGHT 700
-# define WIDTH 700
+# define WIDTH 900
 //# define DR 0.0174533
 # define DR 0.001495997
 
