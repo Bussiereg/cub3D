@@ -77,20 +77,11 @@ void	draw_line_textu(int line_height, int x, int text_x_pos, mlx_image_t *text, 
 	i = 0;
 	while (a < b)
 	{
-		if (x >= 0 && a >= 0 && x < WIDTH && a <= HEIGHT)
+		if (x >= 0 && a >= 0 && x < WIDTH && a < HEIGHT)
 			mlx_put_pixel(cub3d->viewport, x, a, calc_pix_color(i, text, text_x_pos, line_height));
 		a++;
 		i++;
 	}
-}
-
-void	draw_background(t_cub3d *cub3d)
-{
-
-	draw_ceiling(cub3d);
-	draw_floor(cub3d);
-	
-	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
 }
 
 
@@ -100,66 +91,5 @@ void	draw_viewport(t_cub3d *cub3d)
 	draw_ceiling(cub3d);
 	draw_floor(cub3d);
 	
-	/* int i = 0;
-	float x = 50;
-	float line_height;
-	float w_d = 4;
-
-	line_height = HEIGHT / (w_d + cub3d->w_d_offset);
-	int xx = 0;
-	while (i < 200)
-	{
-		draw_line_textu(line_height, i + x, xx, cub3d->S, cub3d);
-		xx = i * cub3d->S->height / 200;
-		i++;
-	}
-
-	i = 0;
-	x = 250;
-	w_d = 6;
-	line_height = HEIGHT / (w_d + cub3d->w_d_offset);
-	xx = 0;
-	while (i < 100)
-	{
-		draw_line_textu(line_height, i + x, xx, cub3d->W, cub3d);
-		xx = i * cub3d->W->height / 100;
-		line_height -= 0.5;
-		i++;
-	}
-
-	i = 0;
-	x = 350;
-	line_height = 100;
-	xx = 0;
-	while (i < 100)
-	{
-		draw_line_textu(line_height, i + x, xx, cub3d->S, cub3d);
-		xx = i * cub3d->S->height / 100;
-		i++;
-	}
-
-	i = 0;
-	x = 450;
-	line_height = 100;
-	xx = 0;
-	while (i < 100)
-	{
-		draw_line_textu(line_height, i + x, xx, cub3d->E, cub3d);
-		xx = i * cub3d->E->height / 100;
-		line_height += 0.5;
-		i++;
-	}
-
-	i = 0;
-	x = 550;
-	line_height = 150;
-	xx = 0;
-	while (i < 100)
-	{
-		draw_line_textu(line_height, i + x, xx, cub3d->E, cub3d);
-		xx = i * cub3d->E->height / 100;
-		line_height += 0.5;
-		i++;
-	} */
 	mlx_image_to_window(cub3d->mlx, cub3d->viewport, WIDTH, 0);
 }
