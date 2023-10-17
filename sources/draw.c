@@ -80,12 +80,12 @@ void draw_laser(t_cub3d *cub3d)
 			yo = UNIT;
 			xo = - yo * atan;
 		}
-		else if (ra == 0 || ra == M_PI) // looking straight
+/* 		else if (ra == 0 || ra == M_PI) // looking straight
 		{
 			rx = cub3d->pos_x;
 			ry = cub3d->pos_y;
 			dof = cub3d->m_size_y;
-		}
+		} */
 		while (dof < cub3d->m_size_y)
 		{
 			mx = ((int)rx / UNIT);
@@ -120,6 +120,8 @@ void draw_laser(t_cub3d *cub3d)
 		if (ra < ((3 * M_PI) / 2) && ra > M_PI_2) // looking left
 		{
 			rx = (((int)cub3d->pos_x / UNIT) * UNIT) - 0.0001;
+			if (rx < 0)
+				rx = 0;
 			ry = ((cub3d->pos_x - rx) * ntan) + cub3d->pos_y;
 			xo = - UNIT;
 			yo = - xo * ntan;
@@ -127,16 +129,18 @@ void draw_laser(t_cub3d *cub3d)
 		else if (ra > ((3 * M_PI) / 2) || ra < M_PI_2) // looking right
 		{
 			rx = (((int)cub3d->pos_x / UNIT) * UNIT) + UNIT;
+			if (rx < 0)
+				rx = 0;
 			ry = ((cub3d->pos_x - rx) * ntan) + cub3d->pos_y;
 			xo = UNIT;
 			yo = - xo * ntan;
 		}
-		else if (ra == M_PI_2 || ra == ((3 * M_PI) / 2)) //looking straight up or down
+/* 		else if (ra == M_PI_2 || ra == ((3 * M_PI) / 2)) //looking straight up or down
 		{
 			rx = cub3d->pos_x;
 			ry = cub3d->pos_y;
 			dof = cub3d->m_size_x;
-		}
+		} */
 		while (dof < cub3d->m_size_x)
 		{
 			mx = ((int)rx / UNIT);

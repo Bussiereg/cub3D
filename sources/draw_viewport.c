@@ -51,7 +51,7 @@ int	draw_floor(t_cub3d *cub3d)
 	int	y;
 
 	y = HEIGHT / 2;
-	while (y < WIDTH)
+	while (y < HEIGHT)
 	{
 		x = 0;
 		while (x < WIDTH)

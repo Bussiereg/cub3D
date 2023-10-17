@@ -10,8 +10,10 @@ void	win_close(void *param)
 void my_keyhook(mlx_key_data_t keydata, void *param)
 {
     t_cub3d *cub3d = (t_cub3d*)param;
+	double mx,my;
 
-    if ((keydata.key == MLX_KEY_UP || keydata.key == 87) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	// going up
+    if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		if ((cub3d->map[(int)(cub3d->pos_y + (cub3d->pos_dy  * OFFSET)) / UNIT][(int)(cub3d->pos_x + (cub3d->pos_dx * OFFSET))/ UNIT]) == '0')
 		{
@@ -23,7 +25,8 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 			draw_minimap_background(cub3d);
 		}
 	}
-    else if ((keydata.key == MLX_KEY_DOWN || keydata.key == 83) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	//going down
+    else if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
 		if ((cub3d->map[(int)(cub3d->pos_y - (cub3d->pos_dy * OFFSET)) / UNIT][(int)(cub3d->pos_x - (cub3d->pos_dx * OFFSET))/ UNIT]) == '0')
 		{
@@ -34,9 +37,38 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 			draw_minimap_background(cub3d);
 		}
 	}
-    else if ((keydata.key == MLX_KEY_LEFT || keydata.key == 65) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
-    {
-		cub3d->pos_angle -= (M_PI / 104);
+	// moving left
+    else if ((keydata.key == MLX_KEY_A) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
+		my = cub3d->pos_y - sin(cub3d->pos_angle + (M_PI/2)) * OFFSET;
+		mx = cub3d->pos_x - cos(cub3d->pos_angle + (M_PI/2))* OFFSET;
+		if (cub3d->map[(int)my / UNIT][(int)mx / UNIT] == '0')
+		{
+      		cub3d->pos_y = my;
+			cub3d->pos_x = mx;
+			//cub3d->w_d_offset += 0.1;
+			draw_viewport(cub3d);
+			draw_minimap_background(cub3d);
+		}
+	}
+	// moving right
+    else if ((keydata.key == MLX_KEY_D) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
+		my = cub3d->pos_y + sin(cub3d->pos_angle + (M_PI/2)) * OFFSET;
+		mx = cub3d->pos_x + cos(cub3d->pos_angle + (M_PI/2)) * OFFSET;
+		if (cub3d->map[(int)my / UNIT][(int)mx / UNIT] == '0')		
+		{
+      		cub3d->pos_y = my;
+			cub3d->pos_x = mx;
+			//cub3d->w_d_offset += 0.1;
+			draw_viewport(cub3d);
+			draw_minimap_background(cub3d);
+		}
+	}
+	// rotating left
+	else if ((keydata.key == MLX_KEY_LEFT) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+	{
+		cub3d->pos_angle -= (M_PI / 26);
 		if (cub3d->pos_angle < 0)
 			cub3d->pos_angle += (2 * M_PI);
 		cub3d->pos_dx = cos(cub3d->pos_angle);
@@ -44,9 +76,10 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 		draw_viewport(cub3d);
 		draw_minimap_background(cub3d);
 	}
+	// rotating right
     else if ((keydata.key == MLX_KEY_RIGHT || keydata.key == 68) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		cub3d->pos_angle += (M_PI / 104);
+		cub3d->pos_angle += (M_PI / 26);
 		if (cub3d->pos_angle > (2 * M_PI))
 			cub3d->pos_angle -= (2 * M_PI);
 		cub3d->pos_dx = cos(cub3d->pos_angle);
