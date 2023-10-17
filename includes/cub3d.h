@@ -18,7 +18,8 @@
 # define PI3 3*PI/2
 # define HEIGHT 700
 # define WIDTH 700
-# define DR 0.0174533
+//# define DR 0.0174533
+# define DR 0.001495997
 
 // read map
 // allocate map
@@ -61,7 +62,7 @@ typedef struct cub3d
 
 	mlx_image_t 		*N;
 	mlx_image_t 		*S;
-	mlx_image_t 		*E;
+	mlx_image_t 		*E;ra = cub3d->pos_angle - DR * WIDTH / 2;
 	mlx_image_t 		*W;
 
 	int				color_C;
@@ -84,6 +85,8 @@ void	draw_line_down(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_viewport(t_cub3d *cub3d);
 void	draw_background(t_cub3d *cub3d);
+void	draw_line_textu(int line_height, int x, int text_x_pos, mlx_image_t *text, t_cub3d *cub3d);
+
 
 
 int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);

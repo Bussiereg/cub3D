@@ -39,8 +39,8 @@ int	main(int argc, char *argv[])
 	cub3d_init(&cub3d);
 
 	//draw_background(&cub3d);
-	draw_minimap_background(&cub3d);
 	draw_viewport(&cub3d);
+	draw_minimap_background(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
 	//mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
 	mlx_loop(cub3d.mlx);

@@ -52,9 +52,9 @@ void draw_laser(t_cub3d *cub3d)
 	double vy = cub3d->pos_y;
 
 
-	ra = cub3d->pos_angle - DR * 30;
+	ra = cub3d->pos_angle - DR * WIDTH / 2;
 	r = 0;
-	while (r++ < 60)
+	while (r++ < WIDTH)
 	{
 		// check Horizontal line
 	 	dof = 0;
@@ -173,8 +173,16 @@ void draw_laser(t_cub3d *cub3d)
 		cub3d->pos_char.color = 0xFF8800FF;
 		cub3d->pos_wall.x = (int)rx;
 		cub3d->pos_wall.y = (int)ry;
-		cub3d->pos_wall.color = 0xFF8800FF;
+		cub3d->pos_wall.color = 0xFFC380FF;
 		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
+
+		double final_d = distance(cub3d->pos_x, cub3d->pos_y, rx, ry);
+		draw_line_textu(HEIGHT / (final_d / UNIT), r, tx, cub3d->S, cub3d);
+
+		int tile_d = (int)rx % UNIT;
+		double tx = rx - tile_d;
+		printf("distance = %f\n", final_d / UNIT);
+		printf("tx = %f\n", tx);
 		ra = ra  + DR;
 /* 		cub3d->pos_char.x = (int)cub3d->pos_x;
 		cub3d->pos_char.y = (int)cub3d->pos_y;

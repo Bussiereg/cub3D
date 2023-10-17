@@ -93,13 +93,14 @@ void	draw_background(t_cub3d *cub3d)
 	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
 }
 
+
 void	draw_viewport(t_cub3d *cub3d)
 {
 
 	draw_ceiling(cub3d);
 	draw_floor(cub3d);
 	
-	int i = 0;
+	/* int i = 0;
 	float x = 50;
 	float line_height;
 	float w_d = 4;
@@ -159,6 +160,6 @@ void	draw_viewport(t_cub3d *cub3d)
 		xx = i * cub3d->E->height / 100;
 		line_height += 0.5;
 		i++;
-	}
+	} */
 	mlx_image_to_window(cub3d->mlx, cub3d->viewport, WIDTH, 0);
 }
