@@ -177,10 +177,10 @@ void draw_laser(t_cub3d *cub3d)
 		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
 
 		double final_d = distance(cub3d->pos_x, cub3d->pos_y, rx, ry);
-		draw_line_textu(HEIGHT / (final_d / UNIT), r, tx, cub3d->S, cub3d);
-
 		int tile_d = (int)rx % UNIT;
 		double tx = rx - tile_d;
+		draw_line_textu(HEIGHT / (final_d / UNIT), r, tx, cub3d->S, cub3d);
+
 		printf("distance = %f\n", final_d / UNIT);
 		printf("tx = %f\n", tx);
 		ra = ra  + DR;

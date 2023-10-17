@@ -62,7 +62,7 @@ typedef struct cub3d
 
 	mlx_image_t 		*N;
 	mlx_image_t 		*S;
-	mlx_image_t 		*E;ra = cub3d->pos_angle - DR * WIDTH / 2;
+	mlx_image_t 		*E;
 	mlx_image_t 		*W;
 
 	int				color_C;
