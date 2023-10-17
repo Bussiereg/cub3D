@@ -45,7 +45,7 @@ typedef struct cub3d
 	t_point			pos_wall;
 
 	mlx_image_t		*minimap;
-	mlx_image_t		*background;
+	mlx_image_t		*intro;
 	mlx_image_t		*viewport;
 	mlx_t			*mlx;
 
@@ -57,15 +57,18 @@ typedef struct cub3d
 	mlx_texture_t		*text_S;
 	mlx_texture_t		*text_W;
 	mlx_texture_t		*text_E;
-	float				w_d_offset;
+	mlx_texture_t		*text_I;
 
 	mlx_image_t 		*N;
 	mlx_image_t 		*S;
 	mlx_image_t 		*E;
 	mlx_image_t 		*W;
+	mlx_image_t 		*I;
 
 	int				color_C;
 	int				color_F;
+
+	int				intro_bol;
 
 }	t_cub3d;
 
@@ -85,10 +88,11 @@ void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_viewport(t_cub3d *cub3d);
 void	draw_background(t_cub3d *cub3d);
 void	draw_line_textu(int line_height, int x, int text_x_pos, mlx_image_t *text, t_cub3d *cub3d);
-
+void	render(t_cub3d *cub3d);
 
 
 int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 void my_keyhook(mlx_key_data_t keydata, void *param);
+void	win_close(void *param);
 
 #endif

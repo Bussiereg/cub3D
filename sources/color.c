@@ -14,6 +14,9 @@ int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height)
 
 	y = steps * text->height / l_height;
 
+
+//	printf("text x = %d\n text y = %d\n", x);
+
 	uint8_t r = text->pixels[((y * text->width + x) *(sizeof(int32_t)))];
 	uint8_t g = text->pixels[((y * text->width + x)*(sizeof(int32_t)) +1)];
 	uint8_t b = text->pixels[((y * text->width + x)*(sizeof(int32_t))+2)];
