@@ -36,9 +36,9 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 	}
     else if ((keydata.key == MLX_KEY_LEFT || keydata.key == 65) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
     {
-		cub3d->pos_angle -= (PI / 26);
+		cub3d->pos_angle -= (M_PI / 104);
 		if (cub3d->pos_angle < 0)
-			cub3d->pos_angle += (2 * PI);
+			cub3d->pos_angle += (2 * M_PI);
 		cub3d->pos_dx = cos(cub3d->pos_angle);
 		cub3d->pos_dy = sin(cub3d->pos_angle);
 		draw_viewport(cub3d);
@@ -46,9 +46,9 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 	}
     else if ((keydata.key == MLX_KEY_RIGHT || keydata.key == 68) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		cub3d->pos_angle += (PI / 26);
-		if (cub3d->pos_angle >= (2 * PI))
-			cub3d->pos_angle -= (2 * PI);
+		cub3d->pos_angle += (M_PI / 104);
+		if (cub3d->pos_angle > (2 * M_PI))
+			cub3d->pos_angle -= (2 * M_PI);
 		cub3d->pos_dx = cos(cub3d->pos_angle);
 		cub3d->pos_dy = sin(cub3d->pos_angle);
 		draw_viewport(cub3d);
