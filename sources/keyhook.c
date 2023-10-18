@@ -37,24 +37,20 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 	// moving left
     else if ((keydata.key == MLX_KEY_A) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		my = cub3d->pos_y - sin(cub3d->pos_angle + (M_PI/2)) * OFFSET;
-		mx = cub3d->pos_x - cos(cub3d->pos_angle + (M_PI/2))* OFFSET;
 		if (cub3d->map[(int)my / UNIT][(int)mx / UNIT] == '0')
 		{
-      		cub3d->pos_y = my;
-			cub3d->pos_x = mx;
+      		cub3d->pos_y = cub3d->pos_y - sin(cub3d->pos_angle + (M_PI/2)) * OFFSET;
+			cub3d->pos_x = cub3d->pos_x - cos(cub3d->pos_angle + (M_PI/2))* OFFSET;
 			render(cub3d);
 		}
 	}
 	// moving right
     else if ((keydata.key == MLX_KEY_D) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		my = cub3d->pos_y + sin(cub3d->pos_angle + (M_PI/2)) * OFFSET;
-		mx = cub3d->pos_x + cos(cub3d->pos_angle + (M_PI/2)) * OFFSET;
 		if (cub3d->map[(int)my / UNIT][(int)mx / UNIT] == '0')		
 		{
-      		cub3d->pos_y = my;
-			cub3d->pos_x = mx;
+      		cub3d->pos_y = cub3d->pos_y + sin(cub3d->pos_angle + (M_PI/2)) * OFFSET;
+			cub3d->pos_x = cub3d->pos_x + cos(cub3d->pos_angle + (M_PI/2)) * OFFSET;
 			render(cub3d);
 		}
 	}

@@ -126,7 +126,7 @@ int	copy_map(char *file, t_cub3d *cub3d)
 	{	
 		line = get_next_line(fd);
 		line = ft_strtrim(line, "\n");
-		printf("line = %s\n", line);
+	//	printf("line = %s\n", line);
 		if (!line)
 			terminate("parse alloc error");
 		line_to_map(y, line, cub3d);

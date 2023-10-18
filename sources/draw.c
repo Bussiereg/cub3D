@@ -37,6 +37,15 @@ double distance(double ax, double ay, double bx, double by)
 	return (sqrt(((bx - ax) * (bx - ax)) + ((by - ay) * ( by - ay))));
 }
 
+double fix_angle(double a)
+{
+	if (a > (2 * M_PI))
+		a -= (2 * M_PI);
+	else if (a <= 0)
+		a += (2 * M_PI);
+	return (a);
+}
+
 void draw_laser(t_cub3d *cub3d)
 {
 	int r,dof;
@@ -190,10 +199,12 @@ void draw_laser(t_cub3d *cub3d)
 
 		// fish eye correction
 		float ca = cub3d->pos_angle - ra;
-		if (ca < 0)
-			ca += 2* PI;
-		if (ca > 2* PI)
-			ca -= 2* PI;
+
+		if (ca > (2 * M_PI))
+			ca -= (2 * M_PI);
+		else if (ca <= 0)
+			ca += (2 * M_PI);
+		//printf("distance = %f, cos = %f, final_d = %f\n, final_n = %f\n", final_d, cos(ca), final_d * cos(ca), final_d * cos(ca) + (1 - cos(ca) / 2));
 		final_d = final_d * cos(ca);
 
 
@@ -203,6 +214,7 @@ void draw_laser(t_cub3d *cub3d)
 		if (disth < distv)
 		{
 			tx = rx - ((int)rx / UNIT) * UNIT;
+			tx = tx / final_d;
 			if (ra < PI) // SOUTH wall
 			{
 				int pixel = tx / UNIT * cub3d->S->height;
@@ -217,6 +229,7 @@ void draw_laser(t_cub3d *cub3d)
 		else
 		{
 			tx = ry - ((int)ry / UNIT) * UNIT;
+			tx = tx / final_d;
 			int pixel = tx / UNIT * cub3d->S->height;
 			if (ra < PI2 || ra > PI3) // WEST wall
 				draw_line_textu(HEIGHT / (final_d / UNIT), r, pixel, cub3d->E, cub3d);
