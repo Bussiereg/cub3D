@@ -74,6 +74,9 @@ typedef struct cub3d
 
 void	terminate(char *str);
 
+// draw2.c
+void draw_laser2(t_cub3d *cub3d);
+double distance(double ax, double ay, double bx, double by);
 // draw.c
 void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
 void	draw_character(t_cub3d *cub3d, unsigned int color);
