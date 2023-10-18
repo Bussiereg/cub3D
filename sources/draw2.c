@@ -12,28 +12,12 @@
 
 #include "cub3d.h"
 
-void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
+double distance(double ax, double ay, double bx, double by)
 {
-	int new_x;
-	int new_y;
-
-	new_y = y * UNIT;
-	while (new_y < (y * UNIT) + UNIT)
-	{
-		new_x = x * UNIT;
-		while (new_x < (x * UNIT) + UNIT)
-		{
-			if ((new_x == (x * UNIT) + UNIT -1) || (new_y == (y * UNIT) + UNIT -1))
-				mlx_put_pixel(cub3d->minimap, new_x, new_y, 0x095275FF);
-			else
-				mlx_put_pixel(cub3d->minimap, new_x, new_y, color);
-			new_x++;
-		}
-		new_y++;
-	}
+	return (sqrt(((bx - ax) * (bx - ax)) + ((by - ay) * ( by - ay))));
 }
 
-void draw_laser(t_cub3d *cub3d)
+void draw_laser2(t_cub3d *cub3d)
 {
 	int r,dof;
 	double rx,ry,ra,xo,yo;
@@ -53,14 +37,11 @@ void draw_laser(t_cub3d *cub3d)
 		ra -= (2 * M_PI);
 	else if (ra <= 0)
 		ra += (2 * M_PI);
-/* 	ra = cub3d->pos_angle; */
 	r = -1;
 	while (++r < WIDTH)
 	{
 		// check Horizontal line
 	 	dof = 0;
-/* 		hx = cub3d->m_size_x * UNIT;
-		hy = cub3d->m_size_y * UNIT; */
 		atan = -(1 / tan(ra));
 		if (ra > M_PI) // looking up
 		{
@@ -82,6 +63,9 @@ void draw_laser(t_cub3d *cub3d)
 			ry = 1000000;
 			dof = cub3d->m_size_y;
 		}
+		hx = rx + xo;
+		hy = ry + yo;
+		disth = distance(cub3d->pos_x, cub3d->pos_y, hx, hy);
 		while (dof < cub3d->m_size_y)
 		{
 			mx = ((int)rx / UNIT);
@@ -108,11 +92,9 @@ void draw_laser(t_cub3d *cub3d)
 				dof++;
 			}
 		}
-		printf("2: rx: %f  ry: %f yo: %f xo: %f ra: %f\n", rx, ry, yo, xo, ra);
+		printf("2: rx: %f  ry: %f disth: %f\n", rx / UNIT, ry / UNIT,disth);
 		// check vertical line
 		dof = 0;
-/* 		vx = cub3d->pos_x;
-		vy = cub3d->pos_y; */
 		ntan = -tan(ra);
 		if (ra < ((3 * M_PI) / 2) && ra > M_PI_2) // looking left
 		{
@@ -134,6 +116,9 @@ void draw_laser(t_cub3d *cub3d)
 			ry = 100000;
 			dof = cub3d->m_size_x;
 		}
+		vx = rx + xo;
+		vy = ry + yo;
+		distv = distance(cub3d->pos_x, cub3d->pos_y, vx, vy);
 		while (dof < cub3d->m_size_x)
 		{
 			mx = ((int)rx / UNIT);
@@ -160,7 +145,7 @@ void draw_laser(t_cub3d *cub3d)
 				dof++;
 			}
 		}
-		printf("3: rx: %f  ry: %f yo: %f xo: %f ra: %f\n", rx, ry, yo, xo, ra);
+		printf("3: rx: %f  ry: %f distV: %f\n", rx / UNIT, ry / UNIT, distv);
 		if (distv < disth)
 		{
 			ry = vy;
@@ -171,36 +156,27 @@ void draw_laser(t_cub3d *cub3d)
 			ry = hy;
 			rx = hx;
 		}
-		printf("4: rx: %f  ry: %f yo: %f xo: %f ra: %f\n", rx, ry, yo, xo, ra);
 		cub3d->pos_char.x = (int)cub3d->pos_x;
 		cub3d->pos_char.y = (int)cub3d->pos_y;
 		cub3d->pos_char.color = 0xFF8800FF;
 		cub3d->pos_wall.x = (int)rx;
 		cub3d->pos_wall.y = (int)ry;
-	//	printf("charx: %d  chary: %d posx: %f posy: %f\n", cub3d->pos_char.x, cub3d->pos_char.y, cub3d->pos_x, cub3d->pos_y);
-	//	printf("wallx: %d  wally: %d rx: %f ry: %f\n", cub3d->pos_wall.x, cub3d->pos_wall.y, rx, ry);
 		cub3d->pos_wall.color = 0xFFC380FF;
 
 		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
 
-		//printf("px: %f  py:  %f  rx: %f   ry: %f\n",cub3d->pos_x / UNIT, cub3d->pos_y / UNIT, rx / UNIT, ry / UNIT);
 		double final_d = distance(cub3d->pos_x, cub3d->pos_y, rx, ry);
+		printf("4: rx: %f  ry: %f distfin: %f\n", rx / UNIT, ry / UNIT, final_d);
 		double ca = cub3d->pos_angle - ra;
 		if (ca < 0)
 			ca += 2* M_PI;
 		if (ca > 2* M_PI)
 			ca -= 2* M_PI;
 		final_d = final_d * cos(ca);
-		//printf("distance = %f\n", final_d / UNIT);
-	//	printf("rx = %f\n", rx);
-		// printf("rx: %f   ry: %f   final_d: %f\n",rx / UNIT, ry / UNIT, final_d);
-	//	printf("ra = %f\n", ra);
 		if (disth < distv)
 		{
 			int tile_d = (int)rx / UNIT;
-			//printf("tile_d = %d\n", tile_d);
 			double tx = rx - tile_d * UNIT;
-		//	printf("tx = %f\n", tx);
 			int pixel = tx / UNIT * cub3d->S->height;
 			if (ra < M_PI) // SOUTH wall
 				draw_line_textu(HEIGHT / (final_d / UNIT), r, cub3d->S->height - pixel - 1, cub3d->S, cub3d);
@@ -210,9 +186,7 @@ void draw_laser(t_cub3d *cub3d)
 		else
 		{
 			int tile_d = (int)ry / UNIT;
-			//printf("tile_d = %d\n", tile_d);
 			double tx = ry - tile_d * UNIT;
-		//	printf("tx = %f\n", tx);
 			int pixel = tx / UNIT * cub3d->S->height;
 			if (ra < M_PI_2 || ra > (3 * M_PI_2)) // WEST wall
 				draw_line_textu(HEIGHT / (final_d / UNIT), r, pixel, cub3d->E, cub3d);
@@ -224,84 +198,5 @@ void draw_laser(t_cub3d *cub3d)
 			ra -= (2 * M_PI);
 		else if (ra <= 0)
 			ra += (2 * M_PI);
-		// cub3d->pos_char.x = (int)cub3d->pos_x;
-		// cub3d->pos_char.y = (int)cub3d->pos_y;
-		// cub3d->pos_char.color = 0x1188FFFF;
-		// cub3d->pos_wall.x = (int)rx;
-		// cub3d->pos_wall.y = (int)ry;
-		// if (cub3d->pos_wall.y / UNIT >= cub3d->m_size_y)
-		// 	cub3d->pos_wall.y = cub3d->m_size_y * UNIT;
-		// if (cub3d->pos_wall.x / UNIT >= cub3d->m_size_x)
-		// 	cub3d->pos_wall.x = cub3d->m_size_x * UNIT;
-		// cub3d->pos_wall.color = 0x1188FFFF;
-		// printf("rx: %f\nry: %f\nchar.x: %d   char.y: %d\nwall.x: %d   wall.y: %d\n\n",rx, ry, (cub3d->pos_char.x / UNIT), (cub3d->pos_char.y / UNIT), (cub3d->pos_wall.x / UNIT), (cub3d->pos_wall.y / UNIT));
-		// printf("char.x: %d   char.y: %d\nwall.x: %d   wall.y: %d\n\n", (cub3d->pos_char.x), (cub3d->pos_char.y), (cub3d->pos_wall.x), (cub3d->pos_wall.y));
-		// printf("pa: %f\n", cub3d->pos_angle);
-		// draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
 	}
-}
-
-void	draw_character(t_cub3d *cub3d, unsigned int color)
-{
-	int new_x;
-	int new_y;
-	int x;
-	int y;
-	int i;
-	int j;
-
-	x = cub3d->pos_x;
-	y = cub3d->pos_y;
-	new_x = cub3d->pos_x - 3;
-	new_y = cub3d->pos_y - 3;
-	i = 0;
-	while (i < 7)
-	{
-		j = 0;
-		while (j < 7)
-		{
-			mlx_put_pixel(cub3d->minimap, new_x + i, new_y + j, color);
-			j++;
-		}
-		i++;
-	}
-	i = 0;
-	j = 0;
-	while (j < (20))
-	{
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j, y + cub3d->pos_dy * j, color);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j - 1, y + cub3d->pos_dy * j, color);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j, y + cub3d->pos_dy * j - 1, color);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j, y + cub3d->pos_dy * j + 1, color);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j + 1, y + cub3d->pos_dy * j, color);
-		j++;
-	}
-	
-}
-
-void	draw_minimap_background(t_cub3d *cub3d)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	x = 0;
-	while (y < cub3d->m_size_y)
-	{
-		x = 0;
-		while (x < cub3d->m_size_x)
-		{
-			//draw_rectangle();
-			if (cub3d->map[y][x] == '0')
-				draw_tile(cub3d, x, y, 0xFFFFFFFF);
-			else
-				draw_tile(cub3d, x, y, 0x030209FF);
-			x++;
-		}
-		y++;
-	}
-	// DRAW CHARACTER POINT
-	draw_character(cub3d, 0xFF0000FF);
-	draw_laser2(cub3d);
-	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
 }
