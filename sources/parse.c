@@ -83,13 +83,13 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 			cub3d->pos_x = i * UNIT + UNIT / 2;
 			cub3d->pos_y = y * UNIT + UNIT / 2;
 			if (line[i] == 'N')
-				cub3d->pos_angle = 3 * PI / 2;
+				cub3d->pos_angle = 3 * M_PI / 2;
 			if (line[i] == 'S')
-				cub3d->pos_angle = PI / 2;
+				cub3d->pos_angle = M_PI / 2;
 			if (line[i] == 'W')
 				cub3d->pos_angle = 0;
 			if (line[i] == 'E')
-				cub3d->pos_angle = PI;
+				cub3d->pos_angle = M_PI;
 			cub3d->pos_dx = cos(cub3d->pos_angle);
 			cub3d->pos_dy = sin(cub3d->pos_angle);
 			line[i] = '0';
