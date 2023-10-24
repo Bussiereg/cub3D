@@ -5,7 +5,8 @@
         "compare": "c",
         "type_traits": "c",
         "cub3d.h": "c",
-        "random": "c"
+        "random": "c",
+        "cmath": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
