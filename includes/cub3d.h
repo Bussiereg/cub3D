@@ -72,12 +72,21 @@ typedef struct cub3d
 void	terminate(char *str);
 double fix_angle(double a);
 
-// draw.c
-void draw_laser(t_cub3d *cub3d);
-double distance(double ax, double ay, double bx, double by);
+// draw_minimap.c
 void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
 void	draw_character(t_cub3d *cub3d, unsigned int color);
+void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
+void	draw_minimap(t_cub3d *cub3d);
+
+// draw.c
+void display(t_cub3d *cub3d);
+void draw_laser(t_cub3d *cub3d);
+double distance(double ax, double ay, double bx, double by);
 void	draw_minimap_background(t_cub3d *cub3d);
+double fix_angle(double a);
+double distance(double ax, double ay, double bx, double by);
+
+
 int		parse_map(char *file, t_cub3d *cub3d);
 void	ft_free_tab(char **tab);
 void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
