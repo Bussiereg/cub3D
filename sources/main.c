@@ -21,11 +21,6 @@ int	cub3d_init(t_cub3d *cub3d)
 	if (!cub3d->intro)
 		terminate("cub3d init error");
 
-	cub3d->N = mlx_texture_to_image(cub3d->mlx, cub3d->text_N);
-	cub3d->S = mlx_texture_to_image(cub3d->mlx, cub3d->text_S);
-	cub3d->E = mlx_texture_to_image(cub3d->mlx, cub3d->text_E);
-	cub3d->W = mlx_texture_to_image(cub3d->mlx, cub3d->text_W);
-
 	cub3d->text_I = mlx_load_png("./intro.png");
 	cub3d->I = mlx_texture_to_image(cub3d->mlx, cub3d->text_I);
 	cub3d->intro_bol = 0;
@@ -39,9 +34,9 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		terminate("Incorrect number of arguments!");
-	parse_map(argv[1], &cub3d);
 	cub3d_init(&cub3d);
-	render(&cub3d);
+	parse_map(argv[1], &cub3d);
+	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
 	mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
 	mlx_loop(cub3d.mlx);

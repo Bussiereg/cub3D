@@ -32,19 +32,6 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 		new_y++;
 	}
 }
-double distance(double ax, double ay, double bx, double by)
-{
-	return (sqrt(((bx - ax) * (bx - ax)) + ((by - ay) * ( by - ay))));
-}
-
-double fix_angle(double a)
-{
-	if (a > (2 * M_PI))
-		a -= (2 * M_PI);
-	else if (a <= 0)
-		a += (2 * M_PI);
-	return (a);
-}
 
 void draw_laser(t_cub3d *cub3d)
 {

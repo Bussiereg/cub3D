@@ -17,6 +17,15 @@ double distance(double ax, double ay, double bx, double by)
 	return (sqrt(((bx - ax) * (bx - ax)) + ((by - ay) * ( by - ay))));
 }
 
+double fix_angle(double a)
+{
+	if (a > (2 * M_PI))
+		a -= (2 * M_PI);
+	else if (a <= 0)
+		a += (2 * M_PI);
+	return (a);
+}
+
 void draw_laser2(t_cub3d *cub3d)
 {
 	int r,dof;
@@ -31,12 +40,8 @@ void draw_laser2(t_cub3d *cub3d)
 	double vx = 0;
 	double vy = 0;
 
-	printf("\n");
 	ra = cub3d->pos_angle - DR * WIDTH / 2;
-	if (ra > (2 * M_PI))
-		ra -= (2 * M_PI);
-	else if (ra <= 0)
-		ra += (2 * M_PI);
+	ra = fix_angle(ra);
 	r = -1;
 	while (++r < WIDTH)
 	{
@@ -92,7 +97,7 @@ void draw_laser2(t_cub3d *cub3d)
 				dof++;
 			}
 		}
-		printf("2: rx: %f  ry: %f disth: %f\n", rx / UNIT, ry / UNIT,disth);
+	//printf("2: rx: %f  ry: %f disth: %f\n", rx / UNIT, ry / UNIT,disth);
 		// check vertical line
 		dof = 0;
 		ntan = -tan(ra);
@@ -145,7 +150,7 @@ void draw_laser2(t_cub3d *cub3d)
 				dof++;
 			}
 		}
-		printf("3: rx: %f  ry: %f distV: %f\n", rx / UNIT, ry / UNIT, distv);
+	//printf("3: rx: %f  ry: %f distV: %f\n", rx / UNIT, ry / UNIT, distv);
 		if (distv < disth)
 		{
 			ry = vy;
@@ -166,12 +171,10 @@ void draw_laser2(t_cub3d *cub3d)
 		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
 
 		double final_d = distance(cub3d->pos_x, cub3d->pos_y, rx, ry);
-		printf("4: rx: %f  ry: %f distfin: %f\n", rx / UNIT, ry / UNIT, final_d);
-		double ca = cub3d->pos_angle - ra;
-		if (ca < 0)
-			ca += 2* M_PI;
-		if (ca > 2* M_PI)
-			ca -= 2* M_PI;
+	//printf("4: rx: %f  ry: %f distfin: %f\n", rx / UNIT, ry / UNIT, final_d);
+		double ca = ra - cub3d->pos_angle;
+		ca = fix_angle(ca);
+		//printf("%i, before_cor = %f, ca = %f, final_n = %f\n", r, final_d, ca, final_d * cos(ca));
 		final_d = final_d * cos(ca);
 		if (disth < distv)
 		{
@@ -194,9 +197,6 @@ void draw_laser2(t_cub3d *cub3d)
 				draw_line_textu(HEIGHT / (final_d / UNIT), r, cub3d->S->height - pixel - 1, cub3d->W, cub3d);
 		}
 		ra = ra  + DR;
-		if (ra > (2 * M_PI))
-			ra -= (2 * M_PI);
-		else if (ra <= 0)
-			ra += (2 * M_PI);
+		ra = fix_angle(ra);
 	}
 }

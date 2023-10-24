@@ -10,6 +10,7 @@
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
+# include <time.h>
 # define OFFSET 10
 # define UNIT 27
 # define PI 3.1415926535
@@ -53,10 +54,6 @@ typedef struct cub3d
 	int				m_size_x;
 	int				m_size_y;
 	
-	mlx_texture_t		*text_N;
-	mlx_texture_t		*text_S;
-	mlx_texture_t		*text_W;
-	mlx_texture_t		*text_E;
 	mlx_texture_t		*text_I;
 
 	mlx_image_t 		*N;
@@ -73,6 +70,7 @@ typedef struct cub3d
 }	t_cub3d;
 
 void	terminate(char *str);
+double fix_angle(double a);
 
 // draw2.c
 void draw_laser2(t_cub3d *cub3d);
@@ -91,7 +89,7 @@ void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_viewport(t_cub3d *cub3d);
 void	draw_background(t_cub3d *cub3d);
 void	draw_line_textu(int line_height, int x, int text_x_pos, mlx_image_t *text, t_cub3d *cub3d);
-void	render(t_cub3d *cub3d);
+void	render(void *param);
 
 
 int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);

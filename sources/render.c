@@ -12,8 +12,10 @@
 
 #include "cub3d.h"
 
-void	render(t_cub3d *cub3d)
+void	render(void *param)
 {
+	t_cub3d *cub3d = (t_cub3d*)param;
+	
 	if (cub3d->intro_bol == 0)
 		mlx_image_to_window(cub3d->mlx, cub3d->I, 0, 0);
 	else
