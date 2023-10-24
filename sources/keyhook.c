@@ -56,7 +56,7 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 	// rotating left
 	else if ((keydata.key == MLX_KEY_LEFT) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		cub3d->pos_angle -= (M_PI / 52);
+		cub3d->pos_angle -= ROTATE;
 		cub3d->pos_angle = fix_angle(cub3d->pos_angle);
 		cub3d->pos_dx = cos(cub3d->pos_angle);
 		cub3d->pos_dy = sin(cub3d->pos_angle);
@@ -64,7 +64,7 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 	// rotating right
 	else if ((keydata.key == MLX_KEY_RIGHT || keydata.key == 68) && (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
 	{
-		cub3d->pos_angle += (M_PI / 52);
+		cub3d->pos_angle += ROTATE;
 		cub3d->pos_angle = fix_angle(cub3d->pos_angle);
 		cub3d->pos_dx = cos(cub3d->pos_angle);
 		cub3d->pos_dy = sin(cub3d->pos_angle);

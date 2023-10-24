@@ -10,16 +10,16 @@
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
-# include <time.h>
-# define OFFSET 10
-# define UNIT 27
-# define PI 3.1415926535
-# define PI2 PI/2
-# define PI3 3*PI/2
-# define HEIGHT 700
-# define WIDTH 900
-//# define DR 0.0174533
-# define DR 0.001495997
+# define OFFSET 5
+# define UNIT 15
+# define PI2 M_PI/2
+# define PI3 3*M_PI/2
+# define HEIGHT 512
+# define WIDTH 512
+# define ROTATE M_PI/26
+# define DR 1.047198 / (WIDTH)
+//# define DR 0.001495997
+
 
 // read map
 // allocate map
@@ -72,10 +72,9 @@ typedef struct cub3d
 void	terminate(char *str);
 double fix_angle(double a);
 
-// draw2.c
-void draw_laser2(t_cub3d *cub3d);
-double distance(double ax, double ay, double bx, double by);
 // draw.c
+void draw_laser(t_cub3d *cub3d);
+double distance(double ax, double ay, double bx, double by);
 void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
 void	draw_character(t_cub3d *cub3d, unsigned int color);
 void	draw_minimap_background(t_cub3d *cub3d);
