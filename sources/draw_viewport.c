@@ -90,6 +90,7 @@ void	draw_viewport(t_cub3d *cub3d)
 
 	draw_ceiling(cub3d);
 	draw_floor(cub3d);
+	draw_laser(cub3d);
 	
-	mlx_image_to_window(cub3d->mlx, cub3d->viewport, WIDTH, 0);
+	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 0);
 }

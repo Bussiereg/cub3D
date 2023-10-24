@@ -2,23 +2,18 @@
 
 int	cub3d_init(t_cub3d *cub3d)
 {
-	cub3d->mlx = mlx_init(WIDTH * 2, HEIGHT, "SUBMOON", false);
+	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "SUBMOON", false);
 	if (!cub3d->mlx)
 		terminate("cub3d init error");
 
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(cub3d->mlx,cub3d->viewport, WIDTH, 0);
+	mlx_image_to_window(cub3d->mlx,cub3d->viewport, 0, 0);
 	if (!cub3d->viewport)
 		terminate("cub3d init error");
 
 	cub3d->minimap = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(cub3d->mlx,cub3d->minimap, 0, 0);
 	if (!cub3d->minimap)
-		terminate("cub3d init error");
-
-	cub3d->intro = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(cub3d->mlx,cub3d->intro, WIDTH, 0);
-	if (!cub3d->intro)
 		terminate("cub3d init error");
 
 	cub3d->text_I = mlx_load_png("./intro.png");
