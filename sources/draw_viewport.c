@@ -84,13 +84,34 @@ void	draw_line_textu(int line_height, int x, int text_x_pos, mlx_image_t *text, 
 	}
 }
 
+void draw_game(t_cub3d *cub3d)
+{
+	int		ray;
+	double	ray_angle;
+
+	ray_angle = cub3d->pos_angle - DR * WIDTH / 2;
+	ray = -1;
+	cub3d->vx = cub3d->pos_x;
+	cub3d->vy = cub3d->pos_y;
+	cub3d->hx = cub3d->pos_x;
+	cub3d->hy = cub3d->pos_y;
+	while (++ray <= WIDTH)
+	{
+		ray_angle = fix_angle(ray_angle);
+		check_horizontal_line(cub3d, ray_angle, 0);
+		check_vertical_line(cub3d, ray_angle, 0);
+		calculate_wall_distance(cub3d);
+		// draw_laser(cub3d, cub3d->wall_x, cub3d->wall_y);
+		raycaster(cub3d, ray_angle, ray);
+		ray_angle = ray_angle + DR;
+	}
+}
 
 void	draw_viewport(t_cub3d *cub3d)
 {
 
 	draw_ceiling(cub3d);
 	draw_floor(cub3d);
-	draw_laser(cub3d);
-	
+	draw_game(cub3d);
 	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 0);
 }
