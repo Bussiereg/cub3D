@@ -11,19 +11,14 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 5
-# define UNIT 15
+# define UNIT 12
 # define PI2 M_PI/2
 # define PI3 3*M_PI/2
-# define HEIGHT 512
-# define WIDTH 512
+# define HEIGHT 700
+# define WIDTH 1400
 # define ROTATE M_PI/26
 # define DR 1.047198 / (WIDTH)
 //# define DR 0.001495997
-
-
-// read map
-// allocate map
-// isolate line function
 
 typedef struct point
 {
@@ -46,7 +41,6 @@ typedef struct cub3d
 	t_point			pos_wall;
 
 	mlx_image_t		*minimap;
-	mlx_image_t		*intro;
 	mlx_image_t		*viewport;
 	mlx_t			*mlx;
 

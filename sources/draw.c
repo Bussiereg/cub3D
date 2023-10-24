@@ -291,5 +291,5 @@ void	draw_minimap_background(t_cub3d *cub3d)
 	// DRAW CHARACTER POINT
 	draw_character(cub3d, 0xFF0000FF);
 	draw_laser(cub3d);
-	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
+	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 15, 15);
 }
