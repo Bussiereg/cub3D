@@ -187,10 +187,10 @@ int	read_info(char *file, t_cub3d *cub3d)
 	return (fd);
 }
 
-int	check_wall(char **map)
-{
+// int	check_wall(char **map)
+// {
 
-}
+// }
 
 int	parse_map(char *file, t_cub3d *cub3d)
 {
@@ -219,7 +219,7 @@ int	parse_map(char *file, t_cub3d *cub3d)
 	//find the right section for the map 
 
 	copy_map(file, cub3d);
-	check_wall(cub3d->map);
+	// check_wall(cub3d->map);
 
 	return (0);
 }
