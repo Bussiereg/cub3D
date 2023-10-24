@@ -179,7 +179,7 @@ void draw_laser(t_cub3d *cub3d)
 		double ca = cub3d->pos_angle - ra;
 		ca = fix_angle(ca);
 		final_d = final_d * cos(ca);
-		printf("final distance is: %f\n", final_d);
+	//	printf("final distance is: %f\n", final_d);
 		double tx = 0;
 		if (disth < distv)
 		{
@@ -187,11 +187,11 @@ void draw_laser(t_cub3d *cub3d)
 			tx = rx - tile_d * UNIT;
 			int pixel = tx / UNIT * cub3d->S->height;
 			if (ra < M_PI) // SOUTH wall
-				draw_line_textu(HEIGHT / (final_d / UNIT), r, cub3d->S->height - pixel - 1, cub3d->S, cub3d);
+				draw_line_textu(HEIGHT*2 / (final_d / UNIT), r, cub3d->S->height - pixel - 1, cub3d->S, cub3d);
 			else         // NORTH WALL
 			{
 				int pixel = tx / UNIT * cub3d->N->height;
-				draw_line_textu(HEIGHT / (final_d / UNIT), r, pixel, cub3d->N, cub3d);
+				draw_line_textu(HEIGHT*2 / (final_d / UNIT), r, pixel, cub3d->N, cub3d);
 			}
 		}
 		else
@@ -200,16 +200,16 @@ void draw_laser(t_cub3d *cub3d)
 			tx = ry - tile_d * UNIT;
 			int pixel = tx / UNIT * cub3d->S->height;
 			if (ra <= M_PI_2 || ra >= (3 * M_PI_2)) // WEST wall
-				draw_line_textu(HEIGHT / (final_d / UNIT), r, pixel, cub3d->E, cub3d);
+				draw_line_textu(HEIGHT*2 / (final_d / UNIT), r, pixel, cub3d->E, cub3d);
 			else         // EAST WALL
-				draw_line_textu(HEIGHT / (final_d / UNIT), r, cub3d->E->height - pixel - 1, cub3d->W, cub3d);
+				draw_line_textu(HEIGHT*2 / (final_d / UNIT), r, cub3d->E->height - pixel - 1, cub3d->W, cub3d);
 		}
 		ra = ra + DR;
 	}
 }
 
-void display(t_cub3d *cub3d);
+/* void display(t_cub3d *cub3d);
 {
 	draw_minimap(cub3d);
 	// draw_game(cub3d);
-}
+} */

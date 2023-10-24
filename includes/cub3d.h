@@ -45,11 +45,10 @@ typedef struct cub3d
 	mlx_t			*mlx;
 
 	char			**map;
+	char			**map_check;
 	int				m_size_x;
 	int				m_size_y;
 	
-	mlx_texture_t		*text_I;
-
 	mlx_image_t 		*N;
 	mlx_image_t 		*S;
 	mlx_image_t 		*E;
@@ -76,7 +75,7 @@ void	draw_minimap(t_cub3d *cub3d);
 void display(t_cub3d *cub3d);
 void draw_laser(t_cub3d *cub3d);
 double distance(double ax, double ay, double bx, double by);
-void	draw_minimap_background(t_cub3d *cub3d);
+void	draw_minimap(t_cub3d *cub3d);
 double fix_angle(double a);
 double distance(double ax, double ay, double bx, double by);
 

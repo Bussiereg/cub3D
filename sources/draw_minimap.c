@@ -71,7 +71,6 @@ void	draw_minimap(t_cub3d *cub3d)
 		x = 0;
 		while (x < cub3d->m_size_x)
 		{
-			//draw_rectangle();
 			if (cub3d->map[y][x] == '0')
 				draw_tile(cub3d, x, y, 0xFFFFFFFF);
 			else
@@ -80,7 +79,6 @@ void	draw_minimap(t_cub3d *cub3d)
 		}
 		y++;
 	}
-	// DRAW CHARACTER POINT
 	draw_character(cub3d, 0xFF0000FF);
 	draw_laser(cub3d);
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
