@@ -20,7 +20,7 @@ void	render(void *param)
 		mlx_image_to_window(cub3d->mlx, cub3d->I, 0, 0);
 	else
 	{
-		draw_minimap_background(cub3d);
+		draw_minimap(cub3d);
 		draw_viewport(cub3d);
 	}
 }

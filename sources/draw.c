@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jubernar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gbussier <gbussier@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/06 15:55:32 by jubernar          #+#    #+#             */
-/*   Updated: 2023/01/06 15:55:35 by jubernar         ###   ########.fr       */
+/*   Created: 2023/10/24 17:30:29 by gbussier          #+#    #+#             */
+/*   Updated: 2023/10/24 17:30:32 by gbussier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,187 +29,167 @@ double distance(double ax, double ay, double bx, double by)
 	return (result);
 }
 
-void draw_laser(t_cub3d *cub3d)
+void dist_to_vertical_wall(t_cub3d *cub3d, double xo, double yo, int lim)
 {
-	int r,dof;
-	double rx,ry,ra,xo,yo;
-	int mx, my;
-	double atan;
-	double ntan;
-	double disth;
-	double hx;
-	double hy;
-	double distv;
-	double vx;
-	double vy;
-
-	ra = cub3d->pos_angle - DR * WIDTH / 2;
-	r = -1;
-	while (++r <= WIDTH)
+	while (lim < cub3d->m_size_x)
 	{
-		ra = fix_angle(ra);
-		// check Horizontal line
-		disth = 100000000;
-		hx = cub3d->pos_x;
-		hy = cub3d->pos_y;
-	 	dof = 0;
-		atan = -(1 / tan(ra));
-		if (ra > M_PI) // looking up
+		cub3d->mx = ((int)cub3d->vx / UNIT);
+		cub3d->my = ((int)cub3d->vy / UNIT);
+		if (cub3d->mx < 0)
+			cub3d->mx = 0;
+		if (cub3d->my < 0)
+			cub3d->my = 0;
+		if (cub3d->my >= cub3d->m_size_y - 1)
+			cub3d->my = cub3d->m_size_y - 1;
+		if (cub3d->mx >= cub3d->m_size_x - 1)
+			cub3d->mx = cub3d->m_size_x - 1;
+		if (cub3d->map[cub3d->my][cub3d->mx] == '1')
 		{
-			ry = ((int)cub3d->pos_y / UNIT) * UNIT - 0.0001;
-			rx = ((cub3d->pos_y - ry) * atan) + cub3d->pos_x;
-			yo = - UNIT;
-			xo = - yo * atan;
-		}
-		else if (ra < M_PI) // looking down
-		{
-			ry = ((int)cub3d->pos_y / UNIT) * UNIT + UNIT;
-			rx = ((cub3d->pos_y - ry)) * atan + cub3d->pos_x;
-			yo = UNIT;
-			xo = - yo * atan;
-		}
-		else if (ra == 0 || ra == M_PI) // looking straight
-		{
-			rx = cub3d->pos_x;
-			ry = cub3d->pos_y;
-			dof = cub3d->m_size_y;
-		}
-		while (dof < cub3d->m_size_y)
-		{
-			mx = ((int)rx / UNIT);
-			my = ((int)ry / UNIT);
-			if (mx < 0)
-				mx = 0;
-			else if (mx >= cub3d->m_size_x - 1)
-				mx = cub3d->m_size_x - 1;
-			if (my < 0)
-				my = 0;
-			else if (my >= cub3d->m_size_y - 1)
-				my = cub3d->m_size_y - 1;
-			if (cub3d->map[my][mx] == '1')
-			{
- 				hx = rx;
-				hy = ry;
-				disth = distance(cub3d->pos_x, cub3d->pos_y, hx, hy);
-				break;
-			}
-			else
-			{
-				rx += xo;
-				ry += yo;
-				dof++;
-			}
-		}
-		// check vertical line
-		distv = 100000000;
-		vx = cub3d->pos_x;
-		vy = cub3d->pos_y;
-		dof = 0;
-		ntan = -tan(ra);
-		if (ra < ((3 * M_PI) / 2) && ra > M_PI_2) // looking left
-		{
-			rx = ((int)cub3d->pos_x / UNIT) * UNIT - 0.0001;
-			ry = ((cub3d->pos_x - rx) * ntan) + cub3d->pos_y;
-			xo = - UNIT;
-			yo = - xo * ntan;
-		}
-		else if (ra > ((3 * M_PI) / 2) || ra < M_PI_2) // looking right
-		{
-			rx = ((int)cub3d->pos_x / UNIT) * UNIT + UNIT;
-			ry = ((cub3d->pos_x - rx) * ntan) + cub3d->pos_y;
-			xo = UNIT;
-			yo = - xo * ntan;
-		}
-		else if (ra == 3 * M_PI_2 || ra == M_PI_2) //looking straight up or down
-		{
-			rx = cub3d->pos_x;
-			ry = cub3d->pos_y;
-			dof = cub3d->m_size_x;
-		}
-		while (dof < cub3d->m_size_x)
-		{
-			mx = ((int)rx / UNIT);
-			my = ((int)ry / UNIT);
-			if (mx < 0)
-				mx = 0;
-			if (mx >= cub3d->m_size_x - 1)
-				mx = cub3d->m_size_x - 1;
-			if (my < 0)
-				my = 0;
-			if (my >= cub3d->m_size_y - 1)
-				my = cub3d->m_size_y - 1;
-			if (cub3d->map[my][mx] == '1')
-			{
-				vx = rx;
-				vy = ry;
-				distv = distance(cub3d->pos_x, cub3d->pos_y, vx, vy);
-				break;
-			}
-			else
-			{
-				rx += xo;
-				ry += yo;
-				dof++;
-			}
-		}
-		double final_d;
-		if (distv < disth)
-		{
-			final_d = distv;
-			ry = vy;
-			rx = vx;
-		}
-		if (disth <= distv)
-		{
-			final_d = disth;
-			ry = hy;
-			rx = hx;
-		}
-		cub3d->pos_char.x = (int)cub3d->pos_x;
-		cub3d->pos_char.y = (int)cub3d->pos_y;
-		cub3d->pos_char.color = 0xFF8800FF;
-		cub3d->pos_wall.x = (int)rx;
-		cub3d->pos_wall.y = (int)ry;
-		cub3d->pos_wall.color = 0xFFC380FF;
-		draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
-
-/* 		double final_d = distance(cub3d->pos_x, cub3d->pos_y, rx, ry); */
-		// printf("4: rx: %f  ry: %f distfin: %f\n", rx / UNIT, ry / UNIT, final_d);
-/* 		double ca = cub3d->pos_angle - ra; */
-		double ca = cub3d->pos_angle - ra;
-		ca = fix_angle(ca);
-		final_d = final_d * cos(ca);
-		printf("final distance is: %f\n", final_d);
-		double tx = 0;
-		if (disth < distv)
-		{
-			int tile_d = (int)rx / UNIT;
-			tx = rx - tile_d * UNIT;
-			int pixel = tx / UNIT * cub3d->S->height;
-			if (ra < M_PI) // SOUTH wall
-				draw_line_textu(HEIGHT / (final_d / UNIT), r, cub3d->S->height - pixel - 1, cub3d->S, cub3d);
-			else         // NORTH WALL
-			{
-				int pixel = tx / UNIT * cub3d->N->height;
-				draw_line_textu(HEIGHT / (final_d / UNIT), r, pixel, cub3d->N, cub3d);
-			}
+			cub3d->distv = distance(cub3d->pos_x, cub3d->pos_y, cub3d->vx, cub3d->vy);
+			break;
 		}
 		else
 		{
-			int tile_d = (int)ry / UNIT;
-			tx = ry - tile_d * UNIT;
-			int pixel = tx / UNIT * cub3d->S->height;
-			if (ra <= M_PI_2 || ra >= (3 * M_PI_2)) // WEST wall
-				draw_line_textu(HEIGHT / (final_d / UNIT), r, pixel, cub3d->E, cub3d);
-			else         // EAST WALL
-				draw_line_textu(HEIGHT / (final_d / UNIT), r, cub3d->E->height - pixel - 1, cub3d->W, cub3d);
+			cub3d->vx += xo;
+			cub3d->vy += yo;
+			lim++;
 		}
-		ra = ra + DR;
 	}
 }
 
-void display(t_cub3d *cub3d);
+
+void dist_to_horizontal_wall(t_cub3d *cub3d, double xo, double yo, int lim)
 {
-	draw_minimap(cub3d);
-	// draw_game(cub3d);
+	while (lim < cub3d->m_size_y)
+	{
+		cub3d->mx = ((int)cub3d->hx / UNIT);
+		cub3d->my = ((int)cub3d->hy / UNIT);
+		if (cub3d->mx < 0)
+			cub3d->mx = 0;
+		else if (cub3d->mx >= cub3d->m_size_x - 1)
+			cub3d->mx = cub3d->m_size_x - 1;
+		if (cub3d->my < 0)
+			cub3d->my = 0;
+		else if (cub3d->my >= cub3d->m_size_y - 1)
+			cub3d->my = cub3d->m_size_y - 1;
+		if (cub3d->map[cub3d->my][cub3d->mx] == '1')
+		{
+			cub3d->disth = distance(cub3d->pos_x, cub3d->pos_y, cub3d->hx, cub3d->hy);
+			break;
+		}
+		else
+		{
+			cub3d->hx += xo;
+			cub3d->hy += yo;
+			lim++;
+		}
+	}
+}
+
+void check_horizontal_line(t_cub3d *cub3d, double ra, int lim)
+{
+	double	xo = 0;
+	double	yo = 0;
+
+	cub3d->disth = 100000000;
+	if (ra > M_PI) // looking up
+	{
+		cub3d->hy = ((int)cub3d->pos_y / UNIT) * UNIT - 0.0001;
+		cub3d->hx = ((cub3d->pos_y - cub3d->hy) * (- 1 / tan(ra))) + cub3d->pos_x;
+		yo = - UNIT;
+		xo = - yo * (- 1 / tan(ra));
+	}
+	else if (ra < M_PI) // looking down
+	{
+		cub3d->hy = ((int)cub3d->pos_y / UNIT) * UNIT + UNIT;
+		cub3d->hx = ((cub3d->pos_y - cub3d->hy)) * (- 1 / tan(ra)) + cub3d->pos_x;
+		yo = UNIT;
+		xo = - yo * (- 1 / tan(ra));
+	}
+	else if (ra == 0 || ra == M_PI) // looking straight
+	{
+		cub3d->hx = cub3d->pos_x;
+		cub3d->hy = cub3d->pos_y;
+		lim = cub3d->m_size_y;
+	}
+	dist_to_horizontal_wall(cub3d, xo, yo, lim);
+}
+
+void	check_vertical_line(t_cub3d *cub3d, double ra, int lim)
+{
+	double	xo = 0;
+	double	yo = 0;
+
+	cub3d->distv = 100000000;
+	if (ra < ((3 * M_PI) / 2) && ra > M_PI_2) // looking left
+	{
+		cub3d->vx = ((int)cub3d->pos_x / UNIT) * UNIT - 0.0001;
+		cub3d->vy = ((cub3d->pos_x - cub3d->vx) * (- tan(ra))) + cub3d->pos_y;
+		xo = - UNIT;
+		yo = - xo * (- tan(ra));
+	}
+	else if (ra > ((3 * M_PI) / 2) || ra < M_PI_2) // looking right
+	{
+		cub3d->vx = ((int)cub3d->pos_x / UNIT) * UNIT + UNIT;
+		cub3d->vy = ((cub3d->pos_x - cub3d->vx) * (- tan(ra))) + cub3d->pos_y;
+		xo = UNIT;
+		yo = - xo * (- tan(ra));
+	}
+	else if (ra == 3 * M_PI_2 || ra == M_PI_2) //looking straight up or down
+	{
+		cub3d->vx = cub3d->pos_x;
+		cub3d->vy = cub3d->pos_y;
+		lim = cub3d->m_size_x;
+	}
+	dist_to_vertical_wall(cub3d, xo, yo, lim);
+}
+
+void calculate_wall_distance(t_cub3d *cub3d)
+{
+	if (cub3d->distv < cub3d->disth)
+	{
+		cub3d->final_d = cub3d->distv;
+		cub3d->wall_y = cub3d->vy;
+		cub3d->wall_x = cub3d->vx;
+	}
+	if (cub3d->disth <= cub3d->distv)
+	{
+		cub3d->final_d = cub3d->disth;
+		cub3d->wall_y = cub3d->hy;
+		cub3d->wall_x = cub3d->hx;
+	}
+}
+
+void	raycaster(t_cub3d *cub3d, double ra, int ray)
+{
+	double ca;
+	double tx;
+	int tile_d;
+	int pixel;
+
+	ca = fix_angle(cub3d->pos_angle - ra);
+	cub3d->final_d = cub3d->final_d * cos(ca);
+	if (cub3d->disth < cub3d->distv)
+	{
+		tile_d = (int)cub3d->wall_x / UNIT;
+		tx = cub3d->wall_x - tile_d * UNIT;
+		pixel = tx / UNIT * cub3d->S->height;
+		if (ra < M_PI) // SOUTH wall
+			draw_line_textu(HEIGHT / (cub3d->final_d / UNIT), ray, cub3d->S->height - pixel - 1, cub3d->S, cub3d);
+		else		 // NORTH WALL
+		{
+			pixel = tx / UNIT * cub3d->N->height;
+			draw_line_textu(HEIGHT / (cub3d->final_d / UNIT), ray, pixel, cub3d->N, cub3d);
+		}
+	}
+	else
+	{
+		tile_d = (int)cub3d->wall_y / UNIT;
+		tx = cub3d->wall_y - tile_d * UNIT;
+		pixel = tx / UNIT * cub3d->S->height;
+		if (ra <= M_PI_2 || ra >= (3 * M_PI_2)) // WEST wall
+			draw_line_textu(HEIGHT / (cub3d->final_d / UNIT), ray, pixel, cub3d->E, cub3d);
+		else		 // EAST WALL
+			draw_line_textu(HEIGHT / (cub3d->final_d / UNIT), ray, cub3d->E->height - pixel - 1, cub3d->W, cub3d);
+	}
 }

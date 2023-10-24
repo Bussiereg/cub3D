@@ -1,5 +1,16 @@
 #include "cub3d.h"
 
+void	draw_laser(t_cub3d *cub3d, double rx, double ry)
+{
+	cub3d->pos_char.x = (int)cub3d->pos_x;
+	cub3d->pos_char.y = (int)cub3d->pos_y;
+	cub3d->pos_char.color = 0xFF8800FF;
+	cub3d->pos_wall.x = (int)rx;
+	cub3d->pos_wall.y = (int)ry;
+	cub3d->pos_wall.color = 0xFFC380FF;
+	draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
+}
+
 void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 {
 	int new_x;
@@ -25,13 +36,9 @@ void	draw_character(t_cub3d *cub3d, unsigned int color)
 {
 	int new_x;
 	int new_y;
-	int x;
-	int y;
 	int i;
 	int j;
 
-	x = cub3d->pos_x;
-	y = cub3d->pos_y;
 	new_x = cub3d->pos_x - 2;
 	new_y = cub3d->pos_y - 2;
 	i = 0;
@@ -39,21 +46,18 @@ void	draw_character(t_cub3d *cub3d, unsigned int color)
 	{
 		j = 0;
 		while (j < 5)
-		{
-			mlx_put_pixel(cub3d->minimap, new_x + i, new_y + j, color);
-			j++;
-		}
+			mlx_put_pixel(cub3d->minimap, new_x + i, new_y + j++, color);
 		i++;
 	}
 	i = 0;
 	j = 0;
 	while (j < (10))
 	{
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j, y + cub3d->pos_dy * j, color);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j - 1, y + cub3d->pos_dy * j, color);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j, y + cub3d->pos_dy * j - 1, color);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j, y + cub3d->pos_dy * j + 1, color);
-		mlx_put_pixel(cub3d->minimap, x + cub3d->pos_dx * j + 1, y + cub3d->pos_dy * j, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j, cub3d->pos_y + cub3d->pos_dy * j, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j - 1, cub3d->pos_y + cub3d->pos_dy * j, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j, cub3d->pos_y + cub3d->pos_dy * j - 1, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j, cub3d->pos_y + cub3d->pos_dy * j + 1, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j + 1, cub3d->pos_y + cub3d->pos_dy * j, color);
 		j++;
 	}
 	
@@ -80,8 +84,6 @@ void	draw_minimap(t_cub3d *cub3d)
 		}
 		y++;
 	}
-	// DRAW CHARACTER POINT
 	draw_character(cub3d, 0xFF0000FF);
-	draw_laser(cub3d);
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
 }
