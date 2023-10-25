@@ -105,7 +105,8 @@ void draw_game(t_cub3d *cub3d)
 		calculate_wall_distance(cub3d);
 		// draw_laser(cub3d, cub3d->wall_x, cub3d->wall_y);
 		raycaster(cub3d, ray_angle, ray);
-		ray_angle += DR;
+		//ray_angle = ray_angle + DR;
+		ray_angle = ray_angle + DR;
 	}
 }
 
