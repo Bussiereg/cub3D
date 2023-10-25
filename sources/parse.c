@@ -3,7 +3,7 @@
 int	right_map_char(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == 'N' 
-		|| c == 'S' || c == 'E' || c == 'W')
+		|| c == 'S' || c == 'E' || c == 'W' || c =='c')
 		return (1);
 	else
 		return (0);
@@ -61,7 +61,6 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 	{
 		if (right_map_char(line[i]) == 0)
 			terminate("Map compromised");
-			// free alloc;
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 		{
 			cub3d->pos_x = i * UNIT + UNIT / 2;
@@ -90,7 +89,6 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 		i++;
 	}
 	cub3d->map[y][i] = 0;
-	printf("%s\n", cub3d->map[y]);
 	return (0);
 }
 
@@ -212,13 +210,8 @@ int	duplicate_map(t_cub3d *cub3d)
 void floodFill(t_cub3d *cub3d, int y, int x, char new_val) {
 	if (x < 0 || x >= cub3d->m_size_x + 2 || y < 0 || y >= cub3d->m_size_y + 2)
 		return;
-	//printf("x= %d, y = %d\n", x, y);
 	if (cub3d->map_check[y][x] != '0')
-	{
 		return; // Cell already visited or not part of the area
-	}
-
-
 	cub3d->map_check[y][x] = new_val;
 	floodFill(cub3d, y + 1, x, new_val);
 	floodFill(cub3d, y - 1, x, new_val);
@@ -228,21 +221,25 @@ void floodFill(t_cub3d *cub3d, int y, int x, char new_val) {
 
 int	check_wall(char **map, t_cub3d *cub3d)
 {
-
-	floodFill(cub3d, 0, 0, '1');
-	//if there is no 0 it's fucked
-	(void)map;
-	floodFill(cub3d, cub3d->pos_y / UNIT + 1, cub3d->pos_x / UNIT + 1, '2');
-/* 	// Check if there are any remaining 1s on the map
-	for (int i = 0; i < ROWS; i++) {
-		for (int j = 0; j < COLS; j++) {
-			if (map[i][j] == 1) {
-				return 0; // Map is not closed
-			}
-		} */
-	//floodFill(cub3d, 0, 0, 0);
-	return (0);
+	int	x;
+	int	y;
+	
+	floodFill(cub3d, 0, 0, '.');
+	if (cub3d->map_check[(int)(cub3d->pos_y / UNIT) + 1][(int)(cub3d->pos_x / UNIT) + 1] == '.')
+		printf("map not closed\n");
+	floodFill(cub3d, cub3d->pos_y / UNIT + 1, cub3d->pos_x / UNIT + 1, '.');
+	y = -1;
+	while (map[++y] != 0)
+	{
+		x = -1;
+		while (map[y][++x] != 0)
+		{
+			if (map[y][x] == '0')
+				printf("map not closed inside\n");
+		}
 	}
+	return (0);
+}
 
 int	parse_map(char *file, t_cub3d *cub3d)
 {
@@ -254,14 +251,10 @@ int	parse_map(char *file, t_cub3d *cub3d)
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
 		terminate("Wrong extension !");
 	fd = read_info(file, cub3d);
-
 	read_map_size(fd, cub3d);
-
-	printf("m_size_y = %d\n", cub3d->m_size_y);
 	cub3d->map = malloc((cub3d->m_size_y + 1) * sizeof(char *));
 	// protect and exit correctly
 
-	printf("m_size_x = %d\n", cub3d->m_size_x);
 	while (y < cub3d->m_size_y)
 	{
 		cub3d->map[y] = malloc((cub3d->m_size_x + 1) * sizeof(char));
@@ -272,16 +265,12 @@ int	parse_map(char *file, t_cub3d *cub3d)
 
 	copy_map(file, cub3d);
 	duplicate_map(cub3d);
-
-	check_wall(cub3d->map, cub3d);
-
-	printf("\n\n");
+	check_wall(cub3d->map_check, cub3d);
 	int i = 0;
 	while (cub3d->map_check[i] != 0)
 	{
 		printf("%s\n", cub3d->map_check[i]);
 		i++;
 	}
-
 	return (0);
 }
