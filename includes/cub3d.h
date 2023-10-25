@@ -10,14 +10,14 @@
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
-# define OFFSET 5
-# define UNIT 12
+# define OFFSET 1
+# define UNIT 6
 # define PI2 M_PI/2
 # define PI3 3*M_PI/2
-# define HEIGHT 700
-# define WIDTH 1400
-# define ROTATE M_PI/26
-# define DR 1.047198 / (WIDTH)
+# define HEIGHT 900
+# define WIDTH 1000
+# define ROTATE (M_PI / 26)
+# define DR (M_PI / 3) / (WIDTH)
 //# define DR 0.001495997
 
 typedef struct point
@@ -40,7 +40,8 @@ typedef struct cub3d
 	double			wall_x;
 	double			wall_y;
 
-
+	double			xo;
+	double			yo;
 	double			disth;
 	double			hx;
 	double			hy;

@@ -95,6 +95,8 @@ void draw_game(t_cub3d *cub3d)
 	cub3d->vy = cub3d->pos_y;
 	cub3d->hx = cub3d->pos_x;
 	cub3d->hy = cub3d->pos_y;
+	cub3d->xo = 0;
+	cub3d->yo = 0;
 	while (++ray <= WIDTH)
 	{
 		ray_angle = fix_angle(ray_angle);
