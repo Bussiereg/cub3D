@@ -175,11 +175,11 @@ void	raycaster(t_cub3d *cub3d, double ra, int ray)
 		tx = cub3d->wall_x - tile_d * UNIT;
 		pixel = tx / UNIT * cub3d->S->height;
 		if (ra < M_PI) // SOUTH wall
-			draw_line_textu(HEIGHT / (cub3d->final_d / UNIT), ray, cub3d->S->height - pixel - 1, cub3d->S, cub3d);
+			draw_line_textu(HEIGHT * 1.9 / (cub3d->final_d / UNIT), ray, cub3d->S->height - pixel - 1, cub3d->S, cub3d);
 		else		 // NORTH WALL
 		{
 			pixel = tx / UNIT * cub3d->N->height;
-			draw_line_textu(HEIGHT / (cub3d->final_d / UNIT), ray, pixel, cub3d->N, cub3d);
+			draw_line_textu(HEIGHT * 1.9 / (cub3d->final_d / UNIT), ray, pixel, cub3d->N, cub3d);
 		}
 	}
 	else
@@ -188,8 +188,8 @@ void	raycaster(t_cub3d *cub3d, double ra, int ray)
 		tx = cub3d->wall_y - tile_d * UNIT;
 		pixel = tx / UNIT * cub3d->S->height;
 		if (ra <= M_PI_2 || ra >= (3 * M_PI_2)) // WEST wall
-			draw_line_textu(HEIGHT / (cub3d->final_d / UNIT), ray, pixel, cub3d->E, cub3d);
+			draw_line_textu(HEIGHT * 1.9 / (cub3d->final_d / UNIT), ray, pixel, cub3d->E, cub3d);
 		else		 // EAST WALL
-			draw_line_textu(HEIGHT / (cub3d->final_d / UNIT), ray, cub3d->E->height - pixel - 1, cub3d->W, cub3d);
+			draw_line_textu(HEIGHT * 1.9 / (cub3d->final_d / UNIT), ray, cub3d->E->height - pixel - 1, cub3d->W, cub3d);
 	}
 }

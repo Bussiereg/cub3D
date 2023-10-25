@@ -17,7 +17,7 @@
 # define HEIGHT 700
 # define WIDTH 1400
 # define ROTATE M_PI/26
-# define DR 1.047198 / (WIDTH)
+# define DR ((M_PI / 3) / (WIDTH))
 //# define DR 0.001495997
 
 typedef struct point
