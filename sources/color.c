@@ -12,15 +12,10 @@ int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height)
 {
 	int y;
 
-	y = steps * text->height / l_height;
-
-
-//	printf("text x = %d\n text y = %d\n", x);
-
+	y = (steps * text->height / l_height);
 	uint8_t r = text->pixels[((y * text->width + x) *(sizeof(int32_t)))];
 	uint8_t g = text->pixels[((y * text->width + x)*(sizeof(int32_t)) +1)];
 	uint8_t b = text->pixels[((y * text->width + x)*(sizeof(int32_t))+2)];
-	//printf("hex color is = %X\n", r);
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
 

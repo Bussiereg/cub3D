@@ -69,6 +69,7 @@ void my_keyhook(mlx_key_data_t keydata, void *param)
 		cub3d->pos_dx = cos(cub3d->pos_angle);
 		cub3d->pos_dy = sin(cub3d->pos_angle);
 	}
+	//render(&cub3d);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		win_close(param);
 }

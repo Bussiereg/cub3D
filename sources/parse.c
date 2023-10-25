@@ -26,44 +26,28 @@ int	get_color_info(char *str)
 
 int	info_to_struct(char *line, t_cub3d *cub3d)
 {
-	char **info;
+	char	**info;
 
 	if (line[0] == 0)
 		return (0);
 	info = ft_split(line, ' ');
-	//if (info[2] != 0)
-	//	terminate("info map error");
-
+	if (info[2] != 0)
+		terminate("info map error");
 	if (ft_strncmp(info[0], "F", 2) == 0)
 		cub3d->color_F = get_color_info(info[1]);
 	if (ft_strncmp(info[0], "C", 2) == 0)
 		cub3d->color_C = get_color_info(info[1]);
-
 	if (ft_strncmp(info[0], "NO", 2) == 0)
-	{
 		cub3d->N = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
-		if (!cub3d->N)
-			terminate("texture N error");
-	}
 	if (ft_strncmp(info[0], "SO", 2) == 0)
-	{
 		cub3d->S = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
-		if (!cub3d->S)
-			terminate("texture S error");
-	}
 	if (ft_strncmp(info[0], "WE", 2) == 0)
-	{
 		cub3d->W = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
-		if (!cub3d->W)
-			terminate("texture W error");
-	}
 	if (ft_strncmp(info[0], "EA", 2) == 0)
-	{
 		cub3d->E = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
-		if (!cub3d->E)
-			terminate("texture E error");
-	}
-		
+	if (!cub3d->N || !cub3d->S || !cub3d->E || !cub3d->W)
+		terminate("texture Wall error");
+	cub3d->I = mlx_texture_to_image(cub3d->mlx, mlx_load_png("./intro.png"));
 	ft_free_tab(info);
 	return (0);
 }
@@ -95,12 +79,18 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 			line[i] = '0';
 		}
 		if (line[i] == ' ')
-			cub3d->map[y][i] = '.';
+			cub3d->map[y][i] = '0';
 		else
 			cub3d->map[y][i] = line[i];
 		i++;
 	}
+	while (i < cub3d->m_size_x)
+	{
+		cub3d->map[y][i] = '0';
+		i++;
+	}
 	cub3d->map[y][i] = 0;
+	printf("%s\n", cub3d->map[y]);
 	return (0);
 }
 
@@ -126,7 +116,6 @@ int	copy_map(char *file, t_cub3d *cub3d)
 	{	
 		line = get_next_line(fd);
 		line = ft_strtrim(line, "\n");
-	//	printf("line = %s\n", line);
 		if (!line)
 			terminate("parse alloc error");
 		line_to_map(y, line, cub3d);
@@ -187,10 +176,73 @@ int	read_info(char *file, t_cub3d *cub3d)
 	return (fd);
 }
 
-// int	check_wall(char **map)
-// {
+int	duplicate_map(t_cub3d *cub3d)
+{
+	int	x;
+	int	y;
 
-// }
+	y = 0;
+	cub3d->map_check = malloc((cub3d->m_size_y + 1 + 2) * sizeof(char *));
+	while (y < cub3d->m_size_y + 2)
+	{
+		cub3d->map_check[y] = malloc((cub3d->m_size_x + 1 + 2) * sizeof(char));
+		y++;
+	}
+	y = 0;
+	while (y < cub3d->m_size_y + 2)
+	{
+		x = 0;
+		while (x < cub3d->m_size_x + 2)
+		{
+			if (y == 0 || y == cub3d->m_size_y + 1)
+				cub3d->map_check[y][x] = '0';
+			else if (x == 0 || x == cub3d->m_size_x + 1)
+				cub3d->map_check[y][x] = '0';
+			else
+				cub3d->map_check[y][x] = cub3d->map[y - 1][x - 1];
+			x++;
+		}
+		cub3d->map_check[y][x] = 0;
+		y++;
+	}
+	cub3d->map_check[y] = 0;
+	return (0);
+}
+
+void floodFill(t_cub3d *cub3d, int y, int x, char new_val) {
+	if (x < 0 || x >= cub3d->m_size_x + 2 || y < 0 || y >= cub3d->m_size_y + 2)
+		return;
+	//printf("x= %d, y = %d\n", x, y);
+	if (cub3d->map_check[y][x] != '0')
+	{
+		return; // Cell already visited or not part of the area
+	}
+
+
+	cub3d->map_check[y][x] = new_val;
+	floodFill(cub3d, y + 1, x, new_val);
+	floodFill(cub3d, y - 1, x, new_val);
+	floodFill(cub3d, y, x + 1, new_val);
+	floodFill(cub3d, y, x - 1, new_val);
+}
+
+int	check_wall(char **map, t_cub3d *cub3d)
+{
+
+	floodFill(cub3d, 0, 0, '1');
+	//if there is no 0 it's fucked
+	(void)map;
+	floodFill(cub3d, cub3d->pos_y / UNIT + 1, cub3d->pos_x / UNIT + 1, '2');
+/* 	// Check if there are any remaining 1s on the map
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLS; j++) {
+			if (map[i][j] == 1) {
+				return 0; // Map is not closed
+			}
+		} */
+	//floodFill(cub3d, 0, 0, 0);
+	return (0);
+	}
 
 int	parse_map(char *file, t_cub3d *cub3d)
 {
@@ -219,7 +271,17 @@ int	parse_map(char *file, t_cub3d *cub3d)
 	//find the right section for the map 
 
 	copy_map(file, cub3d);
-	// check_wall(cub3d->map);
+	duplicate_map(cub3d);
+
+	check_wall(cub3d->map, cub3d);
+
+	printf("\n\n");
+	int i = 0;
+	while (cub3d->map_check[i] != 0)
+	{
+		printf("%s\n", cub3d->map_check[i]);
+		i++;
+	}
 
 	return (0);
 }

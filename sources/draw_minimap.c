@@ -75,7 +75,6 @@ void	draw_minimap(t_cub3d *cub3d)
 		x = 0;
 		while (x < cub3d->m_size_x)
 		{
-			//draw_rectangle();
 			if (cub3d->map[y][x] == '0')
 				draw_tile(cub3d, x, y, 0xFFFFFFFF);
 			else

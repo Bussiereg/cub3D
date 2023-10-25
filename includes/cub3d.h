@@ -59,11 +59,10 @@ typedef struct cub3d
 	mlx_t			*mlx;
 
 	char			**map;
+	char			**map_check;
 	int				m_size_x;
 	int				m_size_y;
 	
-	mlx_texture_t		*text_I;
-
 	mlx_image_t 		*N;
 	mlx_image_t 		*S;
 	mlx_image_t 		*E;
