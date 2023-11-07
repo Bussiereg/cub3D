@@ -72,6 +72,7 @@ typedef struct cub3d
 
 	int				color_C;
 	int				color_F;
+	double			wall_height;
 
 	int				intro_bol;
 
