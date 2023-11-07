@@ -3,7 +3,7 @@
 int	right_map_char(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == 'N' 
-		|| c == 'S' || c == 'E' || c == 'W' || c =='c')
+		|| c == 'S' || c == 'E' || c == 'W' || c == 'c' || c == 'K')
 		return (1);
 	else
 		return (0);
