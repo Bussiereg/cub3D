@@ -21,7 +21,7 @@ int	main(int argc, char *argv[])
 {
 	t_cub3d		cub3d;
 
-	cub3d.wall_height = 0.5;
+	cub3d.wall_height = 3.5;
 
 	if (argc != 2)
 		terminate("Incorrect number of arguments!");
