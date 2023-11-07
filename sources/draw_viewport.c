@@ -67,7 +67,7 @@ int	draw_floor(t_cub3d *cub3d)
 	return (0);
 }
 
-void	draw_line_textu(int line_height, int x, int text_x_pos, mlx_image_t *text, t_cub3d *cub3d)
+void	draw_line_textu(double line_height, int x, int text_x_pos, mlx_image_t *text, t_cub3d *cub3d)
 {
 
 	int	i;

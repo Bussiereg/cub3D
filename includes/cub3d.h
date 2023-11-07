@@ -10,8 +10,8 @@
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
-# define OFFSET 1
-# define UNIT 6
+# define OFFSET 2
+# define UNIT 5
 # define PI2 M_PI/2
 # define PI3 3*M_PI/2
 # define HEIGHT 700
@@ -113,7 +113,7 @@ void	draw_line_down(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_viewport(t_cub3d *cub3d);
 void	draw_background(t_cub3d *cub3d);
-void	draw_line_textu(int line_height, int x, int text_x_pos, mlx_image_t *text, t_cub3d *cub3d);
+void	draw_line_textu(double line_height, int x, int text_x_pos, mlx_image_t *text, t_cub3d *cub3d);
 void	render(void *param);
 
 
