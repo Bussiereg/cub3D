@@ -3,7 +3,7 @@
 int	right_map_char(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == 'N' 
-		|| c == 'S' || c == 'E' || c == 'W' || c == 'c' || c == 'K')
+		|| c == 'S' || c == 'E' || c == 'W' || c == 'c')
 		return (1);
 	else
 		return (0);
@@ -39,6 +39,8 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 		cub3d->color_C = get_color_info(info[1]);
 	if (ft_strncmp(info[0], "NO", 2) == 0)
 		cub3d->N = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
+	if (ft_strncmp(info[0], "CO", 2) == 0)
+		cub3d->C = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
 	if (ft_strncmp(info[0], "SO", 2) == 0)
 		cub3d->S = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
 	if (ft_strncmp(info[0], "WE", 2) == 0)

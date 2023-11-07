@@ -17,7 +17,10 @@ int	draw_sky(t_cub3d *cub3d)
 		x = 0;
 		while (x < WIDTH * 2)
 		{
-			mlx_put_pixel(cub3d->viewport, x, y, calc_grad_color(y, sky_darker, &*rgba));
+			if (rand() % 10000 == 0)
+				mlx_put_pixel(cub3d->viewport, x, y, 0xFFFFFFFF);
+			else
+				mlx_put_pixel(cub3d->viewport, x, y, calc_grad_color(y, sky_darker, &*rgba));
 			x++;
 		}
 		y++;

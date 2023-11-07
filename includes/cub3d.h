@@ -67,6 +67,7 @@ typedef struct cub3d
 	mlx_image_t 		*S;
 	mlx_image_t 		*E;
 	mlx_image_t 		*W;
+	mlx_image_t 		*C;
 	mlx_image_t 		*I;
 
 	int				color_C;
