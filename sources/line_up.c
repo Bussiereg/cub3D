@@ -50,9 +50,9 @@ void	draw_line_up_y_long(t_point a, t_point b, int *dist, mlx_image_t *img)
 
 void	draw_line_up(t_point a, t_point b, mlx_image_t *img)
 {
-	int		dx;
-	int		dy;
-	int		dist[2];
+	int	dx;
+	int	dy;
+	int	dist[2];
 
 	dx = b.x - a.x;
 	dy = a.y - b.y;

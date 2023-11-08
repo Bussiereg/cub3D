@@ -17,7 +17,7 @@
 # define HEIGHT 700
 # define WIDTH 1400
 # define ROTATE M_PI/26
-# define DR ((M_PI / 180 * 60) / (WIDTH))
+# define DR ((M_PI / 180 * 70) / (WIDTH))
 
 typedef struct point
 {
@@ -67,14 +67,9 @@ typedef struct cub3d
 	mlx_image_t 		*S;
 	mlx_image_t 		*E;
 	mlx_image_t 		*W;
-	mlx_image_t 		*C;
-	mlx_image_t 		*I;
 
 	int				color_C;
 	int				color_F;
-	double			wall_height;
-
-	int				intro_bol;
 
 }	t_cub3d;
 

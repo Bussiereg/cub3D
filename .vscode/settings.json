@@ -9,5 +9,7 @@
         "cmath": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
-    "cmake.sourceDirectory": "/nfs/homes/jubernar/project/11_cub3D/lib/MLX42"
+    "cmake.sourceDirectory": "/nfs/homes/jubernar/project/11_cub3D/lib/MLX42",
+    "editor.defaultFormatter": "keyhr.42-c-format"
 }
+
