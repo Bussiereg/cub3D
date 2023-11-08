@@ -50,9 +50,9 @@ void	draw_line_down_y_long(t_point a, t_point b, int *dist, mlx_image_t *fdf)
 
 void	draw_line_down(t_point a, t_point b, mlx_image_t *img)
 {
-	int		dx;
-	int		dy;
-	int		dist[2];
+	int	dx;
+	int	dy;
+	int	dist[2];
 
 	dx = b.x - a.x;
 	dy = b.y - a.y;
