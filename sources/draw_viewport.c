@@ -64,7 +64,7 @@ void	draw_line_textu(double line_height, int x, int text_x_pos, mlx_image_t *tex
 	{
 		if (x >= 0 && a >= 0 && x < WIDTH && a < HEIGHT)
 			mlx_put_pixel(cub3d->viewport, x, a, calc_pix_color(i, text,
-					text_x_pos, line_height));
+					text_x_pos, line_height + 1));
 		a++;
 		i++;
 	}

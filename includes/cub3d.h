@@ -81,7 +81,6 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
 void	draw_character(t_cub3d *cub3d, unsigned int color);
 void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
 void	draw_minimap(t_cub3d *cub3d);
-void	draw_laser(t_cub3d *cub3d, double rx, double ry);
 
 // draw.c
 void display(t_cub3d *cub3d);

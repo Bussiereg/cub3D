@@ -1,16 +1,5 @@
 #include "cub3d.h"
 
-void	draw_laser(t_cub3d *cub3d, double rx, double ry)
-{
-	cub3d->pos_char.x = (int)cub3d->pos_x;
-	cub3d->pos_char.y = (int)cub3d->pos_y;
-	cub3d->pos_char.color = 0xFF8800FF;
-	cub3d->pos_wall.x = (int)rx;
-	cub3d->pos_wall.y = (int)ry;
-	cub3d->pos_wall.color = 0xFFC380FF;
-	draw_line(cub3d->pos_char, cub3d->pos_wall, cub3d->minimap);
-}
-
 void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 {
 	int	new_x;
@@ -22,10 +11,10 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 		new_x = x * UNIT;
 		while (new_x < (x * UNIT) + UNIT)
 		{
-			if ((new_x == (x * UNIT) + UNIT - 1) || (new_y == (y * UNIT) + UNIT
+/* 			if ((new_x == (x * UNIT) + UNIT - 1) || (new_y == (y * UNIT) + UNIT
 					- 1))
 				mlx_put_pixel(cub3d->minimap, new_x, new_y, 0x095275FF);
-			else
+			else */
 				mlx_put_pixel(cub3d->minimap, new_x, new_y, color);
 			new_x++;
 		}
@@ -72,6 +61,7 @@ void	draw_minimap(t_cub3d *cub3d)
 {
 	int	x;
 	int	y;
+	char *temp;
 
 	y = 0;
 	x = 0;
@@ -81,9 +71,16 @@ void	draw_minimap(t_cub3d *cub3d)
 		while (x < cub3d->m_size_x)
 		{
 			if (cub3d->map[y][x] == '0')
-				draw_tile(cub3d, x, y, 0xFFFFFFFF);
-			else
-				draw_tile(cub3d, x, y, 0x030209FF);
+			{
+				temp = ft_strtrim(cub3d->map[y], "0");
+				if (x >= (int)ft_strlen(temp))
+					draw_tile(cub3d, x, y, 0xFFFFFF00);
+				else
+					draw_tile(cub3d, x, y, 0xFFFFFFBB);
+				free(temp);
+			}
+			else if (cub3d->map[y][x] == '1')
+				draw_tile(cub3d, x, y, 0x888888BB);
 			x++;
 		}
 		y++;
