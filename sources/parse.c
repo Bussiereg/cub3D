@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gbussier <gbussier@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/08 18:25:03 by gbussier          #+#    #+#             */
+/*   Updated: 2023/11/08 18:25:04 by gbussier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	right_map_char(char c)
@@ -296,7 +308,7 @@ int	parse_map(char *file, t_cub3d *cub3d)
 	copy_map(file, cub3d);
 	duplicate_map(cub3d);
 	check_wall(cub3d->map_check, cub3d);
-	int i = 0;
+	i = 0;
 	while (cub3d->map_check[i] != 0)
 	{
 		printf("%s\n", cub3d->map_check[i]);

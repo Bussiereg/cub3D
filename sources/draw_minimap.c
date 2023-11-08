@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_minimap.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gbussier <gbussier@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/08 17:51:41 by gbussier          #+#    #+#             */
+/*   Updated: 2023/11/08 17:51:55 by gbussier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
@@ -11,74 +23,26 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 		new_x = x * UNIT;
 		while (new_x < (x * UNIT) + UNIT)
 		{
-/* 			if ((new_x == (x * UNIT) + UNIT - 1) || (new_y == (y * UNIT) + UNIT
-					- 1))
-				mlx_put_pixel(cub3d->minimap, new_x, new_y, 0x095275FF);
-			else */
-				mlx_put_pixel(cub3d->minimap, new_x, new_y, color);
+			mlx_put_pixel(cub3d->minimap, new_x, new_y, color);
 			new_x++;
 		}
 		new_y++;
 	}
 }
 
-void	draw_character(t_cub3d *cub3d, unsigned int color)
-{
-	int	new_x;
-	int	new_y;
-	int	i;
-	int	j;
-
-	new_x = cub3d->pos_x - 1;
-	new_y = cub3d->pos_y - 1;
-	i = 0;
-	while (i < 3)
-	{
-		j = 0;
-		while (j < 3)
-			mlx_put_pixel(cub3d->minimap, new_x + i, new_y + j++, color);
-		i++;
-	}
-	i = 0;
-	j = 0;
-	while (j < (5))
-	{
-		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j,
-			cub3d->pos_y + cub3d->pos_dy * j, color);
-		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j - 1,
-			cub3d->pos_y + cub3d->pos_dy * j, color);
-		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j,
-			cub3d->pos_y + cub3d->pos_dy * j - 1, color);
-		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j,
-			cub3d->pos_y + cub3d->pos_dy * j + 1, color);
-		mlx_put_pixel(cub3d->minimap, cub3d->pos_x + cub3d->pos_dx * j + 1,
-			cub3d->pos_y + cub3d->pos_dy * j, color);
-		j++;
-	}
-}
-
 void	draw_minimap(t_cub3d *cub3d)
 {
-	int	x;
-	int	y;
-	char *temp;
+	int		x;
+	int		y;
 
 	y = 0;
-	x = 0;
 	while (y < cub3d->m_size_y)
 	{
 		x = 0;
 		while (x < cub3d->m_size_x)
 		{
 			if (cub3d->map[y][x] == '0')
-			{
-				temp = ft_strtrim(cub3d->map[y], "0");
-				if (x >= (int)ft_strlen(temp))
-					draw_tile(cub3d, x, y, 0xFFFFFF00);
-				else
-					draw_tile(cub3d, x, y, 0xFFFFFFBB);
-				free(temp);
-			}
+				draw_tile(cub3d, x, y, 0xFFFFFFBB);
 			else if (cub3d->map[y][x] == '1')
 				draw_tile(cub3d, x, y, 0x888888BB);
 			x++;

@@ -11,7 +11,7 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 2
-# define UNIT 5
+# define UNIT 10
 # define PI2 M_PI/2
 # define PI3 3*M_PI/2
 # define HEIGHT 700
@@ -75,26 +75,32 @@ typedef struct cub3d
 }	t_cub3d;
 
 void	terminate(char *str, t_cub3d *cub3d, int mlx);
-double fix_angle(double a);
 
 // draw_minimap.c
 void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
-void	draw_character(t_cub3d *cub3d, unsigned int color);
 void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
 void	draw_minimap(t_cub3d *cub3d);
 
-// draw.c
-void display(t_cub3d *cub3d);
-double distance(double ax, double ay, double bx, double by);
-void	draw_minimap_background(t_cub3d *cub3d);
-void	check_vertical_line(t_cub3d *cub3d, double ra, int lim);
-void check_horizontal_line(t_cub3d *cub3d, double ra, int lim);
-void dist_to_horizontal_wall(t_cub3d *cub3d, double xo, double yo, int lim);
-void dist_to_vertical_wall(t_cub3d *cub3d, double xo, double yo, int lim);
-double fix_angle(double a);
-double distance(double ax, double ay, double bx, double by);
+// draw_character.c
+void	draw_direction(t_cub3d *cub3d, unsigned int color);
+void	draw_character(t_cub3d *cub3d, unsigned int color);
+
+// raycaster_main.c
 void	raycaster(t_cub3d *cub3d, double ra, int r);
-void calculate_wall_distance(t_cub3d *cub3d);
+
+// raycaster_distance.c
+double	distance(double ax, double ay, double bx, double by);
+void	dist_to_horizontal_wall(t_cub3d *cub3d, double xo, double yo, int lim);
+void	dist_to_vertical_wall(t_cub3d *cub3d, double xo, double yo, int lim);
+void	calculate_wall_distance(t_cub3d *cub3d);
+
+// raycaster_calculus.c
+void	check_vertical_line(t_cub3d *cub3d, double ra, int lim);
+void	check_horizontal_line(t_cub3d *cub3d, double ra, int lim);
+double	fix_angle(double a);
+
+void	display(t_cub3d *cub3d);
+void	draw_minimap_background(t_cub3d *cub3d);
 
 // draw_viewport.c
 void draw_game(t_cub3d *cub3d);
