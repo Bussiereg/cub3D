@@ -165,13 +165,6 @@ void	raycaster(t_cub3d *cub3d, double ra, int ray)
 	ca = fix_angle(cub3d->pos_angle - ra);
 	cub3d->final_d = cub3d->final_d * cos(ca);
 	line_height = (HEIGHT * ((double)WIDTH / (double)HEIGHT)) / (cub3d->final_d / UNIT);
-/* 	if (cub3d->map[(int)cub3d->wall_y][(int)cub3d->wall_x] == 'c')
-	{
-		tile_d = (int)cub3d->wall_x / UNIT;
-		tx = cub3d->wall_x - tile_d * UNIT;
-		pixel = tx / UNIT * cub3d->C->height;
-		draw_line_textu(line_height, ray, cub3d->C->height - pixel - 1, cub3d->C, cub3d);
-	} */
 	if (cub3d->disth < cub3d->distv)
 	{
 		tile_d = (int)cub3d->wall_x / UNIT;

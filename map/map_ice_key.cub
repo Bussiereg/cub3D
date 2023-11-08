@@ -1,8 +1,8 @@
-NO ./IMG_1387.png
-SO ./IMG_1387.png
-WE ./IMG_1387.png
-EA ./IMG_1387.png
-CO ./Fire.png
+NO ./texture/IMG_1387.png
+SO ./texture/IMG_1387.png
+WE ./texture/IMG_1387.png
+EA ./texture/IMG_1387.png
+CO ./texture/Fire.png
 
 F 138,206,226
 C 0,30,60
