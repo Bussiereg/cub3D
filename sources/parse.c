@@ -32,7 +32,7 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 		return (0);
 	info = ft_split(line, ' ');
 	if (info[2] != 0)
-		terminate("info map error");
+		terminate("info map error", cub3d, 1);
 	if (ft_strncmp(info[0], "F", 2) == 0)
 		cub3d->color_F = get_color_info(info[1]);
 	if (ft_strncmp(info[0], "C", 2) == 0)
@@ -46,7 +46,7 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 	if (ft_strncmp(info[0], "EA", 2) == 0)
 		cub3d->E = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
 	if (!cub3d->N || !cub3d->S || !cub3d->E || !cub3d->W)
-		terminate("texture Wall error");
+		terminate("texture Wall error", cub3d, 1);
 	ft_free_tab(info);
 	return (0);
 }
@@ -59,7 +59,7 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 	while (line[i] != 0)
 	{
 		if (right_map_char(line[i]) == 0)
-			terminate("Map compromised");
+			terminate("Map compromised", cub3d, 1);
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W'
 			|| line[i] == 'E')
 		{
@@ -100,9 +100,9 @@ int	copy_map(char *file, t_cub3d *cub3d)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		terminate("open failed");
+		terminate("open failed", cub3d, 1);
 	y = 0;
-	while (y < 8)
+	while (y < cub3d->map_line)
 	{
 		line = get_next_line(fd);
 		free(line);
@@ -112,12 +112,15 @@ int	copy_map(char *file, t_cub3d *cub3d)
 	while (y < cub3d->m_size_y)
 	{
 		line = get_next_line(fd);
-		line = ft_strtrim(line, "\n");
-		if (!line)
-			terminate("parse alloc error");
-		line_to_map(y, line, cub3d);
+		if (ft_strlen(line) > 1)
+		{
+			line = ft_strtrim(line, "\n");
+			if (!line)
+				terminate("parse alloc error", cub3d, 1);
+			line_to_map(y, line, cub3d);
+			y++;
+		}
 		free(line);
-		y++;
 	}
 	cub3d->map[y] = 0;
 	close(fd);
@@ -139,15 +142,30 @@ int	read_map_size(int fd, t_cub3d *cub3d)
 		if (!line)
 			break ;
 		else
-			y++;
+		{
+			if (ft_strlen(line) > 1)
+				y++;
+		}
 		if ((int)ft_strlen(line) > x)
 			x = ft_strlen(line);
 		free(line);
 	}
 	close(fd);
 	cub3d->m_size_x = x - 1;
-	cub3d->m_size_y = y - 1;
+	cub3d->m_size_y = y;
 	return (0);
+}
+
+int	all_info_read(t_cub3d *cub3d)
+{
+	if (cub3d->N == cub3d->viewport ||
+	cub3d->S == cub3d->viewport ||
+	cub3d->E == cub3d->viewport ||
+	cub3d->W == cub3d->viewport ||
+	cub3d->color_C == 0 ||
+	cub3d->color_F == 0)
+		return (0);
+	return (1);
 }
 
 int	read_info(char *file, t_cub3d *cub3d)
@@ -158,17 +176,18 @@ int	read_info(char *file, t_cub3d *cub3d)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		terminate("open failed");
+		terminate("open failed", cub3d, 1);
 	l = 0;
-	while (l < 7) // fin th right condition to stop when needed before the map
+	while (all_info_read(cub3d) == 0)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			terminate("parse alloc error");
+			terminate("parse alloc error", cub3d, 1);
 		line = ft_strtrim(line, "\n");
 		info_to_struct(line, cub3d);
 		free(line);
 		l++;
+		cub3d->map_line = l;
 	}
 	return (fd);
 }
@@ -242,26 +261,40 @@ int	check_wall(char **map, t_cub3d *cub3d)
 	return (0);
 }
 
-int	parse_map(char *file, t_cub3d *cub3d)
+int	alloc_map(t_cub3d *cub3d)
 {
 	int	y;
-	int	fd;
-	int	i;
 
 	y = 0;
-	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
-		terminate("Wrong extension !");
-	fd = read_info(file, cub3d);
-	read_map_size(fd, cub3d);
 	cub3d->map = malloc((cub3d->m_size_y + 1) * sizeof(char *));
-	// protect and exit correctly
+	if (!cub3d->map)
+		return (1);
 	while (y < cub3d->m_size_y)
 	{
 		cub3d->map[y] = malloc((cub3d->m_size_x + 1) * sizeof(char));
-		// protect and exit correctly
+		if (!cub3d->map[y])
+		{
+			while (--y >= 0)
+				free(cub3d->map[y]);
+			free(cub3d->map);
+			return (1);
+		}
 		y++;
 	}
-	// find the right section for the map
+	return (0);
+}
+
+int	parse_map(char *file, t_cub3d *cub3d)
+{
+	int	fd;
+	int	i;
+
+	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
+		terminate("Wrong extension", cub3d, 1);
+	fd = read_info(file, cub3d);
+	read_map_size(fd, cub3d);
+	if (alloc_map(cub3d) == 1)
+		terminate("Map alloc fail", cub3d, 1);
 	copy_map(file, cub3d);
 	duplicate_map(cub3d);
 	check_wall(cub3d->map_check, cub3d);

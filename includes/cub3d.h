@@ -60,6 +60,7 @@ typedef struct cub3d
 
 	char			**map;
 	char			**map_check;
+	int				map_line;
 	int				m_size_x;
 	int				m_size_y;
 	
@@ -73,7 +74,7 @@ typedef struct cub3d
 
 }	t_cub3d;
 
-void	terminate(char *str);
+void	terminate(char *str, t_cub3d *cub3d, int mlx);
 double fix_angle(double a);
 
 // draw_minimap.c

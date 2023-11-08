@@ -3,6 +3,7 @@
 void	win_close(void *param)
 {
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->minimap);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->viewport);
 	mlx_terminate(((t_cub3d *)param)->mlx);
 	exit(EXIT_SUCCESS);
 }
