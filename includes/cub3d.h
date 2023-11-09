@@ -55,7 +55,6 @@ typedef struct cub3d
 	t_point			pos_char;
 	t_point			pos_wall;
 
-	mlx_image_t		*minimap;
 	mlx_image_t		*viewport;
 	mlx_t			*mlx;
 
@@ -74,15 +73,6 @@ typedef struct cub3d
 	int				color_f;
 
 }	t_cub3d;
-
-// draw_minimap.c
-void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
-void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
-void	draw_minimap(t_cub3d *cub3d);
-
-// draw_character.c
-void	draw_direction(t_cub3d *cub3d, unsigned int color);
-void	draw_character(t_cub3d *cub3d, unsigned int color);
 
 // raycaster_main.c
 void	raycaster(t_cub3d *cub3d, double ra);
@@ -139,7 +129,17 @@ void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
 int		calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 int		calc_grad_color(int steps, int cl_a, float rgba[4]);
 
-// keyhook.c
+// keyhook_rotate.c
+void	rotating_right(t_cub3d *cub3d);
+void	rotating_left(t_cub3d *cub3d);
+
+// keyhook_moving.c
+void	moving_right(t_cub3d *cub3d);
+void	moving_left(t_cub3d *cub3d);
+void	moving_down(t_cub3d *cub3d);
+void	moving_up(t_cub3d *cub3d);
+
+// keyhook_main.c
 void	win_close(void *param);
 void	my_keyhook(mlx_key_data_t keydata, void *param);
 
