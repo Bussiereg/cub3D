@@ -14,7 +14,7 @@
 
 void	rotating_right(t_cub3d *cub3d)
 {
-	cub3d->pos_angle += ROTATE;
+	cub3d->pos_angle += (M_PI / ROTATE);
 	cub3d->pos_angle = fix_angle(cub3d->pos_angle);
 	cub3d->pos_dx = cos(cub3d->pos_angle);
 	cub3d->pos_dy = sin(cub3d->pos_angle);
@@ -22,7 +22,7 @@ void	rotating_right(t_cub3d *cub3d)
 
 void	rotating_left(t_cub3d *cub3d)
 {
-	cub3d->pos_angle -= ROTATE;
+	cub3d->pos_angle -= (M_PI / ROTATE);
 	cub3d->pos_angle = fix_angle(cub3d->pos_angle);
 	cub3d->pos_dx = cos(cub3d->pos_angle);
 	cub3d->pos_dy = sin(cub3d->pos_angle);

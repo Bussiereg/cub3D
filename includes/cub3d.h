@@ -24,11 +24,9 @@
 # include <errno.h>
 # define OFFSET 2
 # define UNIT 10
-# define PI2 M_PI/2
-# define PI3 3*M_PI/2
 # define HEIGHT 700
 # define WIDTH 1400
-# define ROTATE M_PI/26
+# define ROTATE 26
 # define DR 70
 
 typedef struct point
@@ -129,7 +127,6 @@ int		read_info(char *file, t_cub3d *cub3d);
 
 // parse_textures.c
 void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
-
 
 // parse_utlis.c
 int		right_map_char(char c);
