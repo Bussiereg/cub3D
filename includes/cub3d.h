@@ -127,7 +127,17 @@ void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
 int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 int	calc_grad_color(int steps, int cl_a, float rgba[4]);
 
-// keyhook.c
+// keyhook_rotate.c
+void	rotating_right(t_cub3d *cub3d);
+void	rotating_left(t_cub3d *cub3d);
+
+// keyhook_moving.c
+void	moving_right(t_cub3d *cub3d);
+void	moving_left(t_cub3d *cub3d);
+void	moving_down(t_cub3d *cub3d);
+void	moving_up(t_cub3d *cub3d);
+
+// keyhook_main.c
 void	win_close(void *param);
 void	my_keyhook(mlx_key_data_t keydata, void *param);
 
