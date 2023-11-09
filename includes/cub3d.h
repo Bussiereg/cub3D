@@ -144,7 +144,6 @@ void	win_close(void *param);
 void	my_keyhook(mlx_key_data_t keydata, void *param);
 
 // close.c
-
 void	terminate(char *str, t_cub3d *cub3d, int mlx, int map);
 void	ft_free_tab(char **tab);
 

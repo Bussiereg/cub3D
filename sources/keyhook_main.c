@@ -15,6 +15,10 @@
 void	win_close(void *param)
 {
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->viewport);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_n);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_e);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_s);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_w);
 	mlx_terminate(((t_cub3d *)param)->mlx);
 	exit(EXIT_SUCCESS);
 }
