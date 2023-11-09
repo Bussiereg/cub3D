@@ -28,10 +28,12 @@ void	raycaster(t_cub3d *cub3d, double ra, int ray)
 	{
 		tile_d = (int)cub3d->wall_x / UNIT;
 		tx = cub3d->wall_x - tile_d * UNIT;
-		pixel = tx / UNIT * cub3d->S->height;
 		if (ra < M_PI)
+		{
+			pixel = tx / UNIT * cub3d->S->height;
 			draw_line_textu(line_height, ray, cub3d->S->height - pixel - 1,
 				cub3d->S, cub3d);
+		}
 		else
 		{
 			pixel = tx / UNIT * cub3d->N->height;
@@ -42,11 +44,16 @@ void	raycaster(t_cub3d *cub3d, double ra, int ray)
 	{
 		tile_d = (int)cub3d->wall_y / UNIT;
 		tx = cub3d->wall_y - tile_d * UNIT;
-		pixel = tx / UNIT * cub3d->S->height;
 		if (ra <= M_PI_2 || ra >= (3 * M_PI_2))
+		{
+			pixel = tx / UNIT * cub3d->E->height;
 			draw_line_textu(line_height, ray, pixel, cub3d->E, cub3d);
+		}
 		else
+		{
+			pixel = tx / UNIT * cub3d->W->height;
 			draw_line_textu(line_height, ray, cub3d->E->height - pixel - 1,
 				cub3d->W, cub3d);
+		}
 	}
 }

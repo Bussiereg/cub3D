@@ -104,22 +104,44 @@ void	draw_minimap_background(t_cub3d *cub3d);
 
 // draw_viewport.c
 void draw_game(t_cub3d *cub3d);
-
-int		parse_map(char *file, t_cub3d *cub3d);
-void	ft_free_tab(char **tab);
-void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
-int		calc_grad_color(int steps, int cl_a, float rgba[4]);
-void	draw_line(t_point point_a, t_point point_b, mlx_image_t *fdf);
-void	draw_line_down(t_point a, t_point b, mlx_image_t *fdf);
-void	draw_line_up(t_point a, t_point b, mlx_image_t *fdf);
 void	draw_viewport(t_cub3d *cub3d);
-void	draw_background(t_cub3d *cub3d);
 void	draw_line_textu(double line_height, int x, int text_x_pos, mlx_image_t *text, t_cub3d *cub3d);
+
+
+
+/// render.c
 void	render(void *param);
 
+// parse_main.c
+int	copy_map(char *file, t_cub3d *cub3d, int fd);
+void	floodfill(t_cub3d *cub3d, int y, int x, char new_val);
+int	check_wall(char **map, t_cub3d *cub3d);
+int	parse_map(char *file, t_cub3d *cub3d);
 
+// parse_info.c
+int	read_pos(t_cub3d *cub3d, char c, int y, int i);
+int	read_info(char *file, t_cub3d *cub3d);
+int	all_info_read(t_cub3d *cub3d);
+int	info_to_struct(char *line, t_cub3d *cub3d);
+int	get_color_info(char *str);
+int	line_to_map(int y, char *line, t_cub3d *cub3d);
+
+// parse_utlis.c
+int	duplicate_map(t_cub3d *cub3d);
+char	**allocate_map(int y, int x);
+int	read_map_size(int fd, t_cub3d *cub3d);
+int	right_map_char(char c);
+
+// clolor.c
+void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
 int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
-void my_keyhook(mlx_key_data_t keydata, void *param);
+int	calc_grad_color(int steps, int cl_a, float rgba[4]);
+
+// keyhook.c
 void	win_close(void *param);
+void	my_keyhook(mlx_key_data_t keydata, void *param);
+
+
+void	ft_free_tab(char **tab);
 
 #endif
