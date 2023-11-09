@@ -54,7 +54,6 @@ typedef struct cub3d
 	t_point			pos_char;
 	t_point			pos_wall;
 
-	mlx_image_t		*minimap;
 	mlx_image_t		*viewport;
 	mlx_t			*mlx;
 
@@ -75,15 +74,6 @@ typedef struct cub3d
 }	t_cub3d;
 
 void	terminate(char *str, t_cub3d *cub3d, int mlx);
-
-// draw_minimap.c
-void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
-void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color);
-void	draw_minimap(t_cub3d *cub3d);
-
-// draw_character.c
-void	draw_direction(t_cub3d *cub3d, unsigned int color);
-void	draw_character(t_cub3d *cub3d, unsigned int color);
 
 // raycaster_main.c
 void	raycaster(t_cub3d *cub3d, double ra, int r);

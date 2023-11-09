@@ -17,6 +17,5 @@ void	render(void *param)
 	t_cub3d	*cub3d;
 
 	cub3d = (t_cub3d *)param;
-	draw_minimap(cub3d);
 	draw_viewport(cub3d);
 }
