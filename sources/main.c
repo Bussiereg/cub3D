@@ -26,12 +26,12 @@ int	cub3d_init(t_cub3d *cub3d)
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
 	if (!cub3d->minimap)
 		return (1);
-	cub3d->N = cub3d->viewport;
-	cub3d->S = cub3d->viewport;
-	cub3d->E = cub3d->viewport;
-	cub3d->W = cub3d->viewport;
-	cub3d->color_C = 0;
-	cub3d->color_F = 0;
+	cub3d->t_n = cub3d->viewport;
+	cub3d->t_s = cub3d->viewport;
+	cub3d->t_e = cub3d->viewport;
+	cub3d->t_w = cub3d->viewport;
+	cub3d->color_c = 0;
+	cub3d->color_f = 0;
 	return (0);
 }
 
@@ -40,9 +40,9 @@ int	main(int argc, char *argv[])
 	t_cub3d		cub3d;
 
 	if (argc != 2)
-		terminate("Incorrect number of arguments!", &cub3d, 0);
+		terminate("Incorrect number of arguments!", &cub3d, 0, 0);
 	if (cub3d_init(&cub3d) == 1)
-		terminate("Init cub3d  mlx42 error", &cub3d, 0);
+		terminate("Init cub3d  mlx42 error", &cub3d, 0, 0);
 	parse_map(argv[1], &cub3d);
 	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);

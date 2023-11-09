@@ -19,7 +19,7 @@ int	copy_map(char *file, t_cub3d *cub3d, int fd)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		terminate("open failed", cub3d, 1);
+		terminate("open failed", cub3d, 1, 1);
 	while (0 < cub3d->map_line--)
 		free(get_next_line(fd));
 	y = 0;
@@ -30,7 +30,7 @@ int	copy_map(char *file, t_cub3d *cub3d, int fd)
 		{
 			line = ft_strtrim(line, "\n");
 			if (!line)
-				terminate("parse alloc error", cub3d, 1);
+				terminate("parse alloc error", cub3d, 1, 1);
 			line_to_map(y, line, cub3d);
 			y++;
 		}
@@ -62,7 +62,7 @@ int	check_wall(char **map, t_cub3d *cub3d)
 	floodfill(cub3d, 0, 0, '.');
 	if (cub3d->map_check[(int)(cub3d->pos_y / UNIT) + 1][(int)(cub3d->pos_x
 			/ UNIT) + 1] == '.')
-		printf("map not closed\n");
+		terminate("map not closed", cub3d, 1, 2);
 	floodfill(cub3d, cub3d->pos_y / UNIT + 1, cub3d->pos_x / UNIT + 1, '.');
 	y = -1;
 	while (map[++y] != 0)
@@ -71,7 +71,7 @@ int	check_wall(char **map, t_cub3d *cub3d)
 		while (map[y][++x] != 0)
 		{
 			if (map[y][x] == '0')
-				printf("map not closed inside\n");
+				terminate("map not closed inside", cub3d, 1, 2);
 		}
 	}
 	return (0);
@@ -83,16 +83,16 @@ int	parse_map(char *file, t_cub3d *cub3d)
 	int	i;
 
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
-		terminate("Wrong extension", cub3d, 1);
+		terminate("Wrong extension", cub3d, 1, 0);
 	fd = read_info(file, cub3d);
 	read_map_size(fd, cub3d);
 	cub3d->map = allocate_map(cub3d->m_size_y + 1, cub3d->m_size_x + 1);
 	if (!cub3d->map)
-		terminate("Map alloc fail", cub3d, 1);
+		terminate("Map alloc fail", cub3d, 1, 0);
 	copy_map(file, cub3d, 0);
 	cub3d->map_check = allocate_map(cub3d->m_size_y + 3, cub3d->m_size_x + 3);
 	if (!cub3d->map_check)
-		terminate("Map check alloc fail", cub3d, 1);
+		terminate("Map check alloc fail", cub3d, 1, 1);
 	duplicate_map(cub3d);
 	check_wall(cub3d->map_check, cub3d);
 	i = 0;
