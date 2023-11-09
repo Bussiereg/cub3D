@@ -87,7 +87,7 @@ void	draw_game(t_cub3d *cub3d)
 {
 	double	ray_angle;
 
-	ray_angle = cub3d->pos_angle - DR * WIDTH / 2;
+	ray_angle = cub3d->pos_angle - ((M_PI / 180 * DR) / (WIDTH)) * WIDTH / 2;
 	cub3d->ray = -1;
 	cub3d->vx = cub3d->pos_x;
 	cub3d->vy = cub3d->pos_y;
@@ -102,6 +102,6 @@ void	draw_game(t_cub3d *cub3d)
 		check_vertical_line(cub3d, ray_angle, 0);
 		calculate_wall_distance(cub3d);
 		raycaster(cub3d, ray_angle);
-		ray_angle = ray_angle + DR;
+		ray_angle = ray_angle + ((M_PI / 180 * DR) / (WIDTH));
 	}
 }
