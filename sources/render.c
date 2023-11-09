@@ -12,10 +12,18 @@
 
 #include "cub3d.h"
 
+void	render_viewport(t_cub3d *cub3d)
+{
+	draw_ceiling(cub3d);
+	draw_floor(cub3d);
+	draw_game(cub3d);
+	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 0);
+}
+
 void	render(void *param)
 {
 	t_cub3d	*cub3d;
 
 	cub3d = (t_cub3d *)param;
-	draw_viewport(cub3d);
+	render_viewport(cub3d);
 }
