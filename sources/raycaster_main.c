@@ -12,12 +12,51 @@
 
 #include "cub3d.h"
 
-void	raycaster(t_cub3d *cub3d, double ra, int ray)
+void	south_north_wall(t_cub3d *cub3d, double line_height, double ra, int ray)
 {
-	double	ca;
 	double	tx;
 	int		tile_d;
 	int		pixel;
+
+	tile_d = (int)cub3d->wall_x / UNIT;
+	tx = cub3d->wall_x - tile_d * UNIT;
+	if (ra < M_PI)
+	{
+		pixel = tx / UNIT * cub3d->S->height;
+		draw_line_textu(line_height, ray, cub3d->S->height - pixel - 1,
+			cub3d->S, cub3d);
+	}
+	else
+	{
+		pixel = tx / UNIT * cub3d->N->height;
+		draw_line_textu(line_height, ray, pixel, cub3d->N, cub3d);
+	}
+}
+
+void	east_west_wall(t_cub3d *cub3d, double line_height, double ra, int ray)
+{
+	double	tx;
+	int		tile_d;
+	int		pixel;
+
+	tile_d = (int)cub3d->wall_y / UNIT;
+	tx = cub3d->wall_y - tile_d * UNIT;
+	if (ra <= M_PI_2 || ra >= (3 * M_PI_2))
+	{
+		pixel = tx / UNIT * cub3d->E->height;
+		draw_line_textu(line_height, ray, pixel, cub3d->E, cub3d);
+	}
+	else
+	{
+		pixel = tx / UNIT * cub3d->W->height;
+		draw_line_textu(line_height, ray, cub3d->E->height - pixel - 1,
+			cub3d->W, cub3d);
+	}
+}
+
+void	raycaster(t_cub3d *cub3d, double ra, int ray)
+{
+	double	ca;
 	double	line_height;
 
 	ca = fix_angle(cub3d->pos_angle - ra);
@@ -25,35 +64,7 @@ void	raycaster(t_cub3d *cub3d, double ra, int ray)
 	line_height = (HEIGHT * ((double)WIDTH / (double)HEIGHT)) / (cub3d->final_d
 			/ UNIT);
 	if (cub3d->disth < cub3d->distv)
-	{
-		tile_d = (int)cub3d->wall_x / UNIT;
-		tx = cub3d->wall_x - tile_d * UNIT;
-		if (ra < M_PI)
-		{
-			pixel = tx / UNIT * cub3d->S->height;
-			draw_line_textu(line_height, ray, cub3d->S->height - pixel - 1,
-				cub3d->S, cub3d);
-		}
-		else
-		{
-			pixel = tx / UNIT * cub3d->N->height;
-			draw_line_textu(line_height, ray, pixel, cub3d->N, cub3d);
-		}
-	}
+		south_north_wall(cub3d, line_height, ra, ray);
 	else
-	{
-		tile_d = (int)cub3d->wall_y / UNIT;
-		tx = cub3d->wall_y - tile_d * UNIT;
-		if (ra <= M_PI_2 || ra >= (3 * M_PI_2))
-		{
-			pixel = tx / UNIT * cub3d->E->height;
-			draw_line_textu(line_height, ray, pixel, cub3d->E, cub3d);
-		}
-		else
-		{
-			pixel = tx / UNIT * cub3d->W->height;
-			draw_line_textu(line_height, ray, cub3d->E->height - pixel - 1,
-				cub3d->W, cub3d);
-		}
-	}
+		east_west_wall(cub3d, line_height, ra, ray);
 }
