@@ -54,34 +54,6 @@ int	get_color_info(char *str)
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
 
-void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info)
-{
-	if (ft_strncmp(info[0], "NO", 2) == 0)
-	{
-		texture = mlx_load_png(info[1]);
-		cub3d->t_n = mlx_texture_to_image(cub3d->mlx, texture);
-		mlx_delete_texture(texture);
-	}
-	if (ft_strncmp(info[0], "SO", 2) == 0)
-	{
-		texture = mlx_load_png(info[1]);
-		cub3d->t_s = mlx_texture_to_image(cub3d->mlx, texture);
-		mlx_delete_texture(texture);
-	}
-	if (ft_strncmp(info[0], "WE", 2) == 0)
-	{
-		texture = mlx_load_png(info[1]);
-		cub3d->t_w = mlx_texture_to_image(cub3d->mlx, texture);
-		mlx_delete_texture(texture);
-	}
-	if (ft_strncmp(info[0], "EA", 2) == 0)
-	{
-		texture = mlx_load_png(info[1]);
-		cub3d->t_e = mlx_texture_to_image(cub3d->mlx, texture);
-		mlx_delete_texture(texture);
-	}
-}
-
 int	info_to_struct(char *line, t_cub3d *cub3d)
 {
 	char	**info;

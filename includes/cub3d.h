@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gbussier <gbussier@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/09 13:18:05 by gbussier          #+#    #+#             */
+/*   Updated: 2023/11/09 13:18:08 by gbussier         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -75,6 +87,8 @@ typedef struct cub3d
 }	t_cub3d;
 
 // raycaster_main.c
+void	south_north_wall(t_cub3d *cub3d, double line_height, double ra);
+void	east_west_wall(t_cub3d *cub3d, double line_height, double ra);
 void	raycaster(t_cub3d *cub3d, double ra);
 
 // raycaster_distance.c
@@ -84,24 +98,21 @@ void	dist_to_vertical_wall(t_cub3d *cub3d, double xo, double yo, int lim);
 void	calculate_wall_distance(t_cub3d *cub3d);
 
 // raycaster_calculus.c
-void	check_vertical_line(t_cub3d *cub3d, double ra, int lim);
-void	check_horizontal_line(t_cub3d *cub3d, double ra, int lim);
 double	fix_angle(double a);
-void	display(t_cub3d *cub3d);
-void	draw_minimap_background(t_cub3d *cub3d);
+void	check_horizontal_line(t_cub3d *cub3d, double ra, int lim);
+void	check_vertical_line(t_cub3d *cub3d, double ra, int lim);
 
 // draw_viewport.c
 int		draw_sky(t_cub3d *cub3d);
 int		draw_ceiling(t_cub3d *cub3d);
-void	draw_game(t_cub3d *cub3d);
 int		draw_floor(t_cub3d *cub3d);
-void	draw_viewport(t_cub3d *cub3d);
 void	draw_line_textu(double line_height, int text_x_pos,
 			mlx_image_t *text, t_cub3d *cub3d);
+void	draw_game(t_cub3d *cub3d);
 
 /// render.c
-void	render(void *param);
 void	render_viewport(t_cub3d *cub3d);
+void	render(void *param);
 
 // parse_main.c
 int		copy_map(char *file, t_cub3d *cub3d, int fd);
@@ -110,18 +121,21 @@ int		check_wall(char **map, t_cub3d *cub3d);
 int		parse_map(char *file, t_cub3d *cub3d);
 
 // parse_info.c
-int		read_pos(t_cub3d *cub3d, char c, int y, int i);
-int		read_info(char *file, t_cub3d *cub3d);
-int		all_info_read(t_cub3d *cub3d);
-int		info_to_struct(char *line, t_cub3d *cub3d);
-int		get_color_info(char *str);
 int		line_to_map(int y, char *line, t_cub3d *cub3d);
+int		get_color_info(char *str);
+int		info_to_struct(char *line, t_cub3d *cub3d);
+int		all_info_read(t_cub3d *cub3d);
+int		read_info(char *file, t_cub3d *cub3d);
+
+// parse_textures.c
+void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
+
 
 // parse_utlis.c
-int		duplicate_map(t_cub3d *cub3d);
-char	**allocate_map(int y, int x);
-int		read_map_size(int fd, t_cub3d *cub3d);
 int		right_map_char(char c);
+int		read_map_size(int fd, t_cub3d *cub3d);
+char	**allocate_map(int y, int x);
+int		duplicate_map(t_cub3d *cub3d);
 void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d);
 
 // color.c
@@ -144,7 +158,7 @@ void	win_close(void *param);
 void	my_keyhook(mlx_key_data_t keydata, void *param);
 
 // close.c
-void	terminate(char *str, t_cub3d *cub3d, int mlx, int map);
 void	ft_free_tab(char **tab);
+void	terminate(char *str, t_cub3d *cub3d, int mlx, int map);
 
 #endif
