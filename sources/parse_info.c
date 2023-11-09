@@ -67,14 +67,7 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 		cub3d->color_f = get_color_info(info[1]);
 	if (ft_strncmp(info[0], "C", 2) == 0)
 		cub3d->color_c = get_color_info(info[1]);
-	if (ft_strncmp(info[0], "NO", 2) == 0)
-		cub3d->t_n = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
-	if (ft_strncmp(info[0], "SO", 2) == 0)
-		cub3d->t_s = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
-	if (ft_strncmp(info[0], "WE", 2) == 0)
-		cub3d->t_w = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
-	if (ft_strncmp(info[0], "EA", 2) == 0)
-		cub3d->t_e = mlx_texture_to_image(cub3d->mlx, mlx_load_png(info[1]));
+	load_textures(NULL, cub3d, info);
 	if (!cub3d->t_n || !cub3d->t_s || !cub3d->t_e || !cub3d->t_w)
 		terminate("texture Wall error", cub3d, 1, 1);
 	ft_free_tab(info);

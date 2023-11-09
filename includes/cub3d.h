@@ -127,6 +127,10 @@ int		info_to_struct(char *line, t_cub3d *cub3d);
 int		all_info_read(t_cub3d *cub3d);
 int		read_info(char *file, t_cub3d *cub3d);
 
+// parse_textures.c
+void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
+
+
 // parse_utlis.c
 int		right_map_char(char c);
 int		read_map_size(int fd, t_cub3d *cub3d);
