@@ -114,27 +114,29 @@ void	render_viewport(t_cub3d *cub3d);
 void	render(void *param);
 
 // parse_main.c
-int		copy_map(char *file, t_cub3d *cub3d, int fd);
+int		copy_map(char *file, t_cub3d *cub3d);
 void	floodfill(t_cub3d *cub3d, int y, int x, char new_val);
 int		check_wall(char **map, t_cub3d *cub3d);
 int		parse_map(char *file, t_cub3d *cub3d);
 
 // parse_info.c
 int		line_to_map(int y, char *line, t_cub3d *cub3d);
-int		get_color_info(char *str);
+int		map_line(char *line);
 int		info_to_struct(char *line, t_cub3d *cub3d);
 int		all_info_read(t_cub3d *cub3d);
 int		read_info(char *file, t_cub3d *cub3d);
 
 // parse_textures.c
 void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
+void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d);
+int		get_color_info(char *str);
 
 // parse_utlis.c
 int		right_map_char(char c);
-int		read_map_size(int fd, t_cub3d *cub3d);
+int		read_map_size(char *file, t_cub3d *cub3d, int fd);
 char	**allocate_map(int y, int x);
 int		duplicate_map(t_cub3d *cub3d);
-void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d);
+int		open_file_to_line(char *file, t_cub3d *cub3d);
 
 // color.c
 void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);

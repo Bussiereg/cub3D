@@ -12,31 +12,28 @@
 
 #include "cub3d.h"
 
-int	copy_map(char *file, t_cub3d *cub3d, int fd)
+int	copy_map(char *file, t_cub3d *cub3d)
 {
 	int		y;
+	int		fd;
 	char	*line;
 
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		terminate("open failed", cub3d, 1, 1);
-	while (0 < cub3d->map_line--)
-		free(get_next_line(fd));
+	fd = open_file_to_line(file, cub3d);
 	y = 0;
+	cub3d->map[cub3d->m_size_y] = 0;
 	while (y < cub3d->m_size_y)
 	{
 		line = get_next_line(fd);
-		if (ft_strlen(line) > 1)
+		if (ft_strlen(line) > 0)
 		{
 			line = ft_strtrim(line, "\n");
 			if (!line)
 				terminate("parse alloc error", cub3d, 1, 1);
 			line_to_map(y, line, cub3d);
-			y++;
 		}
+		y++;
 		free(line);
 	}
-	cub3d->map[y] = 0;
 	close(fd);
 	return (0);
 }
@@ -79,27 +76,20 @@ int	check_wall(char **map, t_cub3d *cub3d)
 
 int	parse_map(char *file, t_cub3d *cub3d)
 {
-	int	fd;
-	int	i;
-
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
 		terminate("Wrong extension", cub3d, 1, 0);
-	fd = read_info(file, cub3d);
-	read_map_size(fd, cub3d);
+	read_info(file, cub3d);
+	read_map_size(file, cub3d, 0);
 	cub3d->map = allocate_map(cub3d->m_size_y + 1, cub3d->m_size_x + 1);
 	if (!cub3d->map)
 		terminate("Map alloc fail", cub3d, 1, 0);
-	copy_map(file, cub3d, 0);
+	copy_map(file, cub3d);
 	cub3d->map_check = allocate_map(cub3d->m_size_y + 3, cub3d->m_size_x + 3);
 	if (!cub3d->map_check)
 		terminate("Map check alloc fail", cub3d, 1, 1);
+	if (cub3d->pos_x == 0 || cub3d->pos_y == 0)
+		terminate("no player position", cub3d, 1, 1);
 	duplicate_map(cub3d);
 	check_wall(cub3d->map_check, cub3d);
-	i = 0;
-	while (cub3d->map_check[i] != 0)
-	{
-		printf("%s\n", cub3d->map_check[i]);
-		i++;
-	}
 	return (0);
 }

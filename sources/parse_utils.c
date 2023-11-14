@@ -21,7 +21,21 @@ int	right_map_char(char c)
 		return (0);
 }
 
-int	read_map_size(int fd, t_cub3d *cub3d)
+int	open_file_to_line(char *file, t_cub3d *cub3d)
+{
+	int	fd;
+	int	i;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		terminate("open failed", cub3d, 1, 0);
+	i = 0;
+	while (i++ < cub3d->map_line)
+		free(get_next_line(fd));
+	return (fd);
+}
+
+int	read_map_size(char *file, t_cub3d *cub3d, int fd)
 {
 	char	*line;
 	int		x;
@@ -29,6 +43,7 @@ int	read_map_size(int fd, t_cub3d *cub3d)
 
 	x = 0;
 	y = 0;
+	fd = open_file_to_line(file, cub3d);
 	line = "line";
 	while (line)
 	{
@@ -44,10 +59,9 @@ int	read_map_size(int fd, t_cub3d *cub3d)
 			x = ft_strlen(line);
 		free(line);
 	}
-	close(fd);
 	cub3d->m_size_x = x - 1;
 	cub3d->m_size_y = y;
-	return (0);
+	return (close(fd));
 }
 
 char	**allocate_map(int y, int x)
@@ -98,20 +112,4 @@ int	duplicate_map(t_cub3d *cub3d)
 	}
 	cub3d->map_check[y] = 0;
 	return (0);
-}
-
-void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d)
-{
-	cub3d->pos_x = x * UNIT + UNIT / 2;
-	cub3d->pos_y = y * UNIT + UNIT / 2;
-	if (map_char == 'N')
-		cub3d->pos_angle = 3 * M_PI / 2;
-	else if (map_char == 'S')
-		cub3d->pos_angle = M_PI / 2;
-	else if (map_char == 'W')
-		cub3d->pos_angle = 0;
-	else if (map_char == 'E')
-		cub3d->pos_angle = M_PI;
-	cub3d->pos_dx = cos(cub3d->pos_angle);
-	cub3d->pos_dy = sin(cub3d->pos_angle);
 }

@@ -39,3 +39,34 @@ void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info)
 		mlx_delete_texture(texture);
 	}
 }
+
+int	get_color_info(char *str)
+{
+	char	**rgb;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+
+	rgb = ft_split(str, ',');
+	r = ft_atoi(rgb[0]);
+	g = ft_atoi(rgb[1]);
+	b = ft_atoi(rgb[2]);
+	ft_free_tab(rgb);
+	return (r << 24 | g << 16 | b << 8 | 0xFF);
+}
+
+void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d)
+{
+	cub3d->pos_x = x * UNIT + UNIT / 2;
+	cub3d->pos_y = y * UNIT + UNIT / 2;
+	if (map_char == 'N')
+		cub3d->pos_angle = 3 * M_PI / 2;
+	else if (map_char == 'S')
+		cub3d->pos_angle = M_PI / 2;
+	else if (map_char == 'W')
+		cub3d->pos_angle = 0;
+	else if (map_char == 'E')
+		cub3d->pos_angle = M_PI;
+	cub3d->pos_dx = cos(cub3d->pos_angle);
+	cub3d->pos_dy = sin(cub3d->pos_angle);
+}
