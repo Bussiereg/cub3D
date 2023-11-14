@@ -39,21 +39,6 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 	return (0);
 }
 
-int	get_color_info(char *str)
-{
-	char	**rgb;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-
-	rgb = ft_split(str, ',');
-	r = ft_atoi(rgb[0]);
-	g = ft_atoi(rgb[1]);
-	b = ft_atoi(rgb[2]);
-	ft_free_tab(rgb);
-	return (r << 24 | g << 16 | b << 8 | 0xFF);
-}
-
 int	info_to_struct(char *line, t_cub3d *cub3d)
 {
 	char	**info;
@@ -61,15 +46,20 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 	if (line[0] == 0)
 		return (0);
 	info = ft_split(line, ' ');
+	if (info[1] == 0)
+	{
+		ft_free_tab(info);
+		return (0);
+	}
 	if (info[2] != 0)
-		terminate("info map error", cub3d, 1, 1);
+		terminate("info map error", cub3d, 1, 0);
 	if (ft_strncmp(info[0], "F", 2) == 0)
 		cub3d->color_f = get_color_info(info[1]);
 	if (ft_strncmp(info[0], "C", 2) == 0)
 		cub3d->color_c = get_color_info(info[1]);
 	load_textures(NULL, cub3d, info);
 	if (!cub3d->t_n || !cub3d->t_s || !cub3d->t_e || !cub3d->t_w)
-		terminate("texture Wall error", cub3d, 1, 1);
+		terminate("texture Wall error", cub3d, 1, 0);
 	ft_free_tab(info);
 	return (0);
 }
@@ -83,6 +73,28 @@ int	all_info_read(t_cub3d *cub3d)
 	return (1);
 }
 
+int	map_line(char *line)
+{
+	int	i;
+	int	y;
+	int	n;
+
+	i = 0;
+	y = 0;
+	n = 0;
+	while (line[i])
+	{
+		if (line[i] == '1' || line[i] == '0')
+			y = 1;
+		if (line[i] != '1' && line[i] != '0' && line[i] != ' ')
+			n = 1;
+		i++;
+	}
+	if (y == 1 && n == 0)
+		return (1);
+	return (0);
+}
+
 int	read_info(char *file, t_cub3d *cub3d)
 {
 	int		fd;
@@ -91,18 +103,23 @@ int	read_info(char *file, t_cub3d *cub3d)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		terminate("open failed", cub3d, 1, 1);
+		terminate("open failed", cub3d, 1, 0);
 	l = 0;
-	while (all_info_read(cub3d) == 0)
+	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			terminate("parse alloc error", cub3d, 1, 1);
+			terminate("info map error", cub3d, 1, 0);
 		line = ft_strtrim(line, "\n");
 		info_to_struct(line, cub3d);
+		if (all_info_read(cub3d) == 1 && map_line(line) == 1)
+		{
+			free(line);
+			break ;
+		}
 		free(line);
-		l++;
-		cub3d->map_line = l;
+		cub3d->map_line = ++l;
 	}
-	return (fd);
+	close(fd);
+	return (0);
 }
