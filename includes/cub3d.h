@@ -27,7 +27,8 @@
 # define HEIGHT 700
 # define WIDTH 1400
 # define ROTATE 26
-# define DR 70
+# define DR 60
+# define RAD 0.0174533
 
 typedef struct point
 {

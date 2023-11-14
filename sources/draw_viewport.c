@@ -86,8 +86,11 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 void	draw_game(t_cub3d *cub3d)
 {
 	double	ray_angle;
+	double coeff;
 
-	ray_angle = cub3d->pos_angle - ((M_PI / 180 * DR) / (WIDTH)) * WIDTH / 2;
+	coeff = RAD * DR / WIDTH;
+	printf("coeff en rad/ %f coeff en degrés %f\n", coeff, coeff / RAD * WIDTH);
+	ray_angle = cub3d->pos_angle - DR / 2 * RAD;
 	cub3d->ray = -1;
 	cub3d->vx = cub3d->pos_x;
 	cub3d->vy = cub3d->pos_y;
@@ -102,6 +105,6 @@ void	draw_game(t_cub3d *cub3d)
 		check_vertical_line(cub3d, ray_angle, 0);
 		calculate_wall_distance(cub3d);
 		raycaster(cub3d, ray_angle);
-		ray_angle = ray_angle + ((M_PI / 180 * DR) / (WIDTH));
+		ray_angle += coeff;
 	}
 }
