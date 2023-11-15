@@ -26,8 +26,8 @@
 # define UNIT 10
 # define HEIGHT 700
 # define WIDTH 1400
-# define ROTATE 26
-# define DR 70
+# define ROTATE 360
+# define DR 90
 
 typedef struct point
 {
@@ -66,6 +66,7 @@ typedef struct cub3d
 	t_point			pos_wall;
 
 	mlx_image_t		*viewport;
+	mlx_image_t		*sky;
 	mlx_t			*mlx;
 
 	char			**map;
@@ -73,13 +74,18 @@ typedef struct cub3d
 	int				map_line;
 	int				m_size_x;
 	int				m_size_y;
+	int				wall_height;
 
 	mlx_image_t		*t_n;
 	mlx_image_t		*t_s;
 	mlx_image_t		*t_e;
 	mlx_image_t		*t_w;
+	mlx_image_t		*t_intro;
+	mlx_image_t		*t_sky;
+	mlx_image_t		*t_bo;
 
 	int				color_c;
+	int				color_c2;
 	int				color_f;
 
 }	t_cub3d;

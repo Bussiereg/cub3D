@@ -38,6 +38,24 @@ void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info)
 		cub3d->t_e = mlx_texture_to_image(cub3d->mlx, texture);
 		mlx_delete_texture(texture);
 	}
+	if (ft_strncmp(info[0], "SK", 2) == 0)
+	{
+		texture = mlx_load_png(info[1]);
+		cub3d->t_sky = mlx_texture_to_image(cub3d->mlx, texture);
+		mlx_delete_texture(texture);
+	}
+	if (ft_strncmp(info[0], "BO", 2) == 0)
+	{
+		texture = mlx_load_png(info[1]);
+		cub3d->t_bo = mlx_texture_to_image(cub3d->mlx, texture);
+		mlx_delete_texture(texture);
+	}
+	if (ft_strncmp(info[0], "IN", 2) == 0)
+	{
+		texture = mlx_load_png(info[1]);
+		cub3d->t_intro = mlx_texture_to_image(cub3d->mlx, texture);
+		mlx_delete_texture(texture);
+	}
 }
 
 int	get_color_info(char *str)

@@ -23,8 +23,15 @@ void	south_north_wall(t_cub3d *cub3d, double line_height, double ra)
 	if (ra < M_PI)
 	{
 		pixel = tx / UNIT * cub3d->t_s->height;
-		draw_line_textu(line_height, cub3d->t_s->height - pixel - 1,
+		if (cub3d->map[cub3d->my][cub3d->mx] == '1')
+			draw_line_textu(line_height, cub3d->t_s->height - pixel - 1,
 			cub3d->t_s, cub3d);
+		else
+		{
+			printf("*");
+			draw_line_textu(line_height, cub3d->t_bo->height - pixel - 1,
+			cub3d->t_bo, cub3d);
+		}
 	}
 	else
 	{

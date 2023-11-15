@@ -21,7 +21,7 @@ int	draw_sky(t_cub3d *cub3d)
 	int		sky;
 
 	sky = cub3d->color_c;
-	sky_darker = 0x000910FF;
+	sky_darker = cub3d->color_c2;
 	calc_grad_steps(HEIGHT / 2, sky_darker, sky, &*rgba);
 	y = 0;
 	while (y < HEIGHT / 2)
@@ -29,7 +29,7 @@ int	draw_sky(t_cub3d *cub3d)
 		x = 0;
 		while (x < WIDTH * 2)
 		{
-			mlx_put_pixel(cub3d->viewport, x, y, calc_grad_color(y, sky_darker,
+			mlx_put_pixel(cub3d->sky, x, y, calc_grad_color(y, sky_darker,
 					&*rgba));
 			x++;
 		}
@@ -70,14 +70,22 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	int	a;
 	int	b;
 
-	a = HEIGHT / 2 - line_height / 2;
-	b = HEIGHT / 2 + line_height / 2;
+	if (cub3d->wall_height < 1)
+	{
+		a = HEIGHT / 2;
+		b = HEIGHT / 2 + line_height * cub3d->wall_height;
+	}
+	else
+	{
+		a = HEIGHT / 2 - line_height * cub3d->wall_height + line_height / 2;
+		b = HEIGHT / 2 + line_height / 2;
+	}
 	i = 0;
 	while (a < b)
 	{
 		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < HEIGHT)
 			mlx_put_pixel(cub3d->viewport, cub3d->ray, a, calc_pix_color(i,
-					text, text_x_pos, line_height + 1));
+					text, text_x_pos, line_height * cub3d->wall_height + 1));
 		a++;
 		i++;
 	}

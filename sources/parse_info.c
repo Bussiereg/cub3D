@@ -51,12 +51,17 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 		ft_free_tab(info);
 		return (0);
 	}
-	if (info[2] != 0)
-		terminate("info map error", cub3d, 1, 0);
+/* 	if (info[2] != 0)
+		terminate("info map error", cub3d, 1, 0); */
 	if (ft_strncmp(info[0], "F", 2) == 0)
 		cub3d->color_f = get_color_info(info[1]);
 	if (ft_strncmp(info[0], "C", 2) == 0)
+	{
 		cub3d->color_c = get_color_info(info[1]);
+		cub3d->color_c2 = get_color_info(info[2]);
+	}
+	if (ft_strncmp(info[0], "H", 2) == 0)
+		cub3d->wall_height = ft_atoi(info[1]);
 	load_textures(NULL, cub3d, info);
 	if (!cub3d->t_n || !cub3d->t_s || !cub3d->t_e || !cub3d->t_w)
 		terminate("texture Wall error", cub3d, 1, 0);
@@ -86,7 +91,7 @@ int	map_line(char *line)
 	{
 		if (line[i] == '1' || line[i] == '0')
 			y = 1;
-		if (line[i] != '1' && line[i] != '0' && line[i] != ' ')
+		if (line[i] != '1' && line[i] != '0' && line[i] != ' ' && line[i] != '2')
 			n = 1;
 		i++;
 	}
