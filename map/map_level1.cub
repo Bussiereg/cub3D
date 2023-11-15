@@ -7,7 +7,7 @@ BO ./texture/moon_E.png
 SK ./texture/sky2.png
 IN ./texture/intro.png
 
-F 119,121,122
+F 103,127,124
 C 42,45,56 5,5,20
 H 2
 
