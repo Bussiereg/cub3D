@@ -13,45 +13,89 @@
 #include "libft.h"
 #include <stdlib.h>
 
-int	checkchar(const char c, char const *set)
+int	check_charset_rev(char const *str, char const *set)
 {
-	size_t	sizeset;
-	size_t	i;
+	int		i;
+	size_t	c;
+	int		found;
+	int		check;
+
+	i = ft_strlen(str) - 1;
+	found = 0;
+	check = 1;
+	while (check == 1 && i >= 0)
+	{
+		c = 0;
+		check = 0;
+		while (c < ft_strlen(set))
+		{
+			if (str[i] == set[c])
+			{
+				found += 1;
+				check = 1;
+				break ;
+			}
+			c++;
+		}
+		i--;
+	}
+	return (found);
+}
+
+int	check_charset(char const *str, char const *set)
+{
+	int		i;
+	size_t	c;
+	int		found;
+	int		check;
 
 	i = 0;
-	sizeset = ft_strlen(set);
-	while (i < sizeset)
+	found = 0;
+	check = 1;
+	while (check == 1 && str[i] != 0)
 	{
-		if (c == set[i])
-			return (1);
+		c = 0;
+		check = 0;
+		while (c < ft_strlen(set))
+		{
+			if (str[i] == set[c])
+			{
+				found += 1;
+				check = 1;
+				break ;
+			}
+			c++;
+		}
 		i++;
 	}
-	return (0);
+	return (found);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*strtrim;
-	size_t	end;
-	size_t	i;
-	size_t	start;
-	size_t	size;
+	char	*trim;
+	int		i;
+	int		rm_s;
+	int		rm_e;
+	int		len;
 
 	i = 0;
-	start = 0;
-	end = ft_strlen(s1);
-	while (checkchar(s1[start], set))
-		start++;
-	while (checkchar(s1[end - 1], set))
-		end--;
-	size = end - start + 1;
-	if (end <= start)
-		size = 1;
-	strtrim = (char *)malloc(sizeof(*strtrim) * size);
-	if (!strtrim)
-		return (NULL);
-	while (start != end && start <= end)
-		strtrim[i++] = s1[start++];
-	strtrim[i] = '\0';
-	return (strtrim);
+	rm_e = 0;
+	len = ft_strlen(s1);
+	rm_s = check_charset(s1, set);
+	if (rm_s != len)
+		rm_e = check_charset_rev(s1, set);
+	trim = malloc (len - rm_s - rm_e + 1);
+	len = len - rm_s - rm_e;
+	if (!trim)
+		return (0);
+	while (len > 0)
+	{
+		trim[i] = s1[rm_s];
+		i++;
+		rm_s++;
+		len--;
+	}
+	trim[i] = 0;
+	return (trim);
 }
