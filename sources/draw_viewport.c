@@ -85,23 +85,32 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 
 void	draw_game(t_cub3d *cub3d)
 {
-	double	ray_angle;
-
-	ray_angle = cub3d->pos_angle - ((M_PI / 180 * DR) / (WIDTH)) * WIDTH / 2;
-	cub3d->ray = -1;
-	cub3d->vx = cub3d->pos_x;
-	cub3d->vy = cub3d->pos_y;
-	cub3d->hx = cub3d->pos_x;
-	cub3d->hy = cub3d->pos_y;
+	int stepX;
+	int stepY;
+	double	perpWallDist;
+	int	hit = 0;
+	int side;
+	
+	cub3d->ray = 0;
+	cub3d->vx = cub3d->posX;
+	cub3d->vy = cub3d->posY;
+	cub3d->hx = cub3d->posX;
+	cub3d->hy = cub3d->posY;
 	cub3d->xo = 0;
 	cub3d->yo = 0;
-	while (++cub3d->ray <= WIDTH)
+	while (cub3d->ray <= WIDTH)
 	{
-		ray_angle = fix_angle(ray_angle);
+		cub3d->cameraX = 2 * cub3d->ray / (double)WIDTH - 1;
+		cub3d->rayDirX = cub3d->dirX + cub3d->planeX * cub3d->cameraX;
+		cub3d->rayDirY = cub3d->dirY + cub3d->planeY * cub3d->cameraX;
+		cub3d->mapX = (int)cub3d->posX;
+		cub3d->mapY = (int)cub3d->posY;
+		cub3d->deltaDistX= sqrt(1 + (cub3d->rayDirY * cub3d->rayDirY) / (cub3d->rayDirX * cub3d->rayDirX));
+		cub3d->deltaDistX= sqrt(1 + (cub3d->rayDirX * cub3d->rayDirX) / (cub3d->rayDirY * cub3d->rayDirY));
 		check_horizontal_line(cub3d, ray_angle, 0);
 		check_vertical_line(cub3d, ray_angle, 0);
 		calculate_wall_distance(cub3d);
 		raycaster(cub3d, ray_angle);
-		ray_angle = ray_angle + ((M_PI / 180 * DR) / (WIDTH));
+		cub3d->ray++;
 	}
 }

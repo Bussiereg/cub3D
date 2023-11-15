@@ -52,7 +52,7 @@ void	dist_to_vertical_wall(t_cub3d *cub3d, double xo, double yo, int lim)
 			cub3d->mx = cub3d->m_size_x - 1;
 		if (cub3d->map[cub3d->my][cub3d->mx] == '1')
 		{
-			cub3d->distv = distance(cub3d->pos_x, cub3d->pos_y, cub3d->vx,
+			cub3d->distv = distance(cub3d->posX, cub3d->posY, cub3d->vx,
 					cub3d->vy);
 			break ;
 		}
@@ -81,7 +81,7 @@ void	dist_to_horizontal_wall(t_cub3d *cub3d, double xo, double yo, int lim)
 			cub3d->my = cub3d->m_size_y - 1;
 		if (cub3d->map[cub3d->my][cub3d->mx] == '1')
 		{
-			cub3d->disth = distance(cub3d->pos_x, cub3d->pos_y, cub3d->hx,
+			cub3d->disth = distance(cub3d->posX, cub3d->posY, cub3d->hx,
 					cub3d->hy);
 			break ;
 		}

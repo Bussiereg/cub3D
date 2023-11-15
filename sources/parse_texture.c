@@ -57,16 +57,26 @@ int	get_color_info(char *str)
 
 void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d)
 {
-	cub3d->pos_x = x * UNIT + UNIT / 2;
-	cub3d->pos_y = y * UNIT + UNIT / 2;
+	cub3d->posX = x * UNIT + UNIT / 2;
+	cub3d->posY = y * UNIT + UNIT / 2;
 	if (map_char == 'N')
-		cub3d->pos_angle = 3 * M_PI / 2;
+	{
+		cub3d->dirX = 0;
+		cub3d->dirY = -1;
+	}
 	else if (map_char == 'S')
-		cub3d->pos_angle = M_PI / 2;
+	{
+		cub3d->dirX = 0;
+		cub3d->dirY = 1;
+	}
 	else if (map_char == 'W')
-		cub3d->pos_angle = 0;
+	{
+		cub3d->dirX = -1;
+		cub3d->dirY = 0;
+	}
 	else if (map_char == 'E')
-		cub3d->pos_angle = M_PI;
-	cub3d->pos_dx = cos(cub3d->pos_angle);
-	cub3d->pos_dy = sin(cub3d->pos_angle);
+	{
+		cub3d->dirX = 1;
+		cub3d->dirY = 0;
+	}
 }

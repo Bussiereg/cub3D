@@ -57,10 +57,10 @@ int	check_wall(char **map, t_cub3d *cub3d)
 	int	y;
 
 	floodfill(cub3d, 0, 0, '.');
-	if (cub3d->map_check[(int)(cub3d->pos_y / UNIT) + 1][(int)(cub3d->pos_x
+	if (cub3d->map_check[(int)(cub3d->posY / UNIT) + 1][(int)(cub3d->posX
 			/ UNIT) + 1] == '.')
 		terminate("map not closed", cub3d, 1, 2);
-	floodfill(cub3d, cub3d->pos_y / UNIT + 1, cub3d->pos_x / UNIT + 1, '.');
+	floodfill(cub3d, cub3d->posY / UNIT + 1, cub3d->posX / UNIT + 1, '.');
 	y = -1;
 	while (map[++y] != 0)
 	{
@@ -87,7 +87,7 @@ int	parse_map(char *file, t_cub3d *cub3d)
 	cub3d->map_check = allocate_map(cub3d->m_size_y + 3, cub3d->m_size_x + 3);
 	if (!cub3d->map_check)
 		terminate("Map check alloc fail", cub3d, 1, 1);
-	if (cub3d->pos_x == 0 || cub3d->pos_y == 0)
+	if (cub3d->posX == 0 || cub3d->posY == 0)
 		terminate("no player position", cub3d, 1, 1);
 	duplicate_map(cub3d);
 	check_wall(cub3d->map_check, cub3d);
