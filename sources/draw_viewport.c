@@ -83,6 +83,17 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	}
 }
 
+double absol(double nombre) {
+    if (nombre < 0)
+	{
+        return (-nombre);
+    } 
+	else 
+	{
+        return (nombre);
+    }
+}
+
 void	draw_game(t_cub3d *cub3d)
 {
 	int stepX;
@@ -107,11 +118,11 @@ void	draw_game(t_cub3d *cub3d)
 		if (cub3d->rayDirX == 0)
 			cub3d->deltaDistX = 2000000;
 		else
-			cub3d->deltaDistX= sqrt(1 + (cub3d->rayDirY * cub3d->rayDirY) / (cub3d->rayDirX * cub3d->rayDirX));
+			cub3d->deltaDistX= absol(1 / cub3d->rayDirX);
 		if (cub3d->rayDirY == 0)
 			cub3d->deltaDistY = 2000000;
 		else
-			cub3d->deltaDistY= sqrt(1 + (cub3d->rayDirX * cub3d->rayDirX) / (cub3d->rayDirY * cub3d->rayDirY));
+			cub3d->deltaDistY= absol(1 / cub3d->rayDirY);
 		if (cub3d->rayDirX < 0)
 		{
 			stepX = -1;
