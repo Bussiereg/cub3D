@@ -106,7 +106,7 @@ void	draw_game(t_cub3d *cub3d)
 	int drawEnd;
 	
 	cub3d->ray = 0;
-	while (cub3d->ray <= WIDTH)
+	while (cub3d->ray < WIDTH)
 	{
 		hit = 0;
 		lineHeight = 0;
