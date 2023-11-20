@@ -42,8 +42,24 @@ typedef struct cub3d
 	int				res_x;
 	int				res_y;
 
-	double			pos_x;
-	double			pos_y;
+	double			posX;
+	double			posY;
+	double			dirX;
+	double			dirY;
+	double			planeX;
+	double			planeY;
+	double			cameraX;
+	double			rayDirX;
+	double			rayDirY;
+	int				mapX;
+	int				mapY;
+
+	double			sideDistY;
+	double			sideDistX;
+	double			deltaDistY;
+	double			deltaDistX;
+
+
 	double			pos_angle;
 	double			pos_dx;
 	double			pos_dy;

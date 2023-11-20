@@ -48,4 +48,5 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 		rotating_right(cub3d);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		win_close(param);
+	render(cub3d);
 }
