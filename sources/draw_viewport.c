@@ -88,78 +88,93 @@ void	draw_game(t_cub3d *cub3d)
 	int stepX;
 	int stepY;
 	double	perpWallDist;
-	int	hit = 0;
+	int	hit;
 	int side;
-	int lineHeight = 0;
+	int lineHeight;
+	int drawStart;
+	int drawEnd;
 	
 	cub3d->ray = 0;
-	// cub3d->vx = cub3d->posX;
-	// cub3d->vy = cub3d->posY;
-	// cub3d->hx = cub3d->posX;
-	// cub3d->hy = cub3d->posY;
-	cub3d->xo = 0;
-	cub3d->yo = 0;
 	while (cub3d->ray <= WIDTH)
 	{
+		hit = 0;
+		lineHeight = 0;
 		cub3d->cameraX = 2 * cub3d->ray / (double)WIDTH - 1;
 		cub3d->rayDirX = cub3d->dirX + cub3d->planeX * cub3d->cameraX;
 		cub3d->rayDirY = cub3d->dirY + cub3d->planeY * cub3d->cameraX;
-		cub3d->mapX = (int)cub3d->posX;
-		cub3d->mapY = (int)cub3d->posY;
-		if (cub3d->dirX == 0)
-			cub3d->deltaDistX = = 1000000;
+		cub3d->mapX = (int)(cub3d->posX / UNIT);
+		cub3d->mapY = (int)(cub3d->posY / UNIT);
+		if (cub3d->rayDirX == 0)
+			cub3d->deltaDistX = 2000000;
 		else
 			cub3d->deltaDistX= sqrt(1 + (cub3d->rayDirY * cub3d->rayDirY) / (cub3d->rayDirX * cub3d->rayDirX));
-		if (cub3d->dirY == 0)
-			cub3d->deltaDistY = = 1000000;
+		if (cub3d->rayDirY == 0)
+			cub3d->deltaDistY = 2000000;
 		else
 			cub3d->deltaDistY= sqrt(1 + (cub3d->rayDirX * cub3d->rayDirX) / (cub3d->rayDirY * cub3d->rayDirY));
-		if (cubd3d->rayDirX < 0)
+		if (cub3d->rayDirX < 0)
 		{
 			stepX = -1;
-			cubd3d->sideDistX = (cubd3d->posX - cubd3d->mapX) * cubd3d->deltaDistX;
+			cub3d->sideDistX = ((cub3d->posX / UNIT) - cub3d->mapX) * cub3d->deltaDistX;
 		}
 		else
 		{
 			stepX = 1;
-			cubd3d->sideDistX = (cubd3d->mapX + 1 - cubd3d->posX) * cubd3d->deltaDistX;
+			cub3d->sideDistX = (cub3d->mapX + 1 - (cub3d->posX / UNIT)) * cub3d->deltaDistX;
 		}
-		if (cubd3d->rayDirY < 0)
+		if (cub3d->rayDirY < 0)
 		{
 			stepY = -1;
-			cubd3d->sideDistY = (cubd3d->posY - cubd3d->mapY) * cubd3d->deltaDistY;
+			cub3d->sideDistY = ((cub3d->posY / UNIT) - cub3d->mapY) * cub3d->deltaDistY;
 		}
 		else
 		{
 			stepY = 1;
-			cubd3d->sideDistY = (cubd3d->mapY + 1 - cubd3d->posY) * cubd3d->deltaDistY;
+			cub3d->sideDistY = (cub3d->mapY + 1 - (cub3d->posY / UNIT)) * cub3d->deltaDistY;
 		}
 		while (hit == 0)
 		{
 			//jump to next map square, either in x-direction, or in y-direction
-			if (cubd3d->sideDistX < cubd3d->sideDistY)
+			if (cub3d->sideDistX < cub3d->sideDistY)
 			{
-				cubd3d->sideDistX += cubd3d->deltaDistX;
-				cubd3d->mapX += stepX;
+				cub3d->sideDistX += cub3d->deltaDistX;
+				cub3d->mapX += stepX;
 				side = 0;
 			}
 			else
 			{
-				cubd3d->sideDistY += cubd3d->deltaDistY;
-				cubd3d->mapY += stepY;
+				cub3d->sideDistY += cub3d->deltaDistY;
+				cub3d->mapY += stepY;
 				side = 1;
 			}
-			if (cub3d->map[cubd3d->mapX][cubd3d->mapY] == '1') 
+			if (cub3d->map[cub3d->mapX][cub3d->mapY] == '1') 
 				hit = 1;
 		}
-			if(side == 0) 
-				perpWallDist = (cub3d->sideDistX - cub3d->deltaDistX);
+		// printf("mapX: %d mapY: %d ", cub3d->mapX, cub3d->mapY);
+		if(side == 0) 
+			perpWallDist = (cub3d->sideDistX - cub3d->deltaDistX);
+		else
+			perpWallDist = (cub3d->sideDistY - cub3d->deltaDistY);
+		// printf("sideDistX: %f sideDistY: %f deltaDistX: %f deltaDistY: %f", cub3d->sideDistX, cub3d->sideDistY, cub3d->deltaDistX, cub3d->deltaDistY);
+		// printf("perpWalldist: %f ", perpWallDist);
+		lineHeight = (int)(HEIGHT / perpWallDist);
+		// printf("lineHeight: %d ", lineHeight);
+		// printf("drawStart: %d drawEnd: %d ", drawStart, drawEnd);
+		drawStart = -lineHeight / 2 + HEIGHT / 2;
+		if(drawStart < 0)
+			drawStart = 0;
+		drawEnd = lineHeight / 2 + HEIGHT / 2;
+		if(drawEnd >= HEIGHT)
+			drawEnd = HEIGHT - 1;
+		while (drawStart < drawEnd)
+		{
+			if (side == 1)
+				mlx_put_pixel(cub3d->viewport, cub3d->ray, drawStart, 0x0000FFFF);
 			else
-				perpWallDist = (cub3d->sideDistY - cub3d->deltaDistY);
-			// check_horizontal_line(cub3d, ray_angle, 0);
-			// check_vertical_line(cub3d, ray_angle, 0);
-			// calculate_wall_distance(cub3d);
-			// raycaster(cub3d, ray_angle);
-			cub3d->ray++;
+				mlx_put_pixel(cub3d->viewport, cub3d->ray, drawStart, 0xFF0000FF);
+			drawStart++;
+		}
+		// raycaster(cub3d, ray_angle);
+		cub3d->ray++;
 	}
 }

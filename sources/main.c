@@ -46,7 +46,7 @@ int	main(int argc, char *argv[])
 	cub3d.planeY = 0.66;
 	// mlx_loop_hook(cub3d.mlx, &render, &cub3d);
 	render(&cub3d);
-	// mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
+	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
 	mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
 	mlx_loop(cub3d.mlx);
 	mlx_terminate(cub3d.mlx);

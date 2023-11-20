@@ -14,16 +14,26 @@
 
 void	rotating_right(t_cub3d *cub3d)
 {
-	cub3d->pos_angle += (M_PI / ROTATE);
-	cub3d->pos_angle = fix_angle(cub3d->pos_angle);
-	cub3d->pos_dx = cos(cub3d->pos_angle);
-	cub3d->pos_dy = sin(cub3d->pos_angle);
+	double oldDirX;
+	double oldPlaneX;
+
+	oldDirX = cub3d->dirX;
+	cub3d->dirX = cub3d->dirX * cos(-ROTSPEED) - cub3d->dirY * sin(-ROTSPEED);
+	cub3d->dirY = oldDirX * sin(-ROTSPEED) + cub3d->dirY * cos(-ROTSPEED);
+	oldPlaneX = cub3d->planeX;
+	cub3d->planeX = cub3d->planeX * cos(-ROTSPEED) - cub3d->planeY * sin(-ROTSPEED);
+	cub3d->planeY = oldPlaneX * sin(-ROTSPEED) + cub3d->planeY * cos(-ROTSPEED);
 }
 
 void	rotating_left(t_cub3d *cub3d)
 {
-	cub3d->pos_angle -= (M_PI / ROTATE);
-	cub3d->pos_angle = fix_angle(cub3d->pos_angle);
-	cub3d->pos_dx = cos(cub3d->pos_angle);
-	cub3d->pos_dy = sin(cub3d->pos_angle);
+	double oldDirX;
+	double oldPlaneX;
+
+	oldDirX = cub3d->dirX;
+	cub3d->dirX = cub3d->dirX * cos(ROTSPEED) - cub3d->dirY * sin(ROTSPEED);
+	cub3d->dirY = oldDirX * sin(ROTSPEED) + cub3d->dirY * cos(ROTSPEED);
+	oldPlaneX = cub3d->planeX;
+	cub3d->planeX = cub3d->planeX * cos(ROTSPEED) - cub3d->planeY * sin(ROTSPEED);
+	cub3d->planeY = oldPlaneX * sin(ROTSPEED) + cub3d->planeY * cos(ROTSPEED);
 }

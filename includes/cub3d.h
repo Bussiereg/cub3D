@@ -23,10 +23,12 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 2
+# define MOVESPEED 2
 # define UNIT 10
 # define HEIGHT 700
 # define WIDTH 1400
 # define ROTATE 26
+# define ROTSPEED 0.5
 # define DR 60
 # define RAD 0.0174533
 
