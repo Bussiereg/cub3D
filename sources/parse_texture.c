@@ -57,8 +57,8 @@ int	get_color_info(char *str)
 
 void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d)
 {
-	cub3d->posX = x;
-	cub3d->posY = y;
+	cub3d->posX = x * UNIT + UNIT / 2;
+	cub3d->posY = y * UNIT + UNIT / 2;
 	if (map_char == 'N')
 	{
 		cub3d->dirX = 0;
