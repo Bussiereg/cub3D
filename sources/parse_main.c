@@ -65,11 +65,11 @@ int	check_wall(char **map, t_cub3d *cub3d)
 	while (map[++y] != 0)
 	{
 		x = -1;
-		while (map[y][++x] != 0)
+/* 		while (map[y][++x] != 0)
 		{
 			if (map[y][x] == '0')
 				terminate("map not closed inside", cub3d, 1, 2);
-		}
+		} */
 	}
 	return (0);
 }

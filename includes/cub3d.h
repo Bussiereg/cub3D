@@ -85,6 +85,7 @@ typedef struct cub3d
 	t_point			pos_wall;
 
 	mlx_image_t		*viewport;
+	mlx_image_t		*minimap;
 	mlx_t			*mlx;
 
 	char			**map;
@@ -102,6 +103,9 @@ typedef struct cub3d
 	int				color_f;
 
 }	t_cub3d;
+
+void	draw_character(t_cub3d *cub3d, unsigned int color);
+void	draw_minimap(t_cub3d *cub3d);
 
 // raycaster_main.c
 void	south_north_wall(t_cub3d *cub3d, double line_height, double ra);
