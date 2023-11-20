@@ -68,6 +68,8 @@ void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d)
 	{
 		cub3d->dirX = 0;
 		cub3d->dirY = 1;
+		cub3d->planeX = 0;
+		cub3d->planeY = 0.66;
 	}
 	else if (map_char == 'W')
 	{

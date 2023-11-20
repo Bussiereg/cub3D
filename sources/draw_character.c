@@ -17,7 +17,7 @@ void	draw_direction(t_cub3d *cub3d, unsigned int color)
 	int	j;
 
 	j = 0;
-	while (j < (5))
+	while (j < (4))
 	{
 		mlx_put_pixel(cub3d->minimap, cub3d->posX + cub3d->dirX * j,
 			cub3d->posY + cub3d->dirY * j, color);

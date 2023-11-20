@@ -158,7 +158,7 @@ void	draw_game(t_cub3d *cub3d)
 				cub3d->mapY += stepY;
 				side = 1;
 			}
-			if (cub3d->map[cub3d->mapX][cub3d->mapY] == '1') 
+			if (cub3d->map[cub3d->mapY][cub3d->mapX] == '1') 
 				hit = 1;
 		}
 		// printf("mapX: %d mapY: %d ", cub3d->mapX, cub3d->mapY);

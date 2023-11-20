@@ -17,12 +17,12 @@ void	moving_right(t_cub3d *cub3d)
 	double	mx;
 	double	my;
 
-	my = ((cub3d->posY / UNIT) + (cub3d->planeY * MOVESPEED));
-	mx = ((cub3d->posX / UNIT) + (cub3d->planeX * MOVESPEED));
+	my = ((cub3d->posY / UNIT) + (cub3d->planeY));
+	mx = ((cub3d->posX / UNIT) + (cub3d->planeX));
 	if (cub3d->map[(int)my][(int)mx] == '0')
 	{
-		cub3d->posY += cub3d->planeY * MOVESPEED;
-		cub3d->posX += cub3d->planeX * MOVESPEED;
+		cub3d->posY += cub3d->planeY;
+		cub3d->posX += cub3d->planeX;
 	}
 }
 
@@ -31,12 +31,12 @@ void	moving_left(t_cub3d *cub3d)
 	double	mx;
 	double	my;
 
-	my = ((cub3d->posY / UNIT) - (cub3d->planeY * MOVESPEED));
-	mx = ((cub3d->posX / UNIT) - (cub3d->planeX * MOVESPEED));
+	my = ((cub3d->posY / UNIT) - (cub3d->planeY));
+	mx = ((cub3d->posX / UNIT) - (cub3d->planeX));
 	if ((cub3d->map[(int)my][(int)mx]) == '0')
 	{
-		cub3d->posY -= cub3d->planeY * MOVESPEED;
-		cub3d->posX -= cub3d->planeX * MOVESPEED;
+		cub3d->posY -= cub3d->planeY;
+		cub3d->posX -= cub3d->planeX;
 	}
 }
 
@@ -45,12 +45,12 @@ void	moving_down(t_cub3d *cub3d)
 	double	mx;
 	double	my;
 
-	my = ((cub3d->posY / UNIT) - (cub3d->dirY * MOVESPEED));
-	mx = ((cub3d->posX / UNIT) - (cub3d->dirX * MOVESPEED));
+	my = ((cub3d->posY / UNIT) - (cub3d->dirY));
+	mx = ((cub3d->posX / UNIT) - (cub3d->dirX));
 	if ((cub3d->map[(int)my][(int)mx]) == '0')
 	{
-		cub3d->posY -= cub3d->dirY * MOVESPEED;
-		cub3d->posX -= cub3d->dirX * MOVESPEED;
+		cub3d->posY -= cub3d->dirY;
+		cub3d->posX -= cub3d->dirX ;
 	}
 }
 
@@ -59,11 +59,11 @@ void	moving_up(t_cub3d *cub3d)
 	double	mx;
 	double	my;
 
-	my = ((cub3d->posY / UNIT) + (cub3d->dirY * MOVESPEED));
-	mx = ((cub3d->posX / UNIT) + (cub3d->dirX * MOVESPEED));
+	my = ((cub3d->posY / UNIT) + (cub3d->dirY));
+	mx = ((cub3d->posX / UNIT) + (cub3d->dirX));
 	if ((cub3d->map[(int)my][(int)mx]) == '0')
 	{
-		cub3d->posY += cub3d->dirY * MOVESPEED;
-		cub3d->posX += cub3d->dirX * MOVESPEED;
+		cub3d->posY += cub3d->dirY;
+		cub3d->posX += cub3d->dirX;
 	}
 }
