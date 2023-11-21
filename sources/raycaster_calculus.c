@@ -12,65 +12,57 @@
 
 #include "cub3d.h"
 
-double	fix_angle(double a)
+double	absol(double nombre)
 {
-	if (a > (2 * M_PI))
-		a -= (2 * M_PI);
-	else if (a <= 0)
-		a += (2 * M_PI);
-	return (a);
+	if (nombre < 0)
+		return (-nombre);
+	else
+		return (nombre);
 }
 
-void	check_horizontal_line(t_cub3d *cub3d, double ra, int lim)
+void	raycaster_init(t_cub3d *cub3d)
 {
-	cub3d->disth = 100000000;
-	if (ra > M_PI)
-	{
-		cub3d->hy = ((int)cub3d->posY / UNIT) * UNIT - 0.0001;
-		cub3d->hx = ((cub3d->posY - cub3d->hy) * (-1 / tan(ra)))
-			+ cub3d->posX;
-		cub3d->yo = -UNIT;
-		cub3d->xo = -cub3d->yo * (-1 / tan(ra));
-	}
-	else if (ra < M_PI)
-	{
-		cub3d->hy = ((int)cub3d->posY / UNIT) * UNIT + UNIT;
-		cub3d->hx = ((cub3d->posY - cub3d->hy)) * (-1 / tan(ra))
-			+ cub3d->posX;
-		cub3d->yo = UNIT;
-		cub3d->xo = -cub3d->yo * (-1 / tan(ra));
-	}
-	else if (ra == 0 || ra == M_PI)
-	{
-		cub3d->hx = cub3d->posX;
-		cub3d->hy = cub3d->posY;
-		lim = cub3d->m_size_y;
-	}
-	dist_to_horizontal_wall(cub3d, cub3d->xo, cub3d->yo, lim);
+	cub3d->hit = 0;
+	cub3d->lineHeight = 0;
+	cub3d->cameraX = 2 * cub3d->ray / (double)WIDTH - 1;
+	cub3d->rayDirX = cub3d->dirX + cub3d->planeX * cub3d->cameraX;
+	cub3d->rayDirY = cub3d->dirY + cub3d->planeY * cub3d->cameraX;
+	cub3d->mapX = (int)(cub3d->posX / UNIT);
+	cub3d->mapY = (int)(cub3d->posY / UNIT);
+	if (cub3d->rayDirX == 0)
+		cub3d->deltaDistX = 2000000;
+	else
+		cub3d->deltaDistX = absol(1 / cub3d->rayDirX);
+	if (cub3d->rayDirY == 0)
+		cub3d->deltaDistY = 2000000;
+	else
+		cub3d->deltaDistY = absol(1 / cub3d->rayDirY);
 }
 
-void	check_vertical_line(t_cub3d *cub3d, double ra, int lim)
+void	raycaster_calculus(t_cub3d *cub3d)
 {
-	cub3d->distv = 100000000;
-	if (ra < ((3 * M_PI) / 2) && ra > M_PI_2)
+	raycaster_init(cub3d);
+	if (cub3d->rayDirX < 0)
 	{
-		cub3d->vx = ((int)cub3d->posX / UNIT) * UNIT - 0.0001;
-		cub3d->vy = ((cub3d->posX - cub3d->vx) * (-tan(ra))) + cub3d->posY;
-		cub3d->xo = -UNIT;
-		cub3d->yo = -cub3d->xo * (-tan(ra));
+		cub3d->stepX = -1;
+		cub3d->sideDistX = ((cub3d->posX) - cub3d->mapX) * cub3d->deltaDistX;
 	}
-	else if (ra > ((3 * M_PI) / 2) || ra < M_PI_2)
+	else
 	{
-		cub3d->vx = ((int)cub3d->posX / UNIT) * UNIT + UNIT;
-		cub3d->vy = ((cub3d->posX - cub3d->vx) * (-tan(ra))) + cub3d->posY;
-		cub3d->xo = UNIT;
-		cub3d->yo = -cub3d->xo * (-tan(ra));
+		cub3d->stepX = 1;
+		cub3d->sideDistX = (cub3d->mapX + 1 - (cub3d->posX))
+			* cub3d->deltaDistX;
 	}
-	else if (ra == 3 * M_PI_2 || ra == M_PI_2)
+	if (cub3d->rayDirY < 0)
 	{
-		cub3d->vx = cub3d->posX;
-		cub3d->vy = cub3d->posY;
-		lim = cub3d->m_size_x;
+		cub3d->stepY = -1;
+		cub3d->sideDistY = ((cub3d->posY) - cub3d->mapY)
+			* cub3d->deltaDistY;
 	}
-	dist_to_vertical_wall(cub3d, cub3d->xo, cub3d->yo, lim);
+	else
+	{
+		cub3d->stepY = 1;
+		cub3d->sideDistY = (cub3d->mapY + 1 - (cub3d->posY))
+			* cub3d->deltaDistY;
+	}
 }

@@ -1,116 +1,72 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_raycaster.c                                   :+:      :+:    :+:   */
+/*   raycaster_distance.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbussier <gbussier@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 18:17:19 by gbussier          #+#    #+#             */
-/*   Updated: 2023/11/08 18:17:23 by gbussier         ###   ########.fr       */
+/*   Created: 2023/11/08 18:19:36 by gbussier          #+#    #+#             */
+/*   Updated: 2023/11/08 18:19:38 by gbussier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/* void	south_north_wall(t_cub3d *cub3d, double line_height, double ra)
+void	finding_wall(t_cub3d *cub3d)
 {
-	double	tx;
-	int		tile_d;
-	int		pixel;
-
-	tile_d = (int)cub3d->wall_x / UNIT;
-	tx = cub3d->wall_x - tile_d * UNIT;
-	if (ra < M_PI)
+	while (cub3d->hit == 0)
 	{
-		pixel = tx / UNIT * cub3d->t_s->height;
-		draw_line_textu(line_height, cub3d->t_s->height - pixel - 1,
-			cub3d->t_s, cub3d);
-	}
-	else
-	{
-		pixel = tx / UNIT * cub3d->t_n->height;
-		draw_line_textu(line_height, pixel, cub3d->t_n, cub3d);
+		if (cub3d->sideDistX < cub3d->sideDistY)
+		{
+			cub3d->sideDistX += cub3d->deltaDistX;
+			cub3d->mapX += cub3d->stepX;
+			if (cub3d->rayDirX < 0)
+				cub3d->side = 'W';
+			else
+				cub3d->side = 'E';
+		}
+		else
+		{
+			cub3d->sideDistY += cub3d->deltaDistY;
+			cub3d->mapY += cub3d->stepY;
+			if (cub3d->rayDirY < 0)
+				cub3d->side = 'N';
+			else
+				cub3d->side = 'S';
+		}
+		if (cub3d->map[cub3d->mapY][cub3d->mapX] == '1') 
+			cub3d->hit = 1;
 	}
 }
 
-void	east_west_wall(t_cub3d *cub3d, double line_height, double ra)
+void	wall_distance(t_cub3d *cub3d)
 {
-	double	tx;
-	int		tile_d;
-	int		pixel;
-
-	tile_d = (int)cub3d->wall_y / UNIT;
-	tx = cub3d->wall_y - tile_d * UNIT;
-	if (ra <= M_PI_2 || ra >= (3 * M_PI_2))
-	{
-		pixel = tx / UNIT * cub3d->t_e->height;
-		draw_line_textu(line_height, pixel, cub3d->t_e, cub3d);
-	}
+	finding_wall(cub3d);
+	if (cub3d->side == 'W' || cub3d->side == 'E')
+		cub3d->perpWallDist = (cub3d->sideDistX - cub3d->deltaDistX);
 	else
-	{
-		pixel = tx / UNIT * cub3d->t_w->height;
-		draw_line_textu(line_height, cub3d->t_e->height - pixel - 1,
-			cub3d->t_w, cub3d);
-	}
-} */
-
-/* void	south_north_wall(t_cub3d *cub3d, double line_height, int texX)
-{
-	int	texX;
-
-	texX = cub3d->wallX * cub3d->t_e->width;
-
-
-	int		tile_d;
-	int		pixel;
-	tile_d = (int)cub3d->wall_x / UNIT;
-	tx = cub3d->wall_x - tile_d * UNIT;
-	if (ra < M_PI)
-	{
-		pixel = tx / UNIT * cub3d->t_s->height;
-		draw_line_textu(line_height, cub3d->t_s->height - pixel - 1,
-			cub3d->t_s, cub3d);
-	}
+		cub3d->perpWallDist = (cub3d->sideDistY - cub3d->deltaDistY);
+	cub3d->lineHeight = (int)(HEIGHT / cub3d->perpWallDist);
+	if (cub3d->side == 'E' || cub3d->side == 'W' ) 
+		cub3d->wallX = cub3d->posY + cub3d->perpWallDist * cub3d->rayDirY;
 	else
-	{
-		pixel = tx / UNIT * cub3d->t_n->height;
-		draw_line_textu(line_height, pixel, cub3d->t_n, cub3d);
-	}
-} */
-
-/* void	east_west_wall(t_cub3d *cub3d, double line_height, int texX)
-{
-	double	tx;
-	int		tile_d;
-	int		pixel;
-
-	tile_d = (int)cub3d->wall_y / UNIT;
-	tx = cub3d->wall_y - tile_d * UNIT;
-	if (ra <= M_PI_2 || ra >= (3 * M_PI_2))
-	{
-		pixel = tx / UNIT * cub3d->t_e->height;
-		draw_line_textu(line_height, pixel, cub3d->t_e, cub3d);
-	}
-	else
-	{
-		pixel = tx / UNIT * cub3d->t_w->height;
-		draw_line_textu(line_height, cub3d->t_e->height - pixel - 1,
-			cub3d->t_w, cub3d);
-	}
+		cub3d->wallX = cub3d->posX + cub3d->perpWallDist * cub3d->rayDirX;
+	cub3d->wallX -= floor((cub3d->wallX));
 }
- */
-/* void	raycaster(t_cub3d *cub3d, double ra)
-{
-	double	ca;
-	double	line_height;
 
-	ca = fix_angle(cub3d->pos_angle - ra);
-	cub3d->final_d = cub3d->final_d * cos(ca);
-	line_height = (HEIGHT * ((double)WIDTH / (double)HEIGHT)) / (cub3d->final_d
-			/ UNIT);
-	if (cub3d->disth < cub3d->distv)
-		south_north_wall(cub3d, line_height, ra);
-	else
-		east_west_wall(cub3d, line_height, ra);
+void	raycaster(t_cub3d *cub3d)
+{
+	int	texx;
+
+	texx = cub3d->wallX * cub3d->t_e->width;
+	if (cub3d->side == 'N')
+		draw_line_textu(cub3d->lineHeight, texx, cub3d->t_n, cub3d);
+	else if (cub3d->side == 'S')
+		draw_line_textu(cub3d->lineHeight,
+			cub3d->t_s->height - texx - 1, cub3d->t_s, cub3d);
+	else if (cub3d->side == 'E')
+		draw_line_textu(cub3d->lineHeight, texx, cub3d->t_w, cub3d);
+	else if (cub3d->side == 'W')
+		draw_line_textu(cub3d->lineHeight,
+			cub3d->t_e->height - texx - 1, cub3d->t_e, cub3d);
 }
- */

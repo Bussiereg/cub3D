@@ -83,103 +83,14 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	}
 }
 
-double absol(double nombre) {
-    if (nombre < 0)
-	{
-        return (-nombre);
-    } 
-	else 
-	{
-        return (nombre);
-    }
-}
-
 void	draw_game(t_cub3d *cub3d)
 {
 	cub3d->ray = 0;
 	while (cub3d->ray < WIDTH)
 	{
-		cub3d->hit = 0;
-		cub3d->lineHeight = 0;
-		cub3d->cameraX = 2 * cub3d->ray / (double)WIDTH - 1;
-		cub3d->rayDirX = cub3d->dirX + cub3d->planeX * cub3d->cameraX;
-		cub3d->rayDirY = cub3d->dirY + cub3d->planeY * cub3d->cameraX;
-		cub3d->mapX = (int)(cub3d->posX / UNIT);
-		cub3d->mapY = (int)(cub3d->posY / UNIT);
-		if (cub3d->rayDirX == 0)
-			cub3d->deltaDistX = 2000000;
-		else
-			cub3d->deltaDistX= absol(1 / cub3d->rayDirX);
-		if (cub3d->rayDirY == 0)
-			cub3d->deltaDistY = 2000000;
-		else
-			cub3d->deltaDistY= absol(1 / cub3d->rayDirY);
-		if (cub3d->rayDirX < 0)
-		{
-			cub3d->stepX = -1;
-			cub3d->sideDistX = ((cub3d->posX / UNIT) - cub3d->mapX) * cub3d->deltaDistX;
-		}
-		else
-		{
-			cub3d->stepX = 1;
-			cub3d->sideDistX = (cub3d->mapX + 1 - (cub3d->posX / UNIT)) * cub3d->deltaDistX;
-		}
-		if (cub3d->rayDirY < 0)
-		{
-			cub3d->stepY = -1;
-			cub3d->sideDistY = ((cub3d->posY / UNIT) - cub3d->mapY) * cub3d->deltaDistY;
-		}
-		else
-		{
-			cub3d->stepY = 1;
-			cub3d->sideDistY = (cub3d->mapY + 1 - (cub3d->posY / UNIT)) * cub3d->deltaDistY;
-		}
-		while (cub3d->hit == 0)
-		{
-			//jump to next map square, either in x-direction, or in y-direction
-			if (cub3d->sideDistX < cub3d->sideDistY)
-			{
-				cub3d->sideDistX += cub3d->deltaDistX;
-				cub3d->mapX += cub3d->stepX;
-				if (cub3d->rayDirX < 0)
-					cub3d->side = 'W';
-				else
-					cub3d->side = 'E';
-			}
-			else
-			{
-				cub3d->sideDistY += cub3d->deltaDistY;
-				cub3d->mapY += cub3d->stepY;
-				if (cub3d->rayDirY < 0)
-					cub3d->side = 'N';
-				else
-					cub3d->side = 'S';
-			}
-			if (cub3d->map[cub3d->mapY][cub3d->mapX] == '1') 
-				cub3d->hit = 1;
-		}
-		if(cub3d->side == 'W' || cub3d->side == 'E') 
-			cub3d->perpWallDist = (cub3d->sideDistX - cub3d->deltaDistX);
-		else
-			cub3d->perpWallDist = (cub3d->sideDistY - cub3d->deltaDistY);
-		cub3d->lineHeight = (int)(HEIGHT / cub3d->perpWallDist);
-		if (cub3d->side == 'E' || cub3d->side == 'W' ) 
-			cub3d->wallX = cub3d->posY + cub3d->perpWallDist * cub3d->rayDirY;
-		else
-		    cub3d->wallX = cub3d->posX + cub3d->perpWallDist * cub3d->rayDirX;
-		cub3d->wallX -= floor((cub3d->wallX));
-		int texX = cub3d->wallX * cub3d->t_e->width;
-/*       if(side == 0 && cub3d->rayDirX > 0) texX = cub3d->t_e->width - texX - 1;
-      if(side == 1 && cub3d->rayDirY < 0) texX = cub3d->t_e->width - texX - 1;
- */
-		if (cub3d->side == 'N')
-			draw_line_textu(cub3d->lineHeight, texX, cub3d->t_n, cub3d);
-		else if (cub3d->side == 'S')
-			draw_line_textu(cub3d->lineHeight, cub3d->t_s->height - texX - 1, cub3d->t_s, cub3d);
-		else if (cub3d->side == 'E')
-			draw_line_textu(cub3d->lineHeight, texX, cub3d->t_w, cub3d);
-		else if (cub3d->side == 'W')
-			draw_line_textu(cub3d->lineHeight, cub3d->t_e->height - texX - 1, cub3d->t_e, cub3d);
+		raycaster_calculus(cub3d);
+		wall_distance(cub3d);
+		raycaster(cub3d);
 		cub3d->ray++;
 	}
 }
