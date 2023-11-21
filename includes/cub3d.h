@@ -26,6 +26,7 @@
 # define MOVESPEED 1
 # define SIZEMINIMAP 10
 # define UNIT 1
+# define STEP 0.5
 # define HEIGHT 700
 # define WIDTH 1400
 # define ROTATE 26
