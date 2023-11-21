@@ -64,6 +64,12 @@ typedef struct cub3d
 	double			deltaDistY;
 	double			deltaDistX;
 
+	int 			stepX;
+	int 			stepY;
+	double			perpWallDist;
+	int				hit;
+	char 			side;
+	int 			lineHeight;
 
 	double			pos_angle;
 	double			pos_dx;
