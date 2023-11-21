@@ -159,19 +159,18 @@ void	draw_game(t_cub3d *cub3d)
 				cub3d->hit = 1;
 		}
 		if(cub3d->side == 'W' || cub3d->side == 'E') 
+		{
 			cub3d->perpWallDist = (cub3d->sideDistX - cub3d->deltaDistX);
-		else
-			cub3d->perpWallDist = (cub3d->sideDistY - cub3d->deltaDistY);
-		cub3d->lineHeight = (int)(HEIGHT / cub3d->perpWallDist);
-		if (cub3d->side == 'E' || cub3d->side == 'W' ) 
 			cub3d->wallX = cub3d->posY + cub3d->perpWallDist * cub3d->rayDirY;
+		}
 		else
-		    cub3d->wallX = cub3d->posX + cub3d->perpWallDist * cub3d->rayDirX;
+		{
+			cub3d->perpWallDist = (cub3d->sideDistY - cub3d->deltaDistY);
+			cub3d->wallX = cub3d->posX + cub3d->perpWallDist * cub3d->rayDirX;
+		}
+		cub3d->lineHeight = (int)(HEIGHT / cub3d->perpWallDist);
 		cub3d->wallX -= floor((cub3d->wallX));
 		int texX = cub3d->wallX * cub3d->t_e->width;
-/*       if(side == 0 && cub3d->rayDirX > 0) texX = cub3d->t_e->width - texX - 1;
-      if(side == 1 && cub3d->rayDirY < 0) texX = cub3d->t_e->width - texX - 1;
- */
 		if (cub3d->side == 'N')
 			draw_line_textu(cub3d->lineHeight, texX, cub3d->t_n, cub3d);
 		else if (cub3d->side == 'S')
