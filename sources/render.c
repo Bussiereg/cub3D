@@ -40,7 +40,7 @@ void	render(void *param)
 
 	cub3d = (t_cub3d *)param;
 	mlx_image_to_window(cub3d->mlx, cub3d->t_intro, 0, 0);
-	//render_skybox(cub3d);
+	render_skybox(cub3d);
 	render_viewport(cub3d);
 	draw_ceiling(cub3d);
 }
