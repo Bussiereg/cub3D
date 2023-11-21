@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	south_north_wall(t_cub3d *cub3d, double line_height, double ra)
+/* void	south_north_wall(t_cub3d *cub3d, double line_height, double ra)
 {
 	double	tx;
 	int		tile_d;
@@ -52,9 +52,54 @@ void	east_west_wall(t_cub3d *cub3d, double line_height, double ra)
 		draw_line_textu(line_height, cub3d->t_e->height - pixel - 1,
 			cub3d->t_w, cub3d);
 	}
-}
+} */
 
-void	raycaster(t_cub3d *cub3d, double ra)
+/* void	south_north_wall(t_cub3d *cub3d, double line_height, int texX)
+{
+	int	texX;
+
+	texX = cub3d->wallX * cub3d->t_e->width;
+
+
+	int		tile_d;
+	int		pixel;
+	tile_d = (int)cub3d->wall_x / UNIT;
+	tx = cub3d->wall_x - tile_d * UNIT;
+	if (ra < M_PI)
+	{
+		pixel = tx / UNIT * cub3d->t_s->height;
+		draw_line_textu(line_height, cub3d->t_s->height - pixel - 1,
+			cub3d->t_s, cub3d);
+	}
+	else
+	{
+		pixel = tx / UNIT * cub3d->t_n->height;
+		draw_line_textu(line_height, pixel, cub3d->t_n, cub3d);
+	}
+} */
+
+/* void	east_west_wall(t_cub3d *cub3d, double line_height, int texX)
+{
+	double	tx;
+	int		tile_d;
+	int		pixel;
+
+	tile_d = (int)cub3d->wall_y / UNIT;
+	tx = cub3d->wall_y - tile_d * UNIT;
+	if (ra <= M_PI_2 || ra >= (3 * M_PI_2))
+	{
+		pixel = tx / UNIT * cub3d->t_e->height;
+		draw_line_textu(line_height, pixel, cub3d->t_e, cub3d);
+	}
+	else
+	{
+		pixel = tx / UNIT * cub3d->t_w->height;
+		draw_line_textu(line_height, cub3d->t_e->height - pixel - 1,
+			cub3d->t_w, cub3d);
+	}
+}
+ */
+/* void	raycaster(t_cub3d *cub3d, double ra)
 {
 	double	ca;
 	double	line_height;
@@ -68,3 +113,4 @@ void	raycaster(t_cub3d *cub3d, double ra)
 	else
 		east_west_wall(cub3d, line_height, ra);
 }
+ */

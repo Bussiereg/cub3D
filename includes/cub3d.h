@@ -55,6 +55,7 @@ typedef struct cub3d
 	double			rayDirY;
 	int				mapX;
 	int				mapY;
+	double			wallX;
 
 	double			sideDistY;
 	double			sideDistX;
@@ -108,8 +109,8 @@ void	draw_character(t_cub3d *cub3d, unsigned int color);
 void	draw_minimap(t_cub3d *cub3d);
 
 // raycaster_main.c
-void	south_north_wall(t_cub3d *cub3d, double line_height, double ra);
-void	east_west_wall(t_cub3d *cub3d, double line_height, double ra);
+void	south_north_wall(t_cub3d *cub3d, double line_height, int texX);
+void	east_west_wall(t_cub3d *cub3d, double line_height, int texX);
 void	raycaster(t_cub3d *cub3d, double ra);
 
 // raycaster_distance.c
