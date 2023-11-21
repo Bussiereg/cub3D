@@ -17,18 +17,18 @@ void	draw_direction(t_cub3d *cub3d, unsigned int color)
 	int	j;
 
 	j = 0;
-	while (j < (4))
+	while (j < 5)
 	{
-		mlx_put_pixel(cub3d->minimap, cub3d->posX + cub3d->dirX * j,
-			cub3d->posY + cub3d->dirY * j, color);
-		mlx_put_pixel(cub3d->minimap, cub3d->posX + cub3d->dirX * j - 1,
-			cub3d->posY + cub3d->dirY * j, color);
-		mlx_put_pixel(cub3d->minimap, cub3d->posX + cub3d->dirX * j,
-			cub3d->posY + cub3d->dirY * j - 1, color);
-		mlx_put_pixel(cub3d->minimap, cub3d->posX + cub3d->dirX * j,
-			cub3d->posY + cub3d->dirY * j + 1, color);
-		mlx_put_pixel(cub3d->minimap, cub3d->posX + cub3d->dirX * j + 1,
-			cub3d->posY + cub3d->dirY * j, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->posX * SIZEMINIMAP + cub3d->dirX * j,
+			cub3d->posY * SIZEMINIMAP + cub3d->dirY * j, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->posX * SIZEMINIMAP + cub3d->dirX * j - 1,
+			cub3d->posY * SIZEMINIMAP + cub3d->dirY * j, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->posX * SIZEMINIMAP + cub3d->dirX * j,
+			cub3d->posY * SIZEMINIMAP + cub3d->dirY * j - 1, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->posX * SIZEMINIMAP + cub3d->dirX * j,
+			cub3d->posY * SIZEMINIMAP + cub3d->dirY * j + 1, color);
+		mlx_put_pixel(cub3d->minimap, cub3d->posX * SIZEMINIMAP + cub3d->dirX * j + 1,
+			cub3d->posY * SIZEMINIMAP + cub3d->dirY * j, color);
 		j++;
 	}
 }
@@ -40,14 +40,14 @@ void	draw_character(t_cub3d *cub3d, unsigned int color)
 	int	i;
 	int	j;
 
-	new_x = cub3d->posX - 1;
-	new_y = cub3d->posY - 1;
+	new_x = cub3d->posX * SIZEMINIMAP - 1;
+	new_y = cub3d->posY * SIZEMINIMAP - 1;
 	i = 0;
-	while (i < 3)
+	while (i++ < 3)
 	{
 		j = 0;
 		while (j < 3)
-			mlx_put_pixel(cub3d->minimap, new_x + i++, new_y + j++, color);
+			mlx_put_pixel(cub3d->minimap, new_x + i, new_y + j++, color);
 	}
-	draw_direction(cub3d, color);
+	// draw_direction(cub3d, color);
 }

@@ -22,9 +22,10 @@
 # include "MLX42.h"
 # include <stdlib.h>
 # include <errno.h>
-# define OFFSET 3
-# define MOVESPEED 2
-# define UNIT 10
+# define OFFSET 1
+# define MOVESPEED 1
+# define SIZEMINIMAP 10
+# define UNIT 1
 # define HEIGHT 700
 # define WIDTH 1400
 # define ROTATE 26
