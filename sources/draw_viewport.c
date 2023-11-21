@@ -100,10 +100,8 @@ void	draw_game(t_cub3d *cub3d)
 	int stepY;
 	double	perpWallDist;
 	int	hit;
-	int side;
+	char side;
 	int lineHeight;
-	int drawStart;
-	int drawEnd;
 	
 	cub3d->ray = 0;
 	while (cub3d->ray < WIDTH)
@@ -150,19 +148,25 @@ void	draw_game(t_cub3d *cub3d)
 			{
 				cub3d->sideDistX += cub3d->deltaDistX;
 				cub3d->mapX += stepX;
-				side = 0;
+				if (cub3d->rayDirX < 0)
+					side = 'W';
+				else
+					side = 'E';
 			}
 			else
 			{
 				cub3d->sideDistY += cub3d->deltaDistY;
 				cub3d->mapY += stepY;
-				side = 1;
+				if (cub3d->rayDirY < 0)
+					side = 'N';
+				else
+					side = 'S';
 			}
 			if (cub3d->map[cub3d->mapY][cub3d->mapX] == '1') 
 				hit = 1;
 		}
 		// printf("mapX: %d mapY: %d ", cub3d->mapX, cub3d->mapY);
-		if(side == 0) 
+		if(side == 'W' || side == 'E') 
 			perpWallDist = (cub3d->sideDistX - cub3d->deltaDistX);
 		else
 			perpWallDist = (cub3d->sideDistY - cub3d->deltaDistY);
@@ -172,45 +176,24 @@ void	draw_game(t_cub3d *cub3d)
 		// printf("lineHeight: %d ", lineHeight);
 		// printf("drawStart: %d drawEnd: %d ", drawStart, drawEnd);
 
-		if (side == 0) cub3d->wallX = cub3d->posY + perpWallDist * cub3d->rayDirY;
+		if (side == 'E' || side == 'W' ) cub3d->wallX = cub3d->posY + perpWallDist * cub3d->rayDirY;
       else           cub3d->wallX = cub3d->posX + perpWallDist * cub3d->rayDirX;
-		//printf("%f\n", cub3d->wallX);
+		printf("%f\n", cub3d->wallX);
 		cub3d->wallX -= floor((cub3d->wallX));
-		//printf("%f\n", cub3d->wallX);
+		printf("%f\n", cub3d->wallX);
 
 		int texX = cub3d->wallX * cub3d->t_e->width;
 /*       if(side == 0 && cub3d->rayDirX > 0) texX = cub3d->t_e->width - texX - 1;
       if(side == 1 && cub3d->rayDirY < 0) texX = cub3d->t_e->width - texX - 1;
  */
-		drawStart = -lineHeight / 2 + HEIGHT / 2;
-		if(drawStart < 0)
-			drawStart = 0;
-		drawEnd = lineHeight / 2 + HEIGHT / 2;
-		if(drawEnd >= HEIGHT)
-			drawEnd = HEIGHT - 1;
-		while (drawStart < drawEnd)
-		{
-			if (side == 0)
-				mlx_put_pixel(cub3d->viewport, cub3d->ray, drawStart, 0xFF0000FF);
-			else
-				mlx_put_pixel(cub3d->viewport, cub3d->ray, drawStart, 0xFF0000FF);
-			drawStart++;
-		}
-		if (side == 1) //south_north_wall
-		{
-			if (cub3d->rayDirY < 0)
-				draw_line_textu(lineHeight, texX, cub3d->t_n, cub3d);
-			else
-				draw_line_textu(lineHeight, cub3d->t_s->height - texX - 1, cub3d->t_s, cub3d);
-		}
-		else //e-W_wall
-		{
-			if (cub3d->rayDirX < 0)
-				draw_line_textu(lineHeight, cub3d->t_w->height - texX - 1, cub3d->t_w, cub3d);
-			else
-				draw_line_textu(lineHeight, texX, cub3d->t_e, cub3d);
-		}
-		// raycaster(cub3d, ray_angle);
+		if (side == 'N')
+			draw_line_textu(lineHeight, texX, cub3d->t_n, cub3d);
+		else if (side == 'S')
+			draw_line_textu(lineHeight, cub3d->t_s->height - texX - 1, cub3d->t_s, cub3d);
+		else if (side == 'E')
+			draw_line_textu(lineHeight, texX, cub3d->t_w, cub3d);
+		else if (side == 'W')
+			draw_line_textu(lineHeight, cub3d->t_e->height - texX - 1, cub3d->t_e, cub3d);
 		cub3d->ray++;
 	}
 }
