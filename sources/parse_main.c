@@ -57,19 +57,19 @@ int	check_wall(char **map, t_cub3d *cub3d)
 	int	y;
 
 	floodfill(cub3d, 0, 0, '.');
-/* 	if (cub3d->map_check[(int)(cub3d->posY / UNIT) + 1][(int)(cub3d->posX
+ 	if (cub3d->map_check[(int)(cub3d->posY / UNIT) + 1][(int)(cub3d->posX
 			/ UNIT) + 1] == '.')
-		terminate("map not closed", cub3d, 1, 2); */
+		terminate("map not closed", cub3d, 1, 2); 
 	floodfill(cub3d, cub3d->posY / UNIT + 1, cub3d->posX / UNIT + 1, '.');
 	y = -1;
 	while (map[++y] != 0)
 	{
 		x = -1;
-/* 		while (map[y][++x] != 0)
+ 		while (map[y][++x] != 0)
 		{
 			if (map[y][x] == '0')
 				terminate("map not closed inside", cub3d, 1, 2);
-		} */
+		}
 	}
 	return (0);
 }
