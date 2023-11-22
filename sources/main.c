@@ -48,8 +48,8 @@ int	main(int argc, char *argv[])
 	parse_map(argv[1], &cub3d);
 	// cub3d.planeX = 0;
 	// cub3d.planeY = 0.66;
-	// mlx_loop_hook(cub3d.mlx, &render, &cub3d);
-	render(&cub3d);
+	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
+	//render(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
 	mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
 	mlx_loop(cub3d.mlx);
