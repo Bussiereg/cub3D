@@ -58,40 +58,17 @@ typedef struct cub3d
 	int				mapX;
 	int				mapY;
 	double			wallX;
-
 	double			sideDistY;
 	double			sideDistX;
 	double			deltaDistY;
 	double			deltaDistX;
-
 	int 			stepX;
 	int 			stepY;
 	double			perpWallDist;
 	int				hit;
 	char 			side;
 	int 			lineHeight;
-
-	double			pos_angle;
-	double			pos_dx;
-	double			pos_dy;
-	double			wall_x;
-	double			wall_y;
-
-	double			xo;
-	double			yo;
-	double			disth;
-	double			hx;
-	double			hy;
-	double			distv;
-	double			vx;
-	double			vy;
-	double			final_d;
-	int				mx;
-	int				my;
 	int				ray;
-
-	t_point			pos_char;
-	t_point			pos_wall;
 
 	mlx_image_t		*viewport;
 	mlx_image_t		*minimap;
@@ -113,24 +90,22 @@ typedef struct cub3d
 
 }	t_cub3d;
 
+
+// draw_haracter.c
 void	draw_character(t_cub3d *cub3d, unsigned int color);
+
+// draw_minimap.c
 void	draw_minimap(t_cub3d *cub3d);
 
 // raycaster_main.c
-void	south_north_wall(t_cub3d *cub3d, double line_height, int texX);
-void	east_west_wall(t_cub3d *cub3d, double line_height, int texX);
-void	raycaster(t_cub3d *cub3d, double ra);
-
-// raycaster_distance.c
-double	distance(double ax, double ay, double bx, double by);
-void	dist_to_horizontal_wall(t_cub3d *cub3d, double xo, double yo, int lim);
-void	dist_to_vertical_wall(t_cub3d *cub3d, double xo, double yo, int lim);
-void	calculate_wall_distance(t_cub3d *cub3d);
+void	raycaster(t_cub3d *cub3d);
+void	finding_wall(t_cub3d *cub3d);
+void	wall_distance(t_cub3d *cub3d);
 
 // raycaster_calculus.c
-double	fix_angle(double a);
-void	check_horizontal_line(t_cub3d *cub3d, double ra, int lim);
-void	check_vertical_line(t_cub3d *cub3d, double ra, int lim);
+double 	absol(double nombre);
+void	raycaster_init(t_cub3d *cub3d);
+void	raycaster_calculus(t_cub3d *cub3d);
 
 // draw_viewport.c
 int		draw_sky(t_cub3d *cub3d);
