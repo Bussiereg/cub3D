@@ -26,10 +26,12 @@
 # define MOVESPEED 1
 # define SIZEMINIMAP 10
 # define UNIT 1
+# define STEP 0.05
 # define HEIGHT 700
 # define WIDTH 1400
 # define ROTATE 26
-# define ROTSPEED (M_PI / 52)
+# define ROTSPEED (M_PI / 100)
+# define DR 60
 # define RAD 0.0174533
 
 typedef struct point
