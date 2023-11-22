@@ -57,7 +57,6 @@ void	wall_distance(t_cub3d *cub3d)
 void	raycaster(t_cub3d *cub3d)
 {
 	int	texx;
-
 	texx = cub3d->wallX * cub3d->t_e->width;
 	if (cub3d->side == 'N')
 		draw_line_textu(cub3d->lineHeight, texx, cub3d->t_n, cub3d);
@@ -65,8 +64,8 @@ void	raycaster(t_cub3d *cub3d)
 		draw_line_textu(cub3d->lineHeight,
 			cub3d->t_s->height - texx - 1, cub3d->t_s, cub3d);
 	else if (cub3d->side == 'E')
-		draw_line_textu(cub3d->lineHeight, texx, cub3d->t_w, cub3d);
+		draw_line_textu(cub3d->lineHeight, texx, cub3d->t_e, cub3d);
 	else if (cub3d->side == 'W')
 		draw_line_textu(cub3d->lineHeight,
-			cub3d->t_e->height - texx - 1, cub3d->t_e, cub3d);
+			cub3d->t_e->height - texx - 1, cub3d->t_w, cub3d);
 }

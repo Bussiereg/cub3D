@@ -27,8 +27,8 @@ void	raycaster_init(t_cub3d *cub3d)
 	cub3d->cameraX = 2 * cub3d->ray / (double)WIDTH - 1;
 	cub3d->rayDirX = cub3d->dirX + cub3d->planeX * cub3d->cameraX;
 	cub3d->rayDirY = cub3d->dirY + cub3d->planeY * cub3d->cameraX;
-	cub3d->mapX = (int)(cub3d->posX / UNIT);
-	cub3d->mapY = (int)(cub3d->posY / UNIT);
+	cub3d->mapX = (int)(cub3d->posX);
+	cub3d->mapY = (int)(cub3d->posY);
 	if (cub3d->rayDirX == 0)
 		cub3d->deltaDistX = 2000000;
 	else
