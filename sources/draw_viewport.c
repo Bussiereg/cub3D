@@ -86,6 +86,7 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 void	draw_game(t_cub3d *cub3d)
 {
 	cub3d->ray = 0;
+	printf("----\n");
 	while (cub3d->ray < WIDTH)
 	{
 		raycaster_calculus(cub3d);
