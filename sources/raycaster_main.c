@@ -50,7 +50,7 @@ void	wall_distance(t_cub3d *cub3d)
 	if (cub3d->side == 'E' || cub3d->side == 'W' ) 
 		cub3d->wallX = cub3d->posY + cub3d->perpWallDist * cub3d->rayDirY;
 	else
-		cub3d->wallX = cub3d->posX + cub3d->perpWallDist * cub3d->rayDirX;
+		cub3d->wallX = (cub3d->posX + cub3d->perpWallDist * cub3d->rayDirX)*0.99999999;
 	cub3d->wallX -= floor((cub3d->wallX));
 }
 
@@ -64,8 +64,18 @@ void	raycaster(t_cub3d *cub3d)
 		draw_line_textu(cub3d->lineHeight,
 			cub3d->t_s->height - texx - 1, cub3d->t_s, cub3d);
 	else if (cub3d->side == 'E')
+	{
 		draw_line_textu(cub3d->lineHeight, texx, cub3d->t_e, cub3d);
+	}
 	else if (cub3d->side == 'W')
+	{
+		/* if (texx == 9)
+		{
+
+			printf("x = %d ", cub3d->ray);
+			printf("text = 9 W\n");
+		} */
 		draw_line_textu(cub3d->lineHeight,
 			cub3d->t_e->height - texx - 1, cub3d->t_w, cub3d);
+	}
 }
