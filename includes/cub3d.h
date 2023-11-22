@@ -30,7 +30,6 @@
 # define WIDTH 1400
 # define ROTATE 26
 # define ROTSPEED (M_PI / 52)
-# define DR 60
 # define RAD 0.0174533
 
 typedef struct point
