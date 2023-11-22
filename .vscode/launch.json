@@ -9,7 +9,7 @@
 	"type":"cppdbg",
 	"program":"${workspaceFolder}/cub3D",
 	"cwd":"${workspaceFolder}",
-	"args":["simple_map.cub"],
+	"args":["map/map_test.cub"],
 	"request":"launch",
 	"MIMode":"gdb"
 	},

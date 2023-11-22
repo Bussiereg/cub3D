@@ -17,11 +17,11 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 	int	new_x;
 	int	new_y;
 
-	new_y = y * 10;
-	while (new_y < (y * 10) + 10)
+	new_y = y * SIZEMINIMAP;
+	while (new_y < (y * SIZEMINIMAP) + SIZEMINIMAP)
 	{
-		new_x = x * 10;
-		while (new_x < (x * 10) + 10)
+		new_x = x * SIZEMINIMAP;
+		while (new_x < (x * SIZEMINIMAP) + SIZEMINIMAP)
 		{
 			mlx_put_pixel(cub3d->minimap, new_x, new_y, color);
 			new_x++;

@@ -24,10 +24,10 @@
 # include <errno.h>
 # define OFFSET 1
 # define MOVESPEED 1
-# define SIZEMINIMAP 10
+# define SIZEMINIMAP 5
 # define STEP 0.1
 # define HEIGHT 700
-# define WIDTH 1400
+# define WIDTH 700
 # define ROTSPEED (M_PI / 112)
 # define RAD 0.0174533
 
@@ -42,6 +42,7 @@ typedef struct cub3d
 {
 	int				res_x;
 	int				res_y;
+	int				test;
 
 	double			posX;
 	double			posY;

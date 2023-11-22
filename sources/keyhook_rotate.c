@@ -14,8 +14,8 @@
 
 void	rotating_right(t_cub3d *cub3d)
 {
-	double oldDirX;
-	double oldPlaneX;
+	float oldDirX;
+	float oldPlaneX;
 
 	oldDirX = cub3d->dirX;
 	cub3d->dirX = cub3d->dirX * cos(ROTSPEED) - cub3d->dirY * sin(ROTSPEED);
@@ -27,8 +27,8 @@ void	rotating_right(t_cub3d *cub3d)
 
 void	rotating_left(t_cub3d *cub3d)
 {
-	double oldDirX;
-	double oldPlaneX;
+	float oldDirX;
+	float oldPlaneX;
 
 	oldDirX = cub3d->dirX;
 	cub3d->dirX = cub3d->dirX * cos(-ROTSPEED) - cub3d->dirY * sin(-ROTSPEED);

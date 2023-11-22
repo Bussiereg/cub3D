@@ -14,8 +14,8 @@
 
 void	moving_right(t_cub3d *cub3d)
 {
-	double	mx;
-	double	my;
+	float	mx;
+	float	my;
 
 	my = (cub3d->posY + (cub3d->planeY) * STEP);
 	mx = (cub3d->posX + (cub3d->planeX) * STEP);
@@ -28,8 +28,8 @@ void	moving_right(t_cub3d *cub3d)
 
 void	moving_left(t_cub3d *cub3d)
 {
-	double	mx;
-	double	my;
+	float	mx;
+	float	my;
 
 	my = (cub3d->posY - (cub3d->planeY * STEP));
 	mx = (cub3d->posX - (cub3d->planeX * STEP));
@@ -42,8 +42,8 @@ void	moving_left(t_cub3d *cub3d)
 
 void	moving_down(t_cub3d *cub3d)
 {
-	double	mx;
-	double	my;
+	float	mx;
+	float	my;
 
 	my = (cub3d->posY - (cub3d->dirY * STEP));
 	mx = (cub3d->posX - (cub3d->dirX * STEP));
@@ -56,8 +56,8 @@ void	moving_down(t_cub3d *cub3d)
 
 void	moving_up(t_cub3d *cub3d)
 {
-	double	mx;
-	double	my;
+	float	mx;
+	float	my;
 
 	my = (cub3d->posY + (cub3d->dirY * STEP));
 	mx = (cub3d->posX + (cub3d->dirX * STEP));
