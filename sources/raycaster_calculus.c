@@ -23,46 +23,47 @@ double	absol(double nombre)
 void	raycaster_init(t_cub3d *cub3d)
 {
 	cub3d->hit = 0;
-	cub3d->lineHeight = 0;
-	cub3d->cameraX = 2 * cub3d->ray / (double)WIDTH - 1;
-	cub3d->rayDirX = cub3d->dirX + cub3d->planeX * cub3d->cameraX;
-	cub3d->rayDirY = cub3d->dirY + cub3d->planeY * cub3d->cameraX;
-	cub3d->mapX = (int)(cub3d->posX);
-	cub3d->mapY = (int)(cub3d->posY);
-	if (cub3d->rayDirX == 0)
-		cub3d->deltaDistX = 2000000;
+	cub3d->line_height = 0;
+	cub3d->camera_x = 2 * cub3d->ray / (double)WIDTH - 1;
+	cub3d->raydir_x = cub3d->dir_x + cub3d->plane_x * cub3d->camera_x;
+	cub3d->raydir_y = cub3d->dir_y + cub3d->plane_y * cub3d->camera_x;
+	cub3d->map_x = (int)(cub3d->posx);
+	cub3d->map_y = (int)(cub3d->posy);
+	if (cub3d->raydir_x == 0)
+		cub3d->delta_dist_x = 2000000;
 	else
-		cub3d->deltaDistX = absol(1 / cub3d->rayDirX);
-	if (cub3d->rayDirY == 0)
-		cub3d->deltaDistY = 2000000;
+		cub3d->delta_dist_x = absol(1 / cub3d->raydir_x);
+	if (cub3d->raydir_y == 0)
+		cub3d->delta_dist_y = 2000000;
 	else
-		cub3d->deltaDistY = absol(1 / cub3d->rayDirY);
+		cub3d->delta_dist_y = absol(1 / cub3d->raydir_y);
 }
 
 void	raycaster_calculus(t_cub3d *cub3d)
 {
 	raycaster_init(cub3d);
-	if (cub3d->rayDirX < 0)
+	if (cub3d->raydir_x < 0)
 	{
-		cub3d->stepX = -1;
-		cub3d->sideDistX = ((cub3d->posX) - cub3d->mapX) * cub3d->deltaDistX;
+		cub3d->step_x = -1;
+		cub3d->side_dist_x = ((cub3d->posx) - cub3d->map_x)
+			* cub3d->delta_dist_x;
 	}
 	else
 	{
-		cub3d->stepX = 1;
-		cub3d->sideDistX = (cub3d->mapX + 1 - (cub3d->posX))
-			* cub3d->deltaDistX;
+		cub3d->step_x = 1;
+		cub3d->side_dist_x = (cub3d->map_x + 1 - (cub3d->posx))
+			* cub3d->delta_dist_x;
 	}
-	if (cub3d->rayDirY < 0)
+	if (cub3d->raydir_y < 0)
 	{
-		cub3d->stepY = -1;
-		cub3d->sideDistY = ((cub3d->posY) - cub3d->mapY)
-			* cub3d->deltaDistY;
+		cub3d->step_y = -1;
+		cub3d->side_dist_y = ((cub3d->posy) - cub3d->map_y)
+			* cub3d->delta_dist_y;
 	}
 	else
 	{
-		cub3d->stepY = 1;
-		cub3d->sideDistY = (cub3d->mapY + 1 - (cub3d->posY))
-			* cub3d->deltaDistY;
+		cub3d->step_y = 1;
+		cub3d->side_dist_y = (cub3d->map_y + 1 - (cub3d->posy))
+			* cub3d->delta_dist_y;
 	}
 }

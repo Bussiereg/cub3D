@@ -57,10 +57,10 @@ int	get_color_info(char *str)
 
 void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d)
 {
-	cub3d->posX = x + 0.5;
-	cub3d->posY = y + 0.5;
-	cub3d->dirX = (map_char == 'E') - (map_char == 'W');
-	cub3d->dirY = (map_char == 'S') - (map_char == 'N');
-	cub3d->planeX = (map_char == 'N') - (map_char == 'S');
-	cub3d->planeY = (map_char == 'E') - (map_char == 'W');
+	cub3d->posx = x + 0.5;
+	cub3d->posy = y + 0.5;
+	cub3d->dir_x = (map_char == 'E') - (map_char == 'W');
+	cub3d->dir_y = (map_char == 'S') - (map_char == 'N');
+	cub3d->plane_x = (map_char == 'N') - (map_char == 'S');
+	cub3d->plane_y = (map_char == 'E') - (map_char == 'W');
 }

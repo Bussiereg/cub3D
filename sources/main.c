@@ -27,8 +27,8 @@ int	cub3d_init(t_cub3d *cub3d)
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
 	if (!cub3d->minimap)
 		return (1);
-	cub3d->posX = 0;
-	cub3d->posY = 0;
+	cub3d->posx = 0;
+	cub3d->posy = 0;
 	cub3d->t_n = cub3d->viewport;
 	cub3d->t_s = cub3d->viewport;
 	cub3d->t_e = cub3d->viewport;

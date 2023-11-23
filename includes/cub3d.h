@@ -27,7 +27,7 @@
 # define STEP 0.1
 # define HEIGHT 700
 # define WIDTH 1400
-# define ROTSPEED (M_PI / 56)
+# define ROTSPD 0.06
 # define RAD 0.0174533
 
 typedef struct point
@@ -42,28 +42,28 @@ typedef struct cub3d
 	int				res_x;
 	int				res_y;
 
-	double			posX;
-	double			posY;
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
-	double			cameraX;
-	double			rayDirX;
-	double			rayDirY;
-	int				mapX;
-	int				mapY;
-	double			wallX;
-	double			sideDistY;
-	double			sideDistX;
-	double			deltaDistY;
-	double			deltaDistX;
-	int 			stepX;
-	int 			stepY;
-	double			perpWallDist;
+	double			posx;
+	double			posy;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	double			camera_x;
+	double			raydir_x;
+	double			raydir_y;
+	int				map_x;
+	int				map_y;
+	double			wall_x;
+	double			side_dist_y;
+	double			side_dist_x;
+	double			delta_dist_y;
+	double			delta_dist_x;
+	int				step_x;
+	int				step_y;
+	double			perp_wall_dist;
 	int				hit;
-	char 			side;
-	int 			lineHeight;
+	char			side;
+	int				line_height;
 	int				ray;
 
 	mlx_image_t		*viewport;
@@ -86,7 +86,6 @@ typedef struct cub3d
 
 }	t_cub3d;
 
-
 // draw_haracter.c
 void	draw_character(t_cub3d *cub3d, unsigned int color);
 
@@ -99,7 +98,7 @@ void	finding_wall(t_cub3d *cub3d);
 void	wall_distance(t_cub3d *cub3d);
 
 // raycaster_calculus.c
-double 	absol(double nombre);
+double	absol(double nombre);
 void	raycaster_init(t_cub3d *cub3d);
 void	raycaster_calculus(t_cub3d *cub3d);
 
