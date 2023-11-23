@@ -59,32 +59,8 @@ void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d)
 {
 	cub3d->posX = x + 0.5;
 	cub3d->posY = y + 0.5;
-	if (map_char == 'N')
-	{
-		cub3d->dirX = 0;
-		cub3d->dirY = -1;
-		cub3d->planeX = 1.0;
-		cub3d->planeY = 0;
-	}
-	else if (map_char == 'S')
-	{
-		cub3d->dirX = 0;
-		cub3d->dirY = 1;
-		cub3d->planeX = -1.0;
-		cub3d->planeY = 0;
-	}
-	else if (map_char == 'W')
-	{
-		cub3d->dirX = -1;
-		cub3d->dirY = 0;
-		cub3d->planeX = 0;
-		cub3d->planeY = -1.0;
-	}
-	else if (map_char == 'E')
-	{
-		cub3d->dirX = 1;
-		cub3d->dirY = 0;
-		cub3d->planeX = 0;
-		cub3d->planeY = 1.0;
-	}
+	cub3d->dirX = (map_char == 'E') - (map_char == 'W');
+	cub3d->dirY = (map_char == 'S') - (map_char == 'N');
+	cub3d->planeX = (map_char == 'N') - (map_char == 'S');
+	cub3d->planeY = (map_char == 'E') - (map_char == 'W');
 }
