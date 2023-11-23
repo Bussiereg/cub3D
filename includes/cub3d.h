@@ -26,7 +26,7 @@
 # define MOVESPEED 1
 # define SIZEMINIMAP 5
 # define STEP 0.1
-# define HEIGHT 700
+# define HEIGHT 350
 # define WIDTH 700
 # define ROTSPEED (M_PI / 112)
 # define RAD 0.0174533

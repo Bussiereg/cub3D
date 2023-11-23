@@ -38,11 +38,11 @@ lib:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(NAME): $(OBJ_DIREC) $(OBJS)
-	@$(CC) $(OBJS) -lm $(CFLAGS) $(LIBS) $(HEADERS) -o $(NAME) 
+	@$(CC) -O3 $(OBJS) -lm $(CFLAGS) $(LIBS) $(HEADERS) -o $(NAME) 
 	@echo "Cub3D compilation: 100%"
 
 $(OBJ_DIREC)%.o: $(SRC_DIREC)%.c
-	@$(CC) -o $@ $(CFLAGS) -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+	@$(CC) -O3 -o $@ $(CFLAGS) -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
 $(OBJ_DIREC):
 	@$(MD) $(OBJ_DIREC)

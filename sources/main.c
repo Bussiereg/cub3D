@@ -22,7 +22,7 @@ int	cub3d_init(t_cub3d *cub3d)
 	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 0);
 	if (!cub3d->viewport)
 		return (1);
-	cub3d->minimap = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	cub3d->minimap = mlx_new_image(cub3d->mlx, SIZEMINIMAP * 30, SIZEMINIMAP * 30);
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
 	if (!cub3d->minimap)
 		return (1);
@@ -49,8 +49,8 @@ int	main(int argc, char *argv[])
 	// cub3d.planeX = 0;
 	// cub3d.planeY = 0.66;
 	cub3d.test = 0;
-	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
-	// render(&cub3d);
+	// mlx_loop_hook(cub3d.mlx, &render, &cub3d);
+	render(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
 	mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
 	mlx_loop(cub3d.mlx);
