@@ -23,12 +23,11 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 1
-# define MOVESPEED 1
 # define SIZEMINIMAP 5
 # define STEP 0.1
-# define HEIGHT 350
-# define WIDTH 700
-# define ROTSPEED (M_PI / 112)
+# define HEIGHT 700
+# define WIDTH 1400
+# define ROTSPEED (M_PI / 56)
 # define RAD 0.0174533
 
 typedef struct point

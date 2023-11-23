@@ -29,33 +29,32 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 
 	cub3d = (t_cub3d *)param;
 	// printf("test: %i\n", cub3d->test++);
-	usleep(1000);
-	if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W))
+	if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W) && ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
 	{
 		moving_up(cub3d);
 		render(cub3d);
 	}
-	else if (keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
+	else if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)  && ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
 	{
 		moving_down(cub3d);
 		render(cub3d);
 	}
-	else if (keydata.key == MLX_KEY_A)
+	else if ((keydata.key == MLX_KEY_A)  && ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
 	{
 		moving_left(cub3d);
 		render(cub3d);
 	}
-	else if (keydata.key == MLX_KEY_D)
+	else if ((keydata.key == MLX_KEY_D)  && ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
 	{
 		moving_right(cub3d);
 		render(cub3d);
 	}
-	else if (keydata.key == MLX_KEY_LEFT)
+	else if ((keydata.key == MLX_KEY_LEFT) && ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
 	{
 		rotating_left(cub3d);
 		render(cub3d);
 	}
-	else if (keydata.key == MLX_KEY_RIGHT)
+	else if ((keydata.key == MLX_KEY_RIGHT) && ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
 	{
 		rotating_right(cub3d);
 		render(cub3d);
