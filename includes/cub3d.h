@@ -25,7 +25,7 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 1
-# define SIZEMINIMAP 5
+# define SIZEMINIMAP 10
 # define STEP 0.1
 # define ROTSPD 0.04
 # define GHEIGHT 850
