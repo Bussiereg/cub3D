@@ -70,14 +70,14 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	int	a;
 	int	b;
 
-	a = GHEIGHT / 2 - line_height / 2;
+	a = GHEIGHT / 2 - line_height * cub3d->wall_height + line_height / 2;
 	b = GHEIGHT / 2 + line_height / 2;
 	i = 0;
 	while (a < b)
 	{
 		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
 			mlx_put_pixel(cub3d->viewport, cub3d->ray, a, calc_pix_color(i,
-					text, text_x_pos, line_height + 1));
+					text, text_x_pos, line_height * cub3d->wall_height + 1));
 		a++;
 		i++;
 	}

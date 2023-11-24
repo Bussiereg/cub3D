@@ -63,15 +63,18 @@ typedef struct cub3d
 	int				ray;
 
 	mlx_image_t		*viewport;
+	mlx_image_t		*intro;
 	mlx_image_t		*background;
 	mlx_image_t		*minimap;
 	mlx_t			*mlx;
+	int				frame;
 
 	char			**map;
 	char			**map_check;
 	int				map_line;
 	int				m_size_x;
 	int				m_size_y;
+	int				wall_height;
 
 	mlx_image_t		*t_n;
 	mlx_image_t		*t_s;

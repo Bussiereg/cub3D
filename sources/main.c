@@ -22,6 +22,9 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->background)
 		return (1);
+	cub3d->intro = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
+	if (!cub3d->intro)
+		return (1);
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->viewport)
 		return (1);
@@ -37,6 +40,8 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->t_w = cub3d->viewport;
 	cub3d->color_c = 0;
 	cub3d->color_f = 0;
+	cub3d->wall_height = 1;
+	cub3d->frame = 0;
 	return (0);
 }
 
