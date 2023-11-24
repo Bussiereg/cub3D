@@ -14,6 +14,7 @@
 
 int	cub3d_init(t_cub3d *cub3d)
 {
+	mlx_texture_t	*texture;
 	mlx_set_setting(MLX_FULLSCREEN, true);
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "SUBMOON", false);
 	if (!cub3d->mlx)
@@ -22,9 +23,11 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->background)
 		return (1);
-	cub3d->intro = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
+	texture = mlx_load_png("./texture/intro.png");
+	cub3d->intro = mlx_texture_to_image(cub3d->mlx, texture);
 	if (!cub3d->intro)
 		return (1);
+	mlx_delete_texture(texture);
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->viewport)
 		return (1);
