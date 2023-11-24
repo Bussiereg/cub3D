@@ -39,8 +39,9 @@ typedef struct point
 
 typedef struct cub3d
 {
-	int				res_x;
-	int				res_y;
+
+	int				height;
+	int				width;
 
 	double			posx;
 	double			posy;

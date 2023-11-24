@@ -15,6 +15,8 @@
 int	cub3d_init(t_cub3d *cub3d)
 {
 	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx_get_monitor_size(0, &cub3d->width, &cub3d->height);
+	ft_printf("w = %d, h = %d", cub3d->width, cub3d->height);
 	cub3d->mlx = mlx_init(1920, 1080, "SUBMOON", false);
 	if (!cub3d->mlx)
 		return (1);
