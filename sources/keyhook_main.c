@@ -23,19 +23,15 @@ void	win_close(void *param)
 	exit(EXIT_SUCCESS);
 }
 
-void	my_keyhook(mlx_key_data_t keydata, void *param)
+void	my_keyhook_move(mlx_key_data_t keydata, t_cub3d	*cub3d)
 {
-	t_cub3d	*cub3d;
-
-	cub3d = (t_cub3d *)param;
-	if (((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W) && (keydata.key == MLX_KEY_RIGHT))
+	if (((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
+			&& (keydata.key == MLX_KEY_RIGHT))
 		&& ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
-	{
-			moving_right_up(cub3d);
-	}
+		moving_right_up(cub3d);
 	else if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
 		&& ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
-			moving_up(cub3d);
+		moving_up(cub3d);
 	else if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
 		&& ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
 		moving_down(cub3d);
@@ -45,12 +41,25 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	else if ((keydata.key == MLX_KEY_D) && ((keydata.action == MLX_REPEAT)
 			|| (keydata.action == MLX_PRESS)))
 		moving_right(cub3d);
-	else if ((keydata.key == MLX_KEY_LEFT) && ((keydata.action == MLX_REPEAT)
+}
+
+void	my_keyhook_rotate(mlx_key_data_t keydata, t_cub3d *cub3d)
+{
+	if ((keydata.key == MLX_KEY_LEFT) && ((keydata.action == MLX_REPEAT)
 			|| (keydata.action == MLX_PRESS)))
 		rotating_left(cub3d);
 	else if ((keydata.key == MLX_KEY_RIGHT) && ((keydata.action == MLX_REPEAT)
 			|| (keydata.action == MLX_PRESS)))
 		rotating_right(cub3d);
-	else if (keydata.key == MLX_KEY_ESCAPE)
+}
+
+void	my_keyhook(mlx_key_data_t keydata, void *param)
+{
+	t_cub3d	*cub3d;
+
+	cub3d = (t_cub3d *)param;
+	my_keyhook_move(keydata, cub3d);
+	my_keyhook_rotate(keydata, cub3d);
+	if (keydata.key == MLX_KEY_ESCAPE)
 		win_close(param);
 }

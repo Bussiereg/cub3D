@@ -18,7 +18,7 @@ void	render_background(t_cub3d *cub3d)
 	int	y;
 
 	mlx_delete_image(cub3d->mlx, cub3d->background);
-	cub3d->background = mlx_new_image(cub3d->mlx, 1920, 1080);
+	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	y = 0;
 	while (y < 1080)
 	{
@@ -37,7 +37,7 @@ void	render_background(t_cub3d *cub3d)
 void	render_viewport(t_cub3d *cub3d)
 {
 	mlx_delete_image(cub3d->mlx, cub3d->viewport);
-	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	draw_ceiling(cub3d);
 	draw_floor(cub3d);
 	draw_game(cub3d);

@@ -46,7 +46,7 @@ void	wall_distance(t_cub3d *cub3d)
 		cub3d->perp_wall_dist = (cub3d->side_dist_x - cub3d->delta_dist_x);
 	else
 		cub3d->perp_wall_dist = (cub3d->side_dist_y - cub3d->delta_dist_y);
-	cub3d->line_height = (int)(HEIGHT / cub3d->perp_wall_dist);
+	cub3d->line_height = (int)(GHEIGHT / cub3d->perp_wall_dist);
 	if (cub3d->side == 'E' || cub3d->side == 'W')
 		cub3d->wall_x = cub3d->posy + cub3d->perp_wall_dist * cub3d->raydir_y;
 	else

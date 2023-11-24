@@ -22,9 +22,9 @@ int	draw_sky(t_cub3d *cub3d)
 
 	sky = cub3d->color_c;
 	sky_darker = 0x000910FF;
-	calc_grad_steps(HEIGHT / 2, sky_darker, sky, &*rgba);
+	calc_grad_steps(GHEIGHT / 2, sky_darker, sky, &*rgba);
 	y = 0;
-	while (y < HEIGHT / 2)
+	while (y < GHEIGHT / 2)
 	{
 		x = 0;
 		while (x < WIDTH * 2)
@@ -49,8 +49,8 @@ int	draw_floor(t_cub3d *cub3d)
 	int	x;
 	int	y;
 
-	y = HEIGHT / 2;
-	while (y < HEIGHT)
+	y = GHEIGHT / 2;
+	while (y < GHEIGHT)
 	{
 		x = 0;
 		while (x < WIDTH)
@@ -70,12 +70,12 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	int	a;
 	int	b;
 
-	a = HEIGHT / 2 - line_height / 2;
-	b = HEIGHT / 2 + line_height / 2;
+	a = GHEIGHT / 2 - line_height / 2;
+	b = GHEIGHT / 2 + line_height / 2;
 	i = 0;
 	while (a < b)
 	{
-		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < HEIGHT)
+		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
 			mlx_put_pixel(cub3d->viewport, cub3d->ray, a, calc_pix_color(i,
 					text, text_x_pos, line_height + 1));
 		a++;

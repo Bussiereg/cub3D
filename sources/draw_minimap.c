@@ -36,7 +36,7 @@ void	draw_minimap(t_cub3d *cub3d)
 	int		y;
 
 	mlx_delete_image(cub3d->mlx, cub3d->minimap);
-	cub3d->minimap = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	cub3d->minimap = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	y = 0;
 	while (y < cub3d->m_size_y)
 	{

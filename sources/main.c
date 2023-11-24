@@ -15,14 +15,14 @@
 int	cub3d_init(t_cub3d *cub3d)
 {
 	mlx_set_setting(MLX_FULLSCREEN, true);
-	cub3d->mlx = mlx_init(1920, 1080, "SUBMOON", false);
+	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "SUBMOON", false);
 	if (!cub3d->mlx)
 		return (1);
 	errno = 0;
-	cub3d->background = mlx_new_image(cub3d->mlx, 1920, 1080);
+	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->background)
 		return (1);
-	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->viewport)
 		return (1);
 	cub3d->minimap = mlx_new_image(cub3d->mlx,

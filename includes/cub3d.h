@@ -26,6 +26,7 @@
 # define SIZEMINIMAP 5
 # define STEP 0.1
 # define ROTSPD 0.06
+# define GHEIGHT 850
 # define RAD 0.0174533
 
 typedef struct point
@@ -37,9 +38,6 @@ typedef struct point
 
 typedef struct cub3d
 {
-	int				res_x;
-	int				res_y;
-
 	double			posx;
 	double			posy;
 	double			dir_x;
