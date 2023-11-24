@@ -25,8 +25,6 @@
 # define OFFSET 1
 # define SIZEMINIMAP 5
 # define STEP 0.1
-# define HEIGHT 850
-# define WIDTH 1920
 # define ROTSPD 0.06
 # define RAD 0.0174533
 

@@ -1,6 +1,8 @@
 # -----------\ Name \--------------------------------------------------------- #
 
 NAME	:= cub3D
+WIDTH := $(shell xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $$3}')
+HEIGHT := $(shell xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $$4}')
 
 # -----------\ Directories \-------------------------------------------------- #
 
@@ -12,7 +14,7 @@ OBJ_DIREC := build/
 
 # -----------\ Compilation \-------------------------------------------------- #
 
-CFLAGS	:= -Wextra -Wall -Werror -g
+CFLAGS	:= -Wextra -Wall -Werror -g -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT)
 MD		:= -mkdir -p
 
 # -----------\ Files & sources \---------------------------------------------- #
@@ -38,11 +40,11 @@ lib:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(NAME): $(OBJ_DIREC) $(OBJS)
-	@$(CC) -O3 $(OBJS) -lm $(CFLAGS) $(LIBS) $(HEADERS) -o $(NAME) 
+	@$(CC) $(OBJS) -lm $(CFLAGS) $(LIBS) $(HEADERS) -o $(NAME) 
 	@echo "Cub3D compilation: 100%"
 
 $(OBJ_DIREC)%.o: $(SRC_DIREC)%.c
-	@$(CC) -O3 -o $@ $(CFLAGS) -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+	@$(CC) -o $@ $(CFLAGS) -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
 $(OBJ_DIREC):
 	@$(MD) $(OBJ_DIREC)
@@ -51,10 +53,6 @@ $(OBJ_DIREC):
 clean:
 	@rm -fr $(OBJ_DIREC)
 	@$(MAKE) clean -C $(LIBFT_DIR)
-
-size:
-	WIDTH = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $4}';
-	HEIGHT = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $3}';
 
 fclean: clean	
 	@rm -fr $(LIBMLX)
