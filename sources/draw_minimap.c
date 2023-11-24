@@ -44,9 +44,9 @@ void	draw_minimap(t_cub3d *cub3d)
 		while (x < cub3d->m_size_x)
 		{
 			if (cub3d->map[y][x] == '0')
-				draw_tile(cub3d, x, y, 0xFFFFFFBB);
+				draw_tile(cub3d, x, y, 0xFFFFFF88);
 			else if (cub3d->map[y][x] == '1')
-				draw_tile(cub3d, x, y, 0x888888BB);
+				draw_tile(cub3d, x, y, 0x88888888);
 			x++;
 		}
 		y++;

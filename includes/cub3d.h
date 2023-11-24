@@ -14,6 +14,8 @@
 # define CUB3D_H
 
 # include <fcntl.h>
+# include <alsa/asoundlib.h>
+# include <pulse/simple.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>

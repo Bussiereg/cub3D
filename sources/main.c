@@ -49,6 +49,7 @@ int	main(int argc, char *argv[])
 	if (cub3d_init(&cub3d) == 1)
 		terminate("Init cub3d  mlx42 error", &cub3d, 0, 0);
 	parse_map(argv[1], &cub3d);
+
 	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
 	// render(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
