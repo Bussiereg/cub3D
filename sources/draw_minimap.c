@@ -35,6 +35,8 @@ void	draw_minimap(t_cub3d *cub3d)
 	int		x;
 	int		y;
 
+	mlx_delete_image(cub3d->mlx, cub3d->minimap);
+	cub3d->minimap = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	y = 0;
 	while (y < cub3d->m_size_y)
 	{
@@ -51,4 +53,5 @@ void	draw_minimap(t_cub3d *cub3d)
 	}
 	draw_character(cub3d, 0xFF0000FF);
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
+	mlx_set_instance_depth(cub3d->viewport->instances, 3);
 }

@@ -14,17 +14,19 @@
 
 int	cub3d_init(t_cub3d *cub3d)
 {
-	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "SUBMOON", false);
+	mlx_set_setting(MLX_FULLSCREEN, true);
+	cub3d->mlx = mlx_init(1920, 1080, "SUBMOON", false);
 	if (!cub3d->mlx)
 		return (1);
 	errno = 0;
+	cub3d->background = mlx_new_image(cub3d->mlx, 1920, 1080);
+	if (!cub3d->background)
+		return (1);
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 0);
 	if (!cub3d->viewport)
 		return (1);
 	cub3d->minimap = mlx_new_image(cub3d->mlx,
 			SIZEMINIMAP * 30, SIZEMINIMAP * 30);
-	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
 	if (!cub3d->minimap)
 		return (1);
 	cub3d->posx = 0;
