@@ -25,10 +25,6 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->viewport)
 		return (1);
-	cub3d->minimap = mlx_new_image(cub3d->mlx,
-			SIZEMINIMAP * 30, SIZEMINIMAP * 30);
-	if (!cub3d->minimap)
-		return (1);
 	cub3d->posx = 0;
 	cub3d->posy = 0;
 	cub3d->t_n = cub3d->viewport;
@@ -49,7 +45,9 @@ int	main(int argc, char *argv[])
 	if (cub3d_init(&cub3d) == 1)
 		terminate("Init cub3d  mlx42 error", &cub3d, 0, 0);
 	parse_map(argv[1], &cub3d);
-
+	cub3d.minimap = mlx_new_image(cub3d.mlx, cub3d.m_size_x * SIZEMINIMAP, cub3d.m_size_y * SIZEMINIMAP);
+	if (!cub3d.minimap)
+		return (1);
 	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
 	// render(&cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
