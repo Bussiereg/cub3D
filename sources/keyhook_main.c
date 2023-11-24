@@ -28,9 +28,14 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	t_cub3d	*cub3d;
 
 	cub3d = (t_cub3d *)param;
-	if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
+	if (((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W) && (keydata.key == MLX_KEY_RIGHT))
 		&& ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
-		moving_up(cub3d);
+	{
+			moving_right_up(cub3d);
+	}
+	else if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
+		&& ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
+			moving_up(cub3d);
 	else if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
 		&& ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
 		moving_down(cub3d);

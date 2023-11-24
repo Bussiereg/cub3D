@@ -150,6 +150,7 @@ void	rotating_right(t_cub3d *cub3d);
 void	rotating_left(t_cub3d *cub3d);
 
 // keyhook_moving.c
+void	moving_right_up(t_cub3d *cub3d);
 void	moving_right(t_cub3d *cub3d);
 void	moving_left(t_cub3d *cub3d);
 void	moving_down(t_cub3d *cub3d);
