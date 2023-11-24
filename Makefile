@@ -52,6 +52,10 @@ clean:
 	@rm -fr $(OBJ_DIREC)
 	@$(MAKE) clean -C $(LIBFT_DIR)
 
+size:
+	WIDTH = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $4}';
+	HEIGHT = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $3}';
+
 fclean: clean	
 	@rm -fr $(LIBMLX)
 	@rm -f $(NAME)
