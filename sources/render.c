@@ -30,8 +30,6 @@ void	render_background(t_cub3d *cub3d)
 		}
 		y++;
 	}
-	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
-	mlx_set_instance_depth(cub3d->background->instances, 1);
 }
 
 void	render_viewport(t_cub3d *cub3d)
@@ -41,8 +39,6 @@ void	render_viewport(t_cub3d *cub3d)
 	draw_ceiling(cub3d);
 	draw_floor(cub3d);
 	draw_game(cub3d);
-	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 115);
-	mlx_set_instance_depth(cub3d->viewport->instances, 2);
 }
 
 void	render(void *param)
@@ -53,4 +49,13 @@ void	render(void *param)
 	render_background(cub3d);
 	render_viewport(cub3d);
 	draw_minimap(cub3d);
+	//background
+	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
+	mlx_set_instance_depth(cub3d->background->instances, 1);
+	// viewport
+	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 115);
+	mlx_set_instance_depth(cub3d->viewport->instances, 2);
+	// minimap
+	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
+	mlx_set_instance_depth(cub3d->viewport->instances, 3);
 }
