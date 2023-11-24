@@ -14,6 +14,8 @@ OBJ_DIREC := build/
 
 CFLAGS	:= -Wextra -Wall -Werror -g
 MD		:= -mkdir -p
+WIDTHU = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $4}';
+HEIGHTU = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $3}';
 
 # -----------\ Files & sources \---------------------------------------------- #
 
@@ -42,7 +44,7 @@ $(NAME): $(OBJ_DIREC) $(OBJS)
 	@echo "Cub3D compilation: 100%"
 
 $(OBJ_DIREC)%.o: $(SRC_DIREC)%.c
-	@$(CC) -O3 -o $@ $(CFLAGS) -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+	@$(CC) -O3 -o $@ -DHEIGHTU=$(HEIGHTU) $(CFLAGS) -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
 $(OBJ_DIREC):
 	@$(MD) $(OBJ_DIREC)
@@ -51,10 +53,6 @@ $(OBJ_DIREC):
 clean:
 	@rm -fr $(OBJ_DIREC)
 	@$(MAKE) clean -C $(LIBFT_DIR)
-
-size:
-	WIDTH = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $4}';
-	HEIGHT = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $3}';
 
 fclean: clean	
 	@rm -fr $(LIBMLX)
