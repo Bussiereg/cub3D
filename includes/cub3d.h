@@ -79,6 +79,7 @@ typedef struct cub3d
 	mlx_image_t		*t_s;
 	mlx_image_t		*t_e;
 	mlx_image_t		*t_w;
+	mlx_image_t		*coll;
 
 	int				color_c;
 	int				color_f;
@@ -127,6 +128,7 @@ int		all_info_read(t_cub3d *cub3d);
 int		read_info(char *file, t_cub3d *cub3d);
 
 // parse_textures.c
+void	load_textures_bonus(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
 void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
 void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d);
 int		get_color_info(char *str);
