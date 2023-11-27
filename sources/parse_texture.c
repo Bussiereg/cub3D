@@ -12,6 +12,16 @@
 
 #include "cub3d.h"
 
+void	load_textures_bonus(mlx_texture_t	*texture, t_cub3d *cub3d, char **info)
+{
+	if (ft_strncmp(info[0], "CO", 2) == 0)
+	{
+		texture = mlx_load_png(info[1]);
+		cub3d->coll = mlx_texture_to_image(cub3d->mlx, texture);
+		mlx_delete_texture(texture);
+	}
+}
+
 void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info)
 {
 	if (ft_strncmp(info[0], "NO", 2) == 0)

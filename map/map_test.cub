@@ -1,7 +1,7 @@
 NO ./texture/texture_N2.png
-SO ./texture/texture_S.png
-WE ./texture/texture_W.png
-EA ./texture/texture_E.png
+SO ./texture/texture_N2.png
+WE ./texture/texture_N2.png
+EA ./texture/texture_N2.png
 
 F 50,100,0
 C 0,30,60

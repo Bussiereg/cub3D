@@ -25,9 +25,8 @@
 # define OFFSET 1
 # define SIZEMINIMAP 5
 # define STEP 0.1
-# define HEIGHT 850
-# define WIDTH 1920
 # define ROTSPD 0.06
+# define GHEIGHT 850
 # define RAD 0.0174533
 
 typedef struct point
@@ -39,9 +38,8 @@ typedef struct point
 
 typedef struct cub3d
 {
-
-	int				height;
-	int				width;
+	int				res_x;
+	int				res_y;
 
 	double			posx;
 	double			posy;
@@ -68,20 +66,24 @@ typedef struct cub3d
 	int				ray;
 
 	mlx_image_t		*viewport;
+	mlx_image_t		*intro;
 	mlx_image_t		*background;
 	mlx_image_t		*minimap;
 	mlx_t			*mlx;
+	int				frame;
 
 	char			**map;
 	char			**map_check;
 	int				map_line;
 	int				m_size_x;
 	int				m_size_y;
+	int				wall_height;
 
 	mlx_image_t		*t_n;
 	mlx_image_t		*t_s;
 	mlx_image_t		*t_e;
 	mlx_image_t		*t_w;
+	mlx_image_t		*coll;
 
 	int				color_c;
 	int				color_f;
@@ -130,6 +132,7 @@ int		all_info_read(t_cub3d *cub3d);
 int		read_info(char *file, t_cub3d *cub3d);
 
 // parse_textures.c
+void	load_textures_bonus(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
 void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
 void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d);
 int		get_color_info(char *str);

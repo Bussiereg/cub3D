@@ -46,7 +46,7 @@ void	wall_distance(t_cub3d *cub3d)
 		cub3d->perp_wall_dist = (cub3d->side_dist_x - cub3d->delta_dist_x);
 	else
 		cub3d->perp_wall_dist = (cub3d->side_dist_y - cub3d->delta_dist_y);
-	cub3d->line_height = (int)(HEIGHT / cub3d->perp_wall_dist);
+	cub3d->line_height = (int)(GHEIGHT / cub3d->perp_wall_dist * cub3d->wall_height * 1.5);
 	if (cub3d->side == 'E' || cub3d->side == 'W')
 		cub3d->wall_x = cub3d->posy + cub3d->perp_wall_dist * cub3d->raydir_y;
 	else
@@ -59,17 +59,26 @@ void	raycaster(t_cub3d *cub3d)
 {
 	int	texx;
 
-	texx = cub3d->wall_x * cub3d->t_e->width;
 	if (cub3d->side == 'N')
+	{
+		texx = cub3d->wall_x * cub3d->t_n->width;
 		draw_line_textu(cub3d->line_height, texx, cub3d->t_n, cub3d);
+	}
 	else if (cub3d->side == 'S')
+	{
+		texx = cub3d->wall_x * cub3d->t_s->width;
 		draw_line_textu(cub3d->line_height,
 			cub3d->t_s->height - texx - 1, cub3d->t_s, cub3d);
+	}
 	else if (cub3d->side == 'E')
 	{
+		texx = cub3d->wall_x * cub3d->t_e->width;
 		draw_line_textu(cub3d->line_height, texx, cub3d->t_e, cub3d);
 	}
 	else if (cub3d->side == 'W')
+	{
+		texx = cub3d->wall_x * cub3d->t_w->width;
 		draw_line_textu(cub3d->line_height,
 			cub3d->t_e->height - texx - 1, cub3d->t_w, cub3d);
+	}
 }
