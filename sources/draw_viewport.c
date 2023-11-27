@@ -70,7 +70,10 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	int	a;
 	int	b;
 
-	a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2 * (cub3d->wall_height - 0.5);
+	if (cub3d->wall_height == 1)
+		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2;
+	else
+		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2 * (cub3d->wall_height - 0.5);
 	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
 	i = 0;
 	while (a < b)

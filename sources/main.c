@@ -25,6 +25,13 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->intro = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->intro)
 		return (1);
+
+	mlx_texture_t	*texture;
+	mlx_delete_image(cub3d->mlx, cub3d->intro);
+	texture = mlx_load_png("./texture/intro.png");
+	cub3d->intro = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->viewport)
 		return (1);
