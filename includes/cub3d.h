@@ -59,14 +59,16 @@ typedef struct cub3d
 	double			delta_dist_x;
 	int				step_x;
 	int				step_y;
-	double			perp_wall_dist;
 	int				hit;
-	char			side;
 	int				line_height;
+	double			perp_wall_dist;
+	int				door_hit;
+	double			door_perp_wall_dist;
+	char			side;
 	int				ray;
 
 	mlx_image_t		*viewport;
-		mlx_image_t		*intro;
+	mlx_image_t		*intro;
 	mlx_image_t		*background;
 	mlx_image_t		*minimap;
 	mlx_t			*mlx;
