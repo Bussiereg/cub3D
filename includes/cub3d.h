@@ -14,6 +14,8 @@
 # define CUB3D_H
 
 # include <fcntl.h>
+# include <alsa/asoundlib.h>
+# include <pulse/simple.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
@@ -23,9 +25,9 @@
 # include <stdlib.h>
 # include <errno.h>
 # define OFFSET 1
-# define SIZEMINIMAP 5
+# define SIZEMINIMAP 10
 # define STEP 0.1
-# define ROTSPD 0.06
+# define ROTSPD 0.04
 # define GHEIGHT 850
 # define RAD 0.0174533
 
@@ -90,7 +92,7 @@ typedef struct cub3d
 
 }	t_cub3d;
 
-// draw_haracter.c
+// draw_character.c
 void	draw_character(t_cub3d *cub3d, unsigned int color);
 
 // draw_minimap.c
@@ -153,7 +155,6 @@ void	rotating_right(t_cub3d *cub3d);
 void	rotating_left(t_cub3d *cub3d);
 
 // keyhook_moving.c
-void	moving_right_up(t_cub3d *cub3d);
 void	moving_right(t_cub3d *cub3d);
 void	moving_left(t_cub3d *cub3d);
 void	moving_down(t_cub3d *cub3d);
