@@ -3,6 +3,8 @@
 NAME	:= cub3D
 WIDTH := $(shell xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $$3}')
 HEIGHT := $(shell xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $$4}')
+WAV_FILE := $(PWD)/music.wav
+MAP_NAME := map/map_ice_maze.cub
 
 # -----------\ Directories \-------------------------------------------------- #
 
@@ -42,7 +44,7 @@ lib:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(NAME): $(OBJ_DIREC) $(OBJS)
-	@$(CC) $(OBJS) -lm $(CFLAGS) $(LIBS) $(HEADERS) -o $(NAME) 
+	@$(CC) $(OBJS) -lm $(CFLAGS) $(LIBS) $(HEADERS) -o $(NAME) -lasound
 	@echo "Cub3D compilation: 100%"
 
 $(OBJ_DIREC)%.o: $(SRC_DIREC)%.c
@@ -55,6 +57,9 @@ $(OBJ_DIREC):
 clean:
 	@rm -fr $(OBJ_DIREC)
 	@$(MAKE) clean -C $(LIBFT_DIR)
+
+run: $(NAME)
+	./$(NAME) $(MAP_NAME) & aplay $(WAV_FILE); kill $!
 
 fclean: clean	
 	@rm -fr $(LIBMLX)
