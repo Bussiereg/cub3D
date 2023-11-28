@@ -81,6 +81,13 @@ typedef struct cub3d
 	int				color_c;
 	int				color_f;
 
+	int				move_up;
+	int				move_down;
+	int				move_left;
+	int				move_right;
+	int				rotate_left;
+	int				rotate_right;
+
 }	t_cub3d;
 
 // draw_haracter.c

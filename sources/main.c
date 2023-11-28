@@ -37,6 +37,12 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->t_w = cub3d->viewport;
 	cub3d->color_c = 0;
 	cub3d->color_f = 0;
+	cub3d->move_up = 0;
+	cub3d->move_down = 0;
+	cub3d->move_left = 0;
+	cub3d->move_right = 0;
+	cub3d->rotate_left = 0;
+	cub3d->rotate_right = 0;
 	return (0);
 }
 
