@@ -26,27 +26,45 @@ void	win_close(void *param)
 void	my_keyhook_move(mlx_key_data_t keydata, t_cub3d	*cub3d)
 {
 	if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
-		&& ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
-		moving_up(cub3d);
-	else if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
-		&& ((keydata.action == MLX_REPEAT) || (keydata.action == MLX_PRESS)))
-		moving_down(cub3d);
-	else if ((keydata.key == MLX_KEY_A) && ((keydata.action == MLX_REPEAT)
-			|| (keydata.action == MLX_PRESS)))
-		moving_left(cub3d);
-	else if ((keydata.key == MLX_KEY_D) && ((keydata.action == MLX_REPEAT)
-			|| (keydata.action == MLX_PRESS)))
-		moving_right(cub3d);
+		&& keydata.action == MLX_PRESS)
+		cub3d->move_up = 1;
+	if ((keydata.key == MLX_KEY_UP || keydata.key == MLX_KEY_W)
+		&& keydata.action == MLX_RELEASE)
+		cub3d->move_up = 0;
+	if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
+		&& keydata.action == MLX_PRESS)
+		cub3d->move_down = 1;
+	if ((keydata.key == MLX_KEY_DOWN || keydata.key == MLX_KEY_S)
+		&& keydata.action == MLX_RELEASE)
+		cub3d->move_down = 0;
+	if ((keydata.key == MLX_KEY_A)
+		&& keydata.action == MLX_PRESS)
+		cub3d->move_left = 1;
+	if ((keydata.key == MLX_KEY_A)
+		&& keydata.action == MLX_RELEASE)
+		cub3d->move_left = 0;
+	if ((keydata.key == MLX_KEY_D)
+		&& keydata.action == MLX_PRESS)
+		cub3d->move_right = 1;
+	if ((keydata.key == MLX_KEY_D)
+		&& keydata.action == MLX_RELEASE)
+		cub3d->move_right = 0;
 }
 
 void	my_keyhook_rotate(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
-	if ((keydata.key == MLX_KEY_LEFT) && ((keydata.action == MLX_REPEAT)
-			|| (keydata.action == MLX_PRESS)))
-		rotating_left(cub3d);
-	else if ((keydata.key == MLX_KEY_RIGHT) && ((keydata.action == MLX_REPEAT)
-			|| (keydata.action == MLX_PRESS)))
-		rotating_right(cub3d);
+	if ((keydata.key == MLX_KEY_LEFT)
+		&& keydata.action == MLX_PRESS)
+		cub3d->rotate_left = 1;
+	if ((keydata.key == MLX_KEY_LEFT)
+		&& keydata.action == MLX_RELEASE)
+		cub3d->rotate_left = 0;
+	if ((keydata.key == MLX_KEY_RIGHT)
+		&& keydata.action == MLX_PRESS)
+		cub3d->rotate_right = 1;
+	if ((keydata.key == MLX_KEY_RIGHT)
+		&& keydata.action == MLX_RELEASE)
+		cub3d->rotate_right = 0;
 }
 
 void	my_keyhook(mlx_key_data_t keydata, void *param)

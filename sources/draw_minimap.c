@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
+void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color1,  unsigned int color2)
 {
 	int	new_x;
 	int	new_y;
@@ -23,7 +23,10 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color)
 		new_x = x * SIZEMINIMAP;
 		while (new_x < (x * SIZEMINIMAP) + SIZEMINIMAP)
 		{
-			mlx_put_pixel(cub3d->minimap, new_x, new_y, color);
+			if (new_x % SIZEMINIMAP == 0 || new_y % SIZEMINIMAP == 0)
+				mlx_put_pixel(cub3d->minimap, new_x, new_y, color2);
+			else
+				mlx_put_pixel(cub3d->minimap, new_x, new_y, color1);
 			new_x++;
 		}
 		new_y++;
@@ -36,7 +39,7 @@ void	draw_minimap(t_cub3d *cub3d)
 	int		y;
 
 	mlx_delete_image(cub3d->mlx, cub3d->minimap);
-	cub3d->minimap = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
+	cub3d->minimap = mlx_new_image(cub3d->mlx, cub3d->m_size_x * SIZEMINIMAP, cub3d->m_size_y * SIZEMINIMAP);
 	y = 0;
 	while (y < cub3d->m_size_y)
 	{
@@ -44,14 +47,12 @@ void	draw_minimap(t_cub3d *cub3d)
 		while (x < cub3d->m_size_x)
 		{
 			if (cub3d->map[y][x] == '0')
-				draw_tile(cub3d, x, y, 0xFFFFFFBB);
+				draw_tile(cub3d, x, y, 0x000000FF, 0x19b919FF);
 			else if (cub3d->map[y][x] == '1')
-				draw_tile(cub3d, x, y, 0x888888BB);
+				draw_tile(cub3d, x, y, 0x19b919FF, 0x000000FF);
 			x++;
 		}
 		y++;
 	}
 	draw_character(cub3d, 0xFF0000FF);
-	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
-	mlx_set_instance_depth(cub3d->viewport->instances, 3);
 }
