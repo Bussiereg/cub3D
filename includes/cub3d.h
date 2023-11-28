@@ -52,7 +52,6 @@ typedef struct cub3d
 	double			raydir_y;
 	int				map_x;
 	int				map_y;
-	double			wall_x;
 	double			side_dist_y;
 	double			side_dist_x;
 	double			delta_dist_y;
@@ -62,8 +61,11 @@ typedef struct cub3d
 	int				hit;
 	int				line_height;
 	double			perp_wall_dist;
+	double			wall_x;
 	int				door_hit;
+	int				door_line_height;
 	double			door_perp_wall_dist;
+	double			door_wall_x;
 	char			side;
 	int				ray;
 
@@ -99,6 +101,7 @@ void	draw_character(t_cub3d *cub3d, unsigned int color);
 void	draw_minimap(t_cub3d *cub3d);
 
 // raycaster_main.c
+void	doorcaster(t_cub3d *cub3d);
 void	raycaster(t_cub3d *cub3d);
 void	finding_wall(t_cub3d *cub3d);
 void	wall_distance(t_cub3d *cub3d);
@@ -113,6 +116,8 @@ int		draw_sky(t_cub3d *cub3d);
 int		draw_ceiling(t_cub3d *cub3d);
 int		draw_floor(t_cub3d *cub3d);
 void	draw_line_textu(double line_height, int text_x_pos,
+			mlx_image_t *text, t_cub3d *cub3d);
+void	draw_door_line_textu(double line_height, int text_x_pos,
 			mlx_image_t *text, t_cub3d *cub3d);
 void	draw_game(t_cub3d *cub3d);
 

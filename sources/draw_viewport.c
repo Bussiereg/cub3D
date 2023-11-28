@@ -86,6 +86,35 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	}
 }
 
+void	draw_door_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
+		t_cub3d *cub3d)
+{
+	int	i;
+	int	a;
+	int	b;
+
+	int	y;
+
+	y = line_height - line_height + cub3d->frame;
+	ft_printf("y = %d\n", y);
+
+	if (cub3d->wall_height == 1)
+		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2;
+	else
+		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2 * (cub3d->wall_height - 0.5);
+	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
+	a += line_height * 0.008 * y;
+	i = 0;
+	while (a < b)
+	{
+		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
+			mlx_put_pixel(cub3d->viewport, cub3d->ray, a, calc_pix_color(i,
+					text, text_x_pos, line_height + 1));
+		a++;
+		i++;
+	}
+}
+
 void	draw_game(t_cub3d *cub3d)
 {
 	cub3d->ray = 0;
@@ -94,6 +123,7 @@ void	draw_game(t_cub3d *cub3d)
 		raycaster_calculus(cub3d);
 		wall_distance(cub3d);
 		raycaster(cub3d);
+		doorcaster(cub3d);
 		cub3d->ray++;
 	}
 }
