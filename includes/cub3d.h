@@ -14,8 +14,7 @@
 # define CUB3D_H
 
 # include <fcntl.h>
-# include <alsa/asoundlib.h>
-# include <pulse/simple.h>
+// # include <alsa/asoundlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
@@ -37,6 +36,12 @@ typedef struct point
 	int		y;
 	int		color;
 }	t_point;
+
+typedef struct sprite
+{
+	double x;
+	double y;
+}	t_sprite;
 
 typedef struct cub3d
 {
@@ -69,6 +74,8 @@ typedef struct cub3d
 	mlx_image_t		*minimap;
 	mlx_t			*mlx;
 
+	t_sprite		sprite;
+	
 	char			**map;
 	char			**map_check;
 	int				map_line;
@@ -83,6 +90,13 @@ typedef struct cub3d
 
 	int				color_c;
 	int				color_f;
+
+	int				move_up;
+	int				move_down;
+	int				move_left;
+	int				move_right;
+	int				rotate_left;
+	int				rotate_right;
 
 }	t_cub3d;
 

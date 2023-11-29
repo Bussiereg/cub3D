@@ -85,12 +85,92 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 
 void	draw_game(t_cub3d *cub3d)
 {
+	int numSprites = 1;
+	// int spriteOrder[numSprites];
+	// double spriteDistance[numSprites];
+	double ZBuffer[WIDTH];
+	
 	cub3d->ray = 0;
 	while (cub3d->ray < WIDTH)
 	{
 		raycaster_calculus(cub3d);
 		wall_distance(cub3d);
 		raycaster(cub3d);
+		//SET THE ZBUFFER FOR THE SPRITE CASTING
+		ZBuffer[cub3d->ray] = cub3d->perp_wall_dist; //perpendicular distance is used
 		cub3d->ray++;
+	}
+	//SPRITE CASTING
+	//sort sprites from far to close
+	for(int i = 0; i < numSprites; i++)
+	{
+		// spriteOrder[i] = i;
+		// spriteDistance[i] = ((cub3d->posx - sprite[i].x) * (cub3d->posx - sprite[i].x) + (cub3d->posy - sprite[i].y) * (cub3d->posy - sprite[i].y)); //sqrt not taken, unneeded
+	}
+	// sortSprites(spriteOrder, spriteDistance, numSprites);
+
+	//after sorting the sprites, do the projection and draw them
+	for(int i = 0; i < numSprites; i++)
+	{
+		//translate sprite position to relative to camera
+		double spriteX = cub3d->sprite.x - cub3d->posx;
+		double spriteY = cub3d->sprite.y - cub3d->posy;
+
+		//transform sprite with the inverse camera matrix
+		// [ planeX   dirX ] -1                                       [ dirY      -dirX ]
+		// [               ]       =  1/(planeX*dirY-dirX*planeY) *   [                 ]
+		// [ planeY   dirY ]                                          [ -planeY  planeX ]
+
+		double invDet = 1.0 / (cub3d->plane_x * cub3d->dir_y - cub3d->dir_x * cub3d->plane_y); //required for correct matrix multiplication
+
+		double transformX = invDet * (cub3d->dir_y  * spriteX - cub3d->dir_x * spriteY);
+		double transformY = invDet * (-cub3d->plane_y * spriteX + cub3d->plane_x * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+
+		int spriteScreenX = (int)((WIDTH / 2) * (1 + transformX / transformY));
+
+		//calculate height of the sprite on screen
+		int spriteHeight = abs((int)(cub3d->viewport->height / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
+		
+		//calculate lowest and highest pixel to fill in current stripe
+		int drawStartY = -spriteHeight / 2 + cub3d->viewport->height / 2;
+		if(drawStartY < 0)
+			drawStartY = 0;
+		int drawEndY = spriteHeight / 2 + cub3d->viewport->height / 2;
+		if(drawEndY >= (int)cub3d->viewport->height)
+			drawEndY = cub3d->viewport->height - 1;
+
+		//calculate width of the sprite
+		int spriteWidth = abs((int)(cub3d->viewport->height / (transformY)));
+		int drawStartX = -spriteWidth / 2 + spriteScreenX;
+		if(drawStartX < 0)
+			drawStartX = 0;
+		int drawEndX = spriteWidth / 2 + spriteScreenX;
+		if(drawEndX >= WIDTH)
+			drawEndX = WIDTH - 1;
+
+		//loop through every vertical stripe of the sprite on screen
+		// draw_line_textu(spriteHeight, drawStartX, cub3d->coll, cub3d);
+		for(int stripe = drawStartX; stripe < drawEndX; stripe++)
+		{
+			int k = 0;
+			// int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * cub3d->coll->width / spriteWidth) / 256;
+			//the conditions in the if are:
+			//1) it's in front of camera plane so you don't see things behind you
+			//2) it's on the screen (left)
+			//3) it's on the screen (right)
+			//4) ZBuffer, with perpendicular distance
+			if(transformY > 0 && stripe > 0 && stripe < WIDTH && transformY < ZBuffer[stripe])
+			{
+				for(int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
+				{
+					// int d = (y) * 256 - HEIGHT * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+					// int texY = ((d * cub3d->coll->height) / spriteHeight) / 256;
+					// int color = calc_pix_color(k, cub3d->coll, texY, temp);
+					mlx_put_pixel(cub3d->viewport, y, stripe, 0x00FFFFFF); //paint pixel if it isn't black, black is the invisible color
+					// printf("drawstartx: %d drawendx: %d drawstartY: %d drawendY: %d\n", drawStartX, drawEndX, drawStartY, drawEndY);
+					k++;
+				}
+			}
+		}
 	}
 }
