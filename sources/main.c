@@ -51,6 +51,9 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->move_right = 0;
 	cub3d->rotate_left = 0;
 	cub3d->rotate_right = 0;
+	cub3d->minimap_on = 0;
+	cub3d->door_open = 0;
+	cub3d->door_open_start = 0;
 	return (0);
 }
 

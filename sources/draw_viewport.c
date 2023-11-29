@@ -95,15 +95,21 @@ void	draw_door_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 
 	int	y;
 
-	y = line_height - line_height + cub3d->frame;
-	ft_printf("y = %d\n", y);
-
+	y = 0;
+	if (cub3d->door_open == 1)
+	{
+		if (cub3d->door_open_start == 0)
+			cub3d->door_open_start = cub3d->frame;
+		y = cub3d->frame - cub3d->door_open_start;
+	}
 	if (cub3d->wall_height == 1)
 		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2;
 	else
 		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2 * (cub3d->wall_height - 0.5);
 	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
 	a += line_height * 0.008 * y;
+	if (a > b)
+		*cub3d->door = '0';
 	i = 0;
 	while (a < b)
 	{

@@ -43,6 +43,7 @@ void	finding_wall(t_cub3d *cub3d)
 			else
 				cub3d->door_perp_wall_dist = (cub3d->side_dist_y - cub3d->delta_dist_y);
 			cub3d->door_hit = 1;
+			cub3d->door = &cub3d->map[cub3d->map_y][cub3d->map_x];
 		}
 	}
 }

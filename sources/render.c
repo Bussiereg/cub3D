@@ -20,10 +20,10 @@ void	render_background(t_cub3d *cub3d)
 	mlx_delete_image(cub3d->mlx, cub3d->background);
 	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	y = 0;
-	while (y < 1080)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < 1920)
+		while (x < WIDTH)
 		{
 			mlx_put_pixel(cub3d->background, x, y, 0x000000FF);
 			x++;
@@ -40,10 +40,7 @@ void	set_opacity(mlx_image_t *img, int alpha)
 	while (i < img->height * img->width)
 	{
 		if (img->pixels[((i) * (sizeof(int32_t)) + 3)] != 0)
-		{
 			img->pixels[((i) * (sizeof(int32_t)) + 3)] = alpha;
-			//ft_printf("%d  ", img->pixels[((i) * (sizeof(int32_t)) + 3)]);
-		}
 		i++;
 	}
 }
@@ -58,15 +55,10 @@ void	render_intro(t_cub3d *cub3d)
 	texture = mlx_load_png("./texture/intro.png");
 	cub3d->intro = mlx_texture_to_image(cub3d->mlx, texture);
 	mlx_delete_texture(texture);
-	ft_printf("fram = %d \n", cub3d->frame);
-	ft_printf("alph = %d \n", alpha);
-	if (alpha >= 0)
+	if (255 - cub3d->frame * 2.5 >= 0)
 	{
 		set_opacity(cub3d->intro, alpha);
-		mlx_image_to_window(cub3d->mlx, cub3d->intro, 0, 0);
 	}
-	//mlx_set_instance_depth(cub3d->intro->instances, 3);
-
 }
 
 void	render_viewport(t_cub3d *cub3d)
@@ -115,5 +107,10 @@ void	render(void *param)
 	// minimap
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
 	mlx_set_instance_depth(cub3d->minimap->instances, 3);
-	
+	// intro
+	if (255 - cub3d->frame * 2.5 >= 0)
+	{
+		mlx_image_to_window(cub3d->mlx, cub3d->intro, 0, 0);
+		mlx_set_instance_depth(cub3d->intro->instances, 4);
+	}
 }
