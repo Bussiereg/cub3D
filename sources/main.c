@@ -39,6 +39,7 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->move_right = 0;
 	cub3d->rotate_left = 0;
 	cub3d->rotate_right = 0;
+	cub3d->nb_sprite = 0;
 	return (0);
 }
 

@@ -29,6 +29,7 @@
 # define ROTSPD 0.04
 # define GHEIGHT (HEIGHT)
 # define RAD 0.0174533
+# define numSprites 3
 
 typedef struct point
 {
@@ -41,6 +42,7 @@ typedef struct sprite
 {
 	double x;
 	double y;
+	int flag;
 }	t_sprite;
 
 typedef struct cub3d
@@ -74,7 +76,8 @@ typedef struct cub3d
 	mlx_image_t		*minimap;
 	mlx_t			*mlx;
 
-	t_sprite		sprite;
+	t_sprite		sprite[3];
+	int				nb_sprite;
 	
 	char			**map;
 	char			**map_check;

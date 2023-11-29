@@ -29,8 +29,9 @@ int	line_to_map(int y, char *line, t_cub3d *cub3d)
 		}
 		if (line[i] == 'c')
 		{
-			cub3d->sprite.x = i + 0.5;
-			cub3d->sprite.y = y + 0.5;
+			cub3d->sprite[cub3d->nb_sprite].x = i + 0.5;
+			cub3d->sprite[cub3d->nb_sprite].y = y + 0.5;
+			cub3d->sprite[cub3d->nb_sprite++].flag = 1;
 		}
 		if (line[i] == ' ')
 			cub3d->map[y][i] = '0';
