@@ -69,18 +69,20 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	int	i;
 	int	a;
 	int	b;
+	int	col;
 
-	if (cub3d->wall_height == 1)
-		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2;
-	else
-		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2 * (cub3d->wall_height - 0.5);
 	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
+	a = b - line_height;
 	i = 0;
+	ft_printf("wall = %d\n", b - a);
 	while (a < b)
 	{
 		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
-			mlx_put_pixel(cub3d->viewport, cub3d->ray, a, calc_pix_color(i,
-					text, text_x_pos, line_height + 1));
+		{
+			col = calc_pix_color(i, text, text_x_pos, line_height + 1);
+			if (col != 0)
+				mlx_put_pixel(cub3d->viewport, cub3d->ray, a, col);
+		}
 		a++;
 		i++;
 	}
@@ -92,8 +94,8 @@ void	draw_door_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	int	i;
 	int	a;
 	int	b;
-
 	int	y;
+	int	col;
 
 	y = 0;
 	if (cub3d->door_open == 1)
@@ -102,11 +104,8 @@ void	draw_door_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 			cub3d->door_open_start = cub3d->frame;
 		y = cub3d->frame - cub3d->door_open_start;
 	}
-	if (cub3d->wall_height == 1)
-		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2;
-	else
-		a = GHEIGHT / 2 - line_height / cub3d->wall_height / 2 * (cub3d->wall_height - 0.5);
 	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
+	a = b - line_height;
 	a += line_height * 0.008 * y;
 	if (a > b)
 		*cub3d->door = '0';
@@ -114,8 +113,11 @@ void	draw_door_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	while (a < b)
 	{
 		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
-			mlx_put_pixel(cub3d->viewport, cub3d->ray, a, calc_pix_color(i,
-					text, text_x_pos, line_height + 1));
+		{
+			col = calc_pix_color(i, text, text_x_pos, line_height + 1);
+			if (col != 0)
+				mlx_put_pixel(cub3d->viewport, cub3d->ray, a, col);
+		}
 		a++;
 		i++;
 	}
