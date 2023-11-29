@@ -70,7 +70,7 @@ void	render(void *param)
 	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
 	mlx_set_instance_depth(cub3d->background->instances, 1);
 	// viewport
-	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 115);
+	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 0);
 	mlx_set_instance_depth(cub3d->viewport->instances, 2);
 	// minimap
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);

@@ -27,7 +27,7 @@
 # define SIZEMINIMAP 10
 # define STEP 0.1
 # define ROTSPD 0.04
-# define GHEIGHT 850
+# define GHEIGHT (HEIGHT)
 # define RAD 0.0174533
 
 typedef struct point
