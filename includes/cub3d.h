@@ -28,7 +28,6 @@
 # define STEP 0.1
 # define ROTSPD 0.04
 # define GHEIGHT (HEIGHT)
-# define RAD 0.0174533
 # define numSprites 3
 
 typedef struct point
@@ -103,6 +102,8 @@ typedef struct cub3d
 	int				rotate_right;
 
 }	t_cub3d;
+
+void	my_mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
 
 // draw_character.c
 void	draw_character(t_cub3d *cub3d, unsigned int color);
