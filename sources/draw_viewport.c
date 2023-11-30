@@ -99,59 +99,64 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 
 	//after sorting the sprites, do the projection and draw them
 	i = 0;
-	while (i < numSprites && cub3d->sprite[i].flag == 1)
+	while (i < numSprites)
 	{
-		//translate sprite position to relative to camera
-		double spriteX = cub3d->sprite[i].x - cub3d->posx;
-		double spriteY = cub3d->sprite[i].y - cub3d->posy;
-
-		double invDet = 1.0 / (cub3d->plane_x * cub3d->dir_y - cub3d->dir_x * cub3d->plane_y); //required for correct matrix multiplication
-
-		double transformX = invDet * (cub3d->dir_y  * spriteX - cub3d->dir_x * spriteY);
-		double transformY = invDet * (-cub3d->plane_y * spriteX + cub3d->plane_x * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
-
-		int spriteScreenX = (int)((WIDTH / 2) * (1 + transformX / transformY));
-
-		//calculate height of the sprite on screen
-		int spriteHeight = abs((int)(HEIGHT / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
-		
-		//calculate lowest and highest pixel to fill in current stripe
-		int drawStartY = -spriteHeight / 2 + HEIGHT / 2;
-		if(drawStartY < 0)
-			drawStartY = 0;
-		int drawEndY = spriteHeight / 2 + cub3d->viewport->height / 2;
-		if(drawEndY >= HEIGHT)
-			drawEndY = HEIGHT - 1;
-
-		//calculate width of the sprite
-		int spriteWidth = abs((int)(HEIGHT / (transformY)));
-		int drawStartX = -spriteWidth / 2 + spriteScreenX;
-		if(drawStartX < 0)
-			drawStartX = 0;
-		int drawEndX = spriteWidth / 2 + spriteScreenX;
-		if(drawEndX >= WIDTH)
-			drawEndX = WIDTH - 1;
-
-		//loop through every vertical stripe of the sprite on screen
-		for (int stripe = drawStartX; stripe < drawEndX; stripe++)
+		if (cub3d->sprite[i].flag == 0)
+			i++;
+		else
 		{
-			if(transformY > 0 && stripe > 0 && stripe < WIDTH && transformY < ZBuffer[stripe])
+			//translate sprite position to relative to camera
+			double spriteX = cub3d->sprite[i].x - cub3d->posx;
+			double spriteY = cub3d->sprite[i].y - cub3d->posy;
+
+			double invDet = 1.0 / (cub3d->plane_x * cub3d->dir_y - cub3d->dir_x * cub3d->plane_y); //required for correct matrix multiplication
+
+			double transformX = invDet * (cub3d->dir_y  * spriteX - cub3d->dir_x * spriteY);
+			double transformY = invDet * (-cub3d->plane_y * spriteX + cub3d->plane_x * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+
+			int spriteScreenX = (int)((WIDTH / 2) * (1 + transformX / transformY));
+
+			//calculate height of the sprite on screen
+			int spriteHeight = abs((int)(HEIGHT / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
+			
+			//calculate lowest and highest pixel to fill in current stripe
+			int drawStartY = -spriteHeight / 2 + HEIGHT / 2;
+			if(drawStartY < 0)
+				drawStartY = 0;
+			int drawEndY = spriteHeight / 2 + cub3d->viewport->height / 2;
+			if(drawEndY >= HEIGHT)
+				drawEndY = HEIGHT - 1;
+
+			//calculate width of the sprite
+			int spriteWidth = abs((int)(HEIGHT / (transformY)));
+			int drawStartX = -spriteWidth / 2 + spriteScreenX;
+			if(drawStartX < 0)
+				drawStartX = 0;
+			int drawEndX = spriteWidth / 2 + spriteScreenX;
+			if(drawEndX >= WIDTH)
+				drawEndX = WIDTH - 1;
+
+			//loop through every vertical stripe of the sprite on screen
+			for (int stripe = drawStartX; stripe < drawEndX; stripe++)
 			{
-				int texx = ((((double)(stripe - drawStartX) / (drawEndX - drawStartX)) * cub3d->coll->width));
-				int a = GHEIGHT / 2 - (drawEndY - drawStartY) / 2;
-				int b = GHEIGHT / 2 + (drawEndY - drawStartY) / 2;
-				int k = 0;
-				while (a < b)
+				if(transformY > 0 && stripe > 0 && stripe < WIDTH && transformY < ZBuffer[stripe])
 				{
-					int color = calc_pix_color(k,	cub3d->coll, texx, (drawEndY - drawStartY) + 1);
-					if (color != 255)
-						mlx_put_pixel(cub3d->viewport, stripe, a, color);
-					a++;
-					k++;
+					int texx = ((((double)(stripe - drawStartX) / (drawEndX - drawStartX)) * cub3d->coll->width));
+					int a = GHEIGHT / 2 - (drawEndY - drawStartY) / 2;
+					int b = GHEIGHT / 2 + (drawEndY - drawStartY) / 2;
+					int k = 0;
+					while (a < b)
+					{
+						int color = calc_pix_color(k,	cub3d->coll, texx, (drawEndY - drawStartY) + 1);
+						if (color != 255)
+							mlx_put_pixel(cub3d->viewport, stripe, a, color);
+						a++;
+						k++;
+					}
 				}
 			}
+			i++;
 		}
-		i++;
 	}
 }
 
