@@ -190,20 +190,20 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 			
 			//calculate lowest and highest pixel to fill in current stripe
 			int drawStartY = -spriteHeight / 2 + HEIGHT / 2;
-			if(drawStartY < 0)
-				drawStartY = 0;
+/* 			if(drawStartY < 0)
+				drawStartY = 0; */
 			int drawEndY = spriteHeight / 2 + cub3d->viewport->height / 2;
-			if(drawEndY >= HEIGHT)
-				drawEndY = HEIGHT - 1;
+/* 			if(drawEndY >= HEIGHT)
+				drawEndY = HEIGHT - 1; */
 
 			//calculate width of the sprite
 			int spriteWidth = abs((int)(HEIGHT / (transformY)));
 			int drawStartX = -spriteWidth / 2 + spriteScreenX;
-			if(drawStartX < 0)
-				drawStartX = 0;
+/* 			if(drawStartX < 0)
+				drawStartX = 0; */
 			int drawEndX = spriteWidth / 2 + spriteScreenX;
-			if(drawEndX >= WIDTH)
-				drawEndX = WIDTH - 1;
+/* 			if(drawEndX >= WIDTH)
+				drawEndX = WIDTH - 1; */
 
 			//loop through every vertical stripe of the sprite on screen
 			for (int stripe = drawStartX; stripe < drawEndX; stripe++)
@@ -218,7 +218,11 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 					{
 						int color = calc_pix_color(k,	cub3d->coll, texx, (drawEndY - drawStartY) + 1);
 						if (color != 255)
-							mlx_put_pixel(cub3d->viewport, stripe, a, color);
+						{
+							if (a >= HEIGHT)
+								a = HEIGHT;
+							 mlx_put_pixel(cub3d->viewport, stripe, a, color);
+						}
 						a++;
 						k++;
 					}
