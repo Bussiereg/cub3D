@@ -26,7 +26,7 @@ void	moving_right(t_cub3d *cub3d)
 		if (cub3d->map[(int)cub3d->posy][(int)cub3d->posx] == 'c')
 		{
 			cub3d->map[(int)cub3d->posy][(int)cub3d->posx] = '0';
-			cub3d->sprite[0].flag = 0;
+			cub3d->sprite[cub3d->flag2].flag = 0;
 		}
 	}
 }
@@ -45,7 +45,7 @@ void	moving_left(t_cub3d *cub3d)
 		if (cub3d->map[(int)cub3d->posy][(int)cub3d->posx] == 'c')
 		{
 			cub3d->map[(int)cub3d->posy][(int)cub3d->posx] = '0';
-			cub3d->sprite[0].flag = 0;
+			cub3d->sprite[cub3d->flag2].flag = 0;
 		}
 	}
 }
@@ -64,7 +64,7 @@ void	moving_down(t_cub3d *cub3d)
 		if (cub3d->map[(int)cub3d->posy][(int)cub3d->posx] == 'c')
 		{
 			cub3d->map[(int)cub3d->posy][(int)cub3d->posx] = '0';
-			cub3d->sprite[0].flag = 0;
+			cub3d->sprite[cub3d->flag2].flag = 0;
 		}
 	}
 }
@@ -83,7 +83,7 @@ void	moving_up(t_cub3d *cub3d)
 		if (cub3d->map[(int)cub3d->posy][(int)cub3d->posx] == 'c')
 		{
 			cub3d->map[(int)cub3d->posy][(int)cub3d->posx] = '0';
-			cub3d->sprite[0].flag = 0;
+			cub3d->sprite[cub3d->flag2].flag = 0;
 		}
 	}
 }

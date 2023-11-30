@@ -78,6 +78,7 @@ typedef struct cub3d
 
 	t_sprite		sprite[3];
 	int				nb_sprite;
+	int				flag2;
 	
 	char			**map;
 	char			**map_check;

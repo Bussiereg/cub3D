@@ -83,31 +83,100 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	}
 }
 
+int 	max_double(double *spriteDistance)
+{
+	int pos;
+	int i;
+	double temp;
+
+	temp = spriteDistance[0];
+	i = 1;
+	pos = 0;
+	while (i < 3)
+	{
+		if (spriteDistance[i] > temp)
+		{
+			temp = spriteDistance[i];
+			pos = i;
+		}
+		i++;
+	}
+	return (pos);
+}
+
+int 	min_double(double *spriteDistance)
+{
+	int pos;
+	int i;
+	double temp;
+
+	temp = spriteDistance[0];
+	i = 1;
+	pos = 0;
+	while (i < 3)
+	{
+		if (spriteDistance[i] < temp)
+		{
+			temp = spriteDistance[i];
+			pos = i;
+		}
+		i++;
+	}
+	return (pos);
+}
 
 void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 {
 	double spriteDistance[numSprites];
+	int spriteorder[numSprites];
 	int i;
+	int j;
 
 	//sort sprites from far to close
 	i = 0;
 	while(i < numSprites)
 	{
-		spriteDistance[i] = ((cub3d->posx - cub3d->sprite[i].x) * (cub3d->posx - cub3d->sprite[i].x) + (cub3d->posy - cub3d->sprite[i].y) * (cub3d->posy - cub3d->sprite[i].y)); //sqrt not taken, unneeded
+		spriteDistance[i] = ((cub3d->posx - cub3d->sprite[i].x) * (cub3d->posx - cub3d->sprite[i].x) + (cub3d->posy - cub3d->sprite[i].y) * (cub3d->posy - cub3d->sprite[i].y));
 		i++;
 	}
+	j = 0;
+	int temp = 4;
+	while (j < 2)
+	{
+		i = 0;
+		while (i < 2)
+		{
+			if(i == temp)
+				i++;
+			else
+			{
+				if (spriteDistance[i] > spriteDistance[i + 1])
+					spriteorder[j] = i;
+				else
+					spriteorder[j] = i + 1;
+				i++;
+			}
+		}
+		temp = spriteorder[j];
+		j++;
+	}
+	spriteorder[0] = max_double(spriteDistance);
+	spriteorder[2] = min_double(spriteDistance);
+	spriteorder[1] = 3 - spriteorder[0] - spriteorder[2];
 
 	//after sorting the sprites, do the projection and draw them
 	i = 0;
+	
 	while (i < numSprites)
 	{
-		if (cub3d->sprite[i].flag == 0)
+		if (cub3d->sprite[spriteorder[i]].flag == 0)
 			i++;
 		else
 		{
+			cub3d->flag2 = spriteorder[i];
 			//translate sprite position to relative to camera
-			double spriteX = cub3d->sprite[i].x - cub3d->posx;
-			double spriteY = cub3d->sprite[i].y - cub3d->posy;
+			double spriteX = cub3d->sprite[spriteorder[i]].x - cub3d->posx;
+			double spriteY = cub3d->sprite[spriteorder[i]].y - cub3d->posy;
 
 			double invDet = 1.0 / (cub3d->plane_x * cub3d->dir_y - cub3d->dir_x * cub3d->plane_y); //required for correct matrix multiplication
 
