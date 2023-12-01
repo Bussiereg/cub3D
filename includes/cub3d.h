@@ -14,8 +14,7 @@
 # define CUB3D_H
 
 # include <fcntl.h>
-# include <alsa/asoundlib.h>
-# include <pulse/simple.h>
+// # include <alsa/asoundlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
@@ -28,8 +27,8 @@
 # define SIZEMINIMAP 10
 # define STEP 0.1
 # define ROTSPD 0.04
-# define GHEIGHT 850
-# define RAD 0.0174533
+# define GHEIGHT (HEIGHT)
+# define numSprites 3
 
 typedef struct point
 {
@@ -37,6 +36,13 @@ typedef struct point
 	int		y;
 	int		color;
 }	t_point;
+
+typedef struct sprite
+{
+	double x;
+	double y;
+	int flag;
+}	t_sprite;
 
 typedef struct cub3d
 {
@@ -83,6 +89,10 @@ typedef struct cub3d
 	int				frame;
 	int				key_frame;
 
+	t_sprite		sprite[3];
+	int				nb_sprite;
+	int				flag2;
+	
 	char			**map;
 	char			**map_check;
 	int				map_line;
@@ -118,6 +128,8 @@ typedef struct cub3d
 	int				minimap_on;
 
 }	t_cub3d;
+
+void	my_mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
 
 // draw_character.c
 void	draw_character(t_cub3d *cub3d, unsigned int color);

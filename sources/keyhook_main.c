@@ -91,3 +91,30 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	my_keyhook_rotate(keydata, cub3d);
 	my_keyhook_other(keydata, cub3d);
 }
+
+void	my_mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
+{
+	t_cub3d	*cub3d;
+	int x;
+	int y;
+
+	(void)mods;
+	cub3d = (t_cub3d *)param;
+	mlx_get_mouse_pos(cub3d->mlx, &x, &y);
+	if ((button == MLX_MOUSE_BUTTON_LEFT)
+		&& action == MLX_PRESS)
+	{
+		if (x < WIDTH / 2)
+			cub3d->rotate_left = 1;
+		else
+			cub3d->rotate_right = 1;
+	}
+	if ((button == MLX_MOUSE_BUTTON_LEFT)
+		&& action == MLX_RELEASE)
+	{
+		if (cub3d->rotate_left == 1)
+			cub3d->rotate_left = 0;
+		if (cub3d->rotate_right == 1)
+			cub3d->rotate_right = 0;
+	}
+}

@@ -44,7 +44,7 @@ lib:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(NAME): $(OBJ_DIREC) $(OBJS)
-	@$(CC) $(OBJS) -lm $(CFLAGS) $(LIBS) $(HEADERS) -o $(NAME) -lasound
+	@$(CC) $(OBJS) -lm $(CFLAGS) $(LIBS) $(HEADERS) -o $(NAME)
 	@echo "Cub3D compilation: 100%"
 
 $(OBJ_DIREC)%.o: $(SRC_DIREC)%.c

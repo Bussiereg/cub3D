@@ -55,6 +55,7 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->minimap_on = 0;
 	cub3d->door_open = 0;
 	cub3d->door_open_start = 0;
+	cub3d->nb_sprite = 0;
 	return (0);
 }
 
@@ -72,6 +73,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
 	// render(&cub3d);
+	mlx_mouse_hook(cub3d.mlx, &my_mousehook, &cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
 	mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
 	mlx_loop(cub3d.mlx);
