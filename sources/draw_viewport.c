@@ -74,7 +74,6 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
 	a = b - line_height;
 	i = 0;
-	ft_printf("wall = %d\n", b - a);
 	while (a < b)
 	{
 		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)

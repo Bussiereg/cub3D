@@ -72,6 +72,35 @@ void	wall_distance(t_cub3d *cub3d)
 	cub3d->wall_x -= floor((cub3d->wall_x));
 }
 
+mlx_image_t	*key_frame_selector(t_cub3d *cub3d)
+{
+	if (cub3d->key_frame / 3 == 1)
+		return (cub3d->key1);
+	if (cub3d->key_frame / 3 == 2)
+		return (cub3d->key2);
+	if (cub3d->key_frame / 3 == 3)
+		return (cub3d->key3);
+	if (cub3d->key_frame / 3 == 4)
+		return (cub3d->key4);
+	if (cub3d->key_frame / 3 == 5)
+		return (cub3d->key5);
+	if (cub3d->key_frame / 3 == 6)
+		return (cub3d->key6);
+	if (cub3d->key_frame / 3 == 7)
+		return (cub3d->key7);
+	if (cub3d->key_frame / 3 == 8)
+		return (cub3d->key6);
+	if (cub3d->key_frame / 3 == 9)
+		return (cub3d->key5);
+	if (cub3d->key_frame / 3 == 10)
+		return (cub3d->key4);
+	if (cub3d->key_frame / 3 ==11)
+		return (cub3d->key3);
+	if (cub3d->key_frame / 3 == 12)
+		return (cub3d->key2);
+	return (cub3d->key1);
+}
+
 void	doorcaster(t_cub3d *cub3d)
 {
 	int	texx;
@@ -79,7 +108,7 @@ void	doorcaster(t_cub3d *cub3d)
 	if (cub3d->door_hit == 1)
 	{
 		texx = cub3d->door_wall_x * cub3d->t_w->width;
-		draw_door_line_textu(cub3d->door_line_height, texx, cub3d->t_e, cub3d);
+		draw_door_line_textu(cub3d->door_line_height, texx, key_frame_selector(cub3d), cub3d);
 	}
 }
 

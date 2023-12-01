@@ -45,6 +45,7 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->color_f = 0;
 	cub3d->wall_height = 1;
 	cub3d->frame = 0;
+	cub3d->key_frame = 1;
 	cub3d->move_up = 0;
 	cub3d->move_down = 0;
 	cub3d->move_left = 0;

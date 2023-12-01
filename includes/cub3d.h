@@ -81,6 +81,7 @@ typedef struct cub3d
 	mlx_image_t		*minimap;
 	mlx_t			*mlx;
 	int				frame;
+	int				key_frame;
 
 	char			**map;
 	char			**map_check;
@@ -94,6 +95,15 @@ typedef struct cub3d
 	mlx_image_t		*t_e;
 	mlx_image_t		*t_w;
 	mlx_image_t		*coll;
+
+	mlx_image_t		*key1;
+	mlx_image_t		*key2;
+	mlx_image_t		*key3;
+	mlx_image_t		*key4;
+	mlx_image_t		*key5;
+	mlx_image_t		*key6;
+	mlx_image_t		*key7;
+	
 
 	int				color_c;
 	int				color_f;

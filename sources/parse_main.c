@@ -74,6 +74,33 @@ int	check_wall(char **map, t_cub3d *cub3d)
 	return (0);
 }
 
+void	load_key_text(t_cub3d *cub3d)
+{
+	mlx_texture_t *texture;
+
+	texture = mlx_load_png("./texture/key-01.png");
+	cub3d->key1 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-02.png");
+	cub3d->key2 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-03.png");
+	cub3d->key3 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-04.png");
+	cub3d->key4 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-05.png");
+	cub3d->key5 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-06.png");
+	cub3d->key6 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-07.png");
+	cub3d->key7 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+}
+
 int	parse_map(char *file, t_cub3d *cub3d)
 {
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
@@ -91,5 +118,6 @@ int	parse_map(char *file, t_cub3d *cub3d)
 		terminate("no player position", cub3d, 1, 1);
 	duplicate_map(cub3d);
 	check_wall(cub3d->map_check, cub3d);
+	load_key_text(cub3d);
 	return (0);
 }

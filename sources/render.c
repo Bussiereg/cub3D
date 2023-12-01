@@ -68,6 +68,9 @@ void	render_viewport(t_cub3d *cub3d)
 	draw_ceiling(cub3d);
 	draw_floor(cub3d);
 	draw_game(cub3d);
+	if (++cub3d->key_frame > 36)
+		cub3d->key_frame = 1;
+	//printf("%d\n", cub3d->key_frame);
 }
 
 void	move_around(t_cub3d *cub3d)
