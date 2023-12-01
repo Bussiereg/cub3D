@@ -229,25 +229,26 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 			
 			//calculate lowest and highest pixel to fill in current stripe
 			int drawStartY = -spriteHeight / 2 + GHEIGHT / 2;
-/* 			if(drawStartY < 0)
-				drawStartY = 0; */
+			if(drawStartY < 0)
+				drawStartY = 0;
 			int drawEndY = spriteHeight / 2 + cub3d->viewport->height / 2;
-/* 			if(drawEndY >= GHEIGHT)
-				drawEndY = GHEIGHT - 1; */
+			if(drawEndY >= GHEIGHT)
+				drawEndY = GHEIGHT - 1;
 
 			//calculate width of the sprite
 			int spriteWidth = abs((int)(GHEIGHT / (transformY)));
 			int drawStartX = -spriteWidth / 2 + spriteScreenX;
-/* 			if(drawStartX < 0)
-				drawStartX = 0; */
+			// if(drawStartX < 0)
+			// 	drawStartX = 0;
 			int drawEndX = spriteWidth / 2 + spriteScreenX;
-/* 			if(drawEndX >= WIDTH)
-				drawEndX = WIDTH - 1; */
+			// if(drawEndX >= WIDTH)
+			// 	drawEndX = WIDTH;
 
 			//loop through every vertical stripe of the sprite on screen
+
 			for (int stripe = drawStartX; stripe < drawEndX; stripe++)
 			{
-				if(transformY > 0 && stripe > 0 && stripe < WIDTH && transformY < ZBuffer[stripe])
+				if(transformY > 0 && stripe > 0 && stripe < WIDTH && transformY < ZBuffer[stripe] && drawEndX != drawStartX && drawEndY != drawStartY)
 				{
 					int texx = ((((double)(stripe - drawStartX) / (drawEndX - drawStartX)) * cub3d->coll->width));
 					int a = GHEIGHT / 2 - (drawEndY - drawStartY) / 2;
@@ -262,7 +263,8 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 								a = GHEIGHT;
 							else if (a <= 0)
 								a = 0;
-							 mlx_put_pixel(cub3d->sprite_img, stripe, a, color);
+							if (stripe >= 0 && stripe < WIDTH)
+								mlx_put_pixel(cub3d->sprite_img, stripe, a, color);
 						}
 						a++;
 						k++;
@@ -286,7 +288,7 @@ void	draw_game(t_cub3d *cub3d)
 		raycaster(cub3d);
 		doorcaster(cub3d);
 		//SET THE ZBUFFER FOR THE SPRITE CASTING
-		ZBuffer[cub3d->ray] = cub3d->perp_wall_dist; //perpendicular distance is used
+		ZBuffer[cub3d->ray] = cub3d->perp_wall_dist;
 		cub3d->ray++;
 	}
 	sprite_casting(cub3d, ZBuffer);
