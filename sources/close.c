@@ -49,6 +49,7 @@ void	terminate(char *str, t_cub3d *cub3d, int mlx, int map)
 			mlx_delete_image(cub3d->mlx, cub3d->t_n);
 		if (cub3d->t_w != cub3d->viewport)
 			mlx_delete_image(cub3d->mlx, cub3d->t_w);
+		mlx_delete_image(cub3d->mlx, cub3d->intro);
 		mlx_terminate(cub3d->mlx);
 	}
 	exit(EXIT_FAILURE);

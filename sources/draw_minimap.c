@@ -40,21 +40,26 @@ void	draw_minimap(t_cub3d *cub3d)
 
 	mlx_delete_image(cub3d->mlx, cub3d->minimap);
 	cub3d->minimap = mlx_new_image(cub3d->mlx, cub3d->m_size_x * SIZEMINIMAP, cub3d->m_size_y * SIZEMINIMAP);
-	y = 0;
-	while (y < cub3d->m_size_y)
+	if (cub3d->minimap_on % 2 == 1)
 	{
-		x = 0;
-		while (x < cub3d->m_size_x)
+		y = 0;
+		while (y < cub3d->m_size_y)
 		{
-			if (cub3d->map[y][x] == '0')
-				draw_tile(cub3d, x, y, 0x000000FF, 0x19b919FF);
-			else if (cub3d->map[y][x] == '1')
-				draw_tile(cub3d, x, y, 0x19b919FF, 0x000000FF);
-			else if (cub3d->map[y][x] == 'c')
-				draw_tile(cub3d, x, y, 0xFFFF00FF, 0x19b919FF);
-			x++;
+			x = 0;
+			while (x < cub3d->m_size_x)
+			{
+				if (cub3d->map[y][x] == '0')
+					draw_tile(cub3d, x, y, 0x000000FF, 0x19b919FF);
+				else if (cub3d->map[y][x] == '1')
+					draw_tile(cub3d, x, y, 0x19b919FF, 0x000000FF);
+				else if (cub3d->map[y][x] == 'c')
+					draw_tile(cub3d, x, y, 0xFFFF00FF, 0x19b919FF);
+				else if (cub3d->map[y][x] == 'D')
+					draw_tile(cub3d, x, y, 0x00FF00FF, 0x19b919FF);
+				x++;
+			}
+			y++;
 		}
-		y++;
+		draw_character(cub3d, 0xFF0000FF);
 	}
-	draw_character(cub3d, 0xFF0000FF);
 }
