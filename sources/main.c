@@ -38,6 +38,7 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->sprite_img = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->sprite_img)
 		return (1);
+	cub3d->end_img = NULL;
 	cub3d->posx = 0;
 	cub3d->posy = 0;
 	cub3d->t_n = cub3d->viewport;
@@ -60,6 +61,8 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->door_open_start = 0;
 	cub3d->nb_sprite = 0;
 	cub3d->key_nb = 0;
+	cub3d->end = 0;
+	cub3d->end_start = 0;
 	return (0);
 }
 

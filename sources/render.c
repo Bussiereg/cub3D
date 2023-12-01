@@ -86,6 +86,22 @@ void	move_around(t_cub3d *cub3d)
 		rotating_left(cub3d);
 }
 
+void	render_end(t_cub3d *cub3d)
+{
+	int	y;
+
+	if (cub3d->end_start == 0)
+		cub3d->end_start = cub3d->frame;
+	y = (cub3d->frame - cub3d->end_start) * 2;
+
+	if (!cub3d->end_img)
+		mlx_delete_image(cub3d->mlx, cub3d->end_img);
+	cub3d->end_img = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
+	ft_memset(cub3d->end_img->pixels, 255, WIDTH * GHEIGHT * 4);
+	if (y <= 255)
+		set_opacity(cub3d->end_img, y);
+}
+
 void	render(void *param)
 {
 	t_cub3d	*cub3d;
@@ -98,6 +114,8 @@ void	render(void *param)
 	render_background(cub3d);
 	render_viewport(cub3d);
 	draw_minimap(cub3d);
+	if (cub3d->end == 1)
+		render_end(cub3d);
 	//background
 	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
 	mlx_set_instance_depth(cub3d->background->instances, 1);
@@ -110,10 +128,16 @@ void	render(void *param)
 	// minimap
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
 	mlx_set_instance_depth(cub3d->minimap->instances, 4);
+	// end
+	if (cub3d->end == 1)
+	{
+		mlx_image_to_window(cub3d->mlx, cub3d->end_img, 0, 115);
+		mlx_set_instance_depth(cub3d->end_img->instances, 5);
+	}
 	// intro
 	if (255 - cub3d->frame * 2.5 >= 0)
 	{
 		mlx_image_to_window(cub3d->mlx, cub3d->intro, 0, 0);
-		mlx_set_instance_depth(cub3d->intro->instances, 5);
+		mlx_set_instance_depth(cub3d->intro->instances, 6);
 	}
 }

@@ -79,6 +79,7 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
 		{
 			col = calc_pix_color(i, text, text_x_pos, line_height + 1);
+			col = mix_color_depth(col, cub3d->color_f, 0.1);
 			if (col != 0)
 				set_pixel_img(cub3d->viewport, cub3d->ray, a, col);
 		}
@@ -105,7 +106,7 @@ void	draw_door_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	}
 	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
 	a = b - line_height;
-	a += line_height * 0.008 * y;
+	a += line_height * 0.02 * y;
 	if (a > b)
 		*cub3d->door = '0';
 	i = 0;

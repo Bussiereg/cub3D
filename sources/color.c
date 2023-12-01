@@ -54,3 +54,14 @@ void	set_pixel_img(mlx_image_t* img, uint32_t x, uint32_t y, uint32_t color)
 	img->pixels[((y * img->width + x) * (sizeof(int32_t)) + 2)] = (uint8_t)(color >> 8);
 	img->pixels[((y * img->width + x) * (sizeof(int32_t)) + 3)] = (uint8_t)(color & 0xFF);
 }
+
+int	mix_color_depth(int c_og, int c_far, double mix)
+{
+	(void)c_far;
+	return ((int)(
+		(uint8_t)((c_og >> 24) * (1 - mix) + ((c_far >> 24) * mix)) << 24 |
+		(uint8_t)((c_og >> 16) * (1 -mix) + ((c_far >> 16) * mix)) << 16 |
+		(uint8_t)((c_og >> 8) * (1 -mix) + ((c_far >> 8) * mix)) << 8 |
+		((uint8_t)(0xFF))));
+	// result.r = static_cast<int>(color1.r * (1 - slide) + color2.r * slide);
+}

@@ -87,10 +87,13 @@ typedef struct cub3d
 	mlx_image_t		*background;
 	mlx_image_t		*minimap;
 	mlx_image_t		*sprite_img;
+	mlx_image_t		*end_img;
 	mlx_t			*mlx;
 
 	int				frame;
 	int				key_frame;
+	int				end;
+	int				end_start;
 
 	t_sprite		sprite[3];
 	int				nb_sprite;
@@ -197,6 +200,7 @@ void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
 int		calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 int		calc_grad_color(int steps, int cl_a, float rgba[4]);
 void	set_pixel_img(mlx_image_t* img, uint32_t x, uint32_t y, uint32_t color);
+int	mix_color_depth(int c_og, int c_far, double mix);
 
 // keyhook_rotate.c
 void	rotating_right(t_cub3d *cub3d);
