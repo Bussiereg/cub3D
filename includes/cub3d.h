@@ -196,6 +196,7 @@ int		open_file_to_line(char *file, t_cub3d *cub3d);
 void	calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
 int		calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 int		calc_grad_color(int steps, int cl_a, float rgba[4]);
+void	set_pixel_img(mlx_image_t* img, uint32_t x, uint32_t y, uint32_t color);
 
 // keyhook_rotate.c
 void	rotating_right(t_cub3d *cub3d);

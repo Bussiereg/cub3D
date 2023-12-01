@@ -29,7 +29,7 @@ int	draw_sky(t_cub3d *cub3d)
 		x = 0;
 		while (x < WIDTH * 2)
 		{
-			mlx_put_pixel(cub3d->viewport, x, y, calc_grad_color(y, sky_darker,
+			set_pixel_img(cub3d->viewport, x, y, calc_grad_color(y, sky_darker,
 					&*rgba));
 			x++;
 		}
@@ -55,7 +55,7 @@ int	draw_floor(t_cub3d *cub3d)
 		x = 0;
 		while (x < WIDTH)
 		{
-			mlx_put_pixel(cub3d->viewport, x, y, cub3d->color_f);
+			set_pixel_img(cub3d->viewport, x, y, cub3d->color_f);
 			x++;
 		}
 		y++;
@@ -80,7 +80,7 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 		{
 			col = calc_pix_color(i, text, text_x_pos, line_height + 1);
 			if (col != 0)
-				mlx_put_pixel(cub3d->viewport, cub3d->ray, a, col);
+				set_pixel_img(cub3d->viewport, cub3d->ray, a, col);
 		}
 		a++;
 		i++;
@@ -115,7 +115,7 @@ void	draw_door_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 		{
 			col = calc_pix_color(i, text, text_x_pos, line_height + 1);
 			if (col != 0)
-				mlx_put_pixel(cub3d->viewport, cub3d->ray, a, col);
+				set_pixel_img(cub3d->viewport, cub3d->ray, a, col);
 		}
 		a++;
 		i++;
@@ -262,7 +262,7 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 								a = GHEIGHT;
 							else if (a <= 0)
 								a = 0;
-							 mlx_put_pixel(cub3d->sprite_img, stripe, a, color);
+							set_pixel_img(cub3d->sprite_img, stripe, a, color);
 						}
 						a++;
 						k++;

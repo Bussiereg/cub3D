@@ -14,21 +14,16 @@
 
 void	render_background(t_cub3d *cub3d)
 {
-	int	x;
-	int	y;
+	int	p;
 
 	mlx_delete_image(cub3d->mlx, cub3d->background);
 	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
-	y = 0;
-	while (y < HEIGHT)
+	p = 0;
+	ft_bzero(cub3d->background->pixels, HEIGHT * WIDTH);
+	while (p < HEIGHT * WIDTH)
 	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			mlx_put_pixel(cub3d->background, x, y, 0x000000FF);
-			x++;
-		}
-		y++;
+		cub3d->background->pixels[(p * (sizeof(int32_t)) + 3)] = 0xFF;
+		p++;
 	}
 }
 
