@@ -64,7 +64,9 @@ void	render_intro(t_cub3d *cub3d)
 void	render_viewport(t_cub3d *cub3d)
 {
 	mlx_delete_image(cub3d->mlx, cub3d->viewport);
+	mlx_delete_image(cub3d->mlx, cub3d->sprite_img);
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
+	cub3d->sprite_img = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	draw_ceiling(cub3d);
 	draw_floor(cub3d);
 	draw_game(cub3d);
@@ -105,15 +107,18 @@ void	render(void *param)
 	mlx_image_to_window(cub3d->mlx, cub3d->background, 0, 0);
 	mlx_set_instance_depth(cub3d->background->instances, 1);
 	// viewport
-	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 0);
+	mlx_image_to_window(cub3d->mlx, cub3d->viewport, 0, 115);
 	mlx_set_instance_depth(cub3d->viewport->instances, 2);
+	// sprite
+	mlx_image_to_window(cub3d->mlx, cub3d->sprite_img, 0, 115);
+	mlx_set_instance_depth(cub3d->sprite_img->instances, 3);
 	// minimap
 	mlx_image_to_window(cub3d->mlx, cub3d->minimap, 0, 0);
-	mlx_set_instance_depth(cub3d->minimap->instances, 3);
+	mlx_set_instance_depth(cub3d->minimap->instances, 4);
 	// intro
 	if (255 - cub3d->frame * 2.5 >= 0)
 	{
 		mlx_image_to_window(cub3d->mlx, cub3d->intro, 0, 0);
-		mlx_set_instance_depth(cub3d->intro->instances, 4);
+		mlx_set_instance_depth(cub3d->intro->instances, 5);
 	}
 }

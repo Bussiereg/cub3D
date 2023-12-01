@@ -35,6 +35,9 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->viewport)
 		return (1);
+	cub3d->sprite_img = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
+	if (!cub3d->sprite_img)
+		return (1);
 	cub3d->posx = 0;
 	cub3d->posy = 0;
 	cub3d->t_n = cub3d->viewport;

@@ -225,18 +225,18 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 			int spriteScreenX = (int)((WIDTH / 2) * (1 + transformX / transformY));
 
 			//calculate height of the sprite on screen
-			int spriteHeight = abs((int)(HEIGHT / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
+			int spriteHeight = abs((int)(GHEIGHT / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
 			
 			//calculate lowest and highest pixel to fill in current stripe
-			int drawStartY = -spriteHeight / 2 + HEIGHT / 2;
+			int drawStartY = -spriteHeight / 2 + GHEIGHT / 2;
 /* 			if(drawStartY < 0)
 				drawStartY = 0; */
 			int drawEndY = spriteHeight / 2 + cub3d->viewport->height / 2;
-/* 			if(drawEndY >= HEIGHT)
-				drawEndY = HEIGHT - 1; */
+/* 			if(drawEndY >= GHEIGHT)
+				drawEndY = GHEIGHT - 1; */
 
 			//calculate width of the sprite
-			int spriteWidth = abs((int)(HEIGHT / (transformY)));
+			int spriteWidth = abs((int)(GHEIGHT / (transformY)));
 			int drawStartX = -spriteWidth / 2 + spriteScreenX;
 /* 			if(drawStartX < 0)
 				drawStartX = 0; */
@@ -255,12 +255,14 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 					int k = 0;
 					while (a < b)
 					{
-						int color = calc_pix_color(k,	cub3d->coll, texx, (drawEndY - drawStartY) + 1);
-						if (color != 255)
+						int color = calc_pix_color(k, key_frame_selector(cub3d), texx, (drawEndY - drawStartY) + 1);
+						if (color != 0)
 						{
-							if (a >= HEIGHT)
-								a = HEIGHT;
-							 mlx_put_pixel(cub3d->viewport, stripe, a, color);
+							if (a >= GHEIGHT)
+								a = GHEIGHT;
+							else if (a <= 0)
+								a = 0;
+							 mlx_put_pixel(cub3d->sprite_img, stripe, a, color);
 						}
 						a++;
 						k++;

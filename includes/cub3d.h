@@ -27,7 +27,7 @@
 # define SIZEMINIMAP 10
 # define STEP 0.1
 # define ROTSPD 0.04
-# define GHEIGHT (HEIGHT)
+# define GHEIGHT 850
 # define numSprites 3
 
 typedef struct point
@@ -85,7 +85,9 @@ typedef struct cub3d
 	mlx_image_t		*intro;
 	mlx_image_t		*background;
 	mlx_image_t		*minimap;
+	mlx_image_t		*sprite_img;
 	mlx_t			*mlx;
+
 	int				frame;
 	int				key_frame;
 
@@ -138,6 +140,7 @@ void	draw_character(t_cub3d *cub3d, unsigned int color);
 void	draw_minimap(t_cub3d *cub3d);
 
 // raycaster_main.c
+mlx_image_t	*key_frame_selector(t_cub3d *cub3d);
 void	doorcaster(t_cub3d *cub3d);
 void	raycaster(t_cub3d *cub3d);
 void	finding_wall(t_cub3d *cub3d);

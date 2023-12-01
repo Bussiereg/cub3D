@@ -108,7 +108,7 @@ void	doorcaster(t_cub3d *cub3d)
 	if (cub3d->door_hit == 1)
 	{
 		texx = cub3d->door_wall_x * cub3d->t_w->width;
-		draw_door_line_textu(cub3d->door_line_height, texx, key_frame_selector(cub3d), cub3d);
+		draw_door_line_textu(cub3d->door_line_height, texx, cub3d->t_e, cub3d);
 	}
 }
 
