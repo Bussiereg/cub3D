@@ -80,6 +80,7 @@ typedef struct cub3d
 	double			door_wall_x;
 	int				door_open;
 	int				door_open_start;
+	int				key_nb;
 
 	mlx_image_t		*viewport;
 	mlx_image_t		*intro;

@@ -59,6 +59,7 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->door_open = 0;
 	cub3d->door_open_start = 0;
 	cub3d->nb_sprite = 0;
+	cub3d->key_nb = 0;
 	return (0);
 }
 

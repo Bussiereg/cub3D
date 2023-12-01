@@ -78,7 +78,7 @@ void	my_keyhook_other(mlx_key_data_t keydata, t_cub3d *cub3d)
 		&& keydata.action == MLX_PRESS)
 		cub3d->minimap_on ++;
 	if ((keydata.key == MLX_KEY_SPACE)
-		&& keydata.action == MLX_PRESS)
+		&& keydata.action == MLX_PRESS && cub3d->key_nb == 3)
 		cub3d->door_open = 1;
 }
 
