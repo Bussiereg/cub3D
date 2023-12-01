@@ -247,23 +247,18 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 			//loop through every vertical stripe of the sprite on screen
 			for (int stripe = drawStartX; stripe < drawEndX; stripe++)
 			{
-				if(transformY > 0 && stripe > 0 && stripe < WIDTH && transformY < ZBuffer[stripe])
+				if(transformY > 0 && stripe > 0 && stripe < WIDTH - 1 && transformY < ZBuffer[stripe] && drawEndX > drawStartX)
 				{
-					int texx = ((((double)(stripe - drawStartX) / (drawEndX - drawStartX)) * cub3d->coll->width));
+
+					int texx = ((((double)(stripe - drawStartX) / (drawEndX - drawStartX)) * (key_frame_selector(cub3d))->width));
 					int a = GHEIGHT / 2 - (drawEndY - drawStartY) / 2;
 					int b = GHEIGHT / 2 + (drawEndY - drawStartY) / 2;
 					int k = 0;
-					while (a < b)
+					while (a < b && a < GHEIGHT)
 					{
 						int color = calc_pix_color(k, key_frame_selector(cub3d), texx, (drawEndY - drawStartY) + 1);
 						if (color != 0)
-						{
-							if (a >= GHEIGHT)
-								a = GHEIGHT;
-							else if (a <= 0)
-								a = 0;
-							 mlx_put_pixel(cub3d->sprite_img, stripe, a, color);
-						}
+							mlx_put_pixel(cub3d->sprite_img, stripe, a, color);
 						a++;
 						k++;
 					}
