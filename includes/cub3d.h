@@ -27,7 +27,7 @@
 # define SIZEMINIMAP 10
 # define STEP 0.1
 # define ROTSPD 0.04
-# define GHEIGHT (HEIGHT)
+# define GHEIGHT 850
 # define numSprites 3
 
 typedef struct point
@@ -46,6 +46,9 @@ typedef struct sprite
 
 typedef struct cub3d
 {
+	int				res_x;
+	int				res_y;
+
 	double			posx;
 	double			posy;
 	double			dir_x;
@@ -57,23 +60,37 @@ typedef struct cub3d
 	double			raydir_y;
 	int				map_x;
 	int				map_y;
-	double			wall_x;
 	double			side_dist_y;
 	double			side_dist_x;
 	double			delta_dist_y;
 	double			delta_dist_x;
 	int				step_x;
 	int				step_y;
-	double			perp_wall_dist;
-	int				hit;
 	char			side;
-	int				line_height;
 	int				ray;
+	int				hit;
+	int				line_height;
+	double			perp_wall_dist;
+	double			wall_x;
+
+	char			*door;
+	int				door_hit;
+	int				door_line_height;
+	double			door_perp_wall_dist;
+	double			door_wall_x;
+	int				door_open;
+	int				door_open_start;
+	int				key_nb;
 
 	mlx_image_t		*viewport;
+	mlx_image_t		*intro;
 	mlx_image_t		*background;
 	mlx_image_t		*minimap;
+	mlx_image_t		*sprite_img;
 	mlx_t			*mlx;
+
+	int				frame;
+	int				key_frame;
 
 	t_sprite		sprite[3];
 	int				nb_sprite;
@@ -84,12 +101,22 @@ typedef struct cub3d
 	int				map_line;
 	int				m_size_x;
 	int				m_size_y;
+	int				wall_height;
 
 	mlx_image_t		*t_n;
 	mlx_image_t		*t_s;
 	mlx_image_t		*t_e;
 	mlx_image_t		*t_w;
 	mlx_image_t		*coll;
+
+	mlx_image_t		*key1;
+	mlx_image_t		*key2;
+	mlx_image_t		*key3;
+	mlx_image_t		*key4;
+	mlx_image_t		*key5;
+	mlx_image_t		*key6;
+	mlx_image_t		*key7;
+	
 
 	int				color_c;
 	int				color_f;
@@ -100,6 +127,8 @@ typedef struct cub3d
 	int				move_right;
 	int				rotate_left;
 	int				rotate_right;
+
+	int				minimap_on;
 
 }	t_cub3d;
 
@@ -112,6 +141,8 @@ void	draw_character(t_cub3d *cub3d, unsigned int color);
 void	draw_minimap(t_cub3d *cub3d);
 
 // raycaster_main.c
+mlx_image_t	*key_frame_selector(t_cub3d *cub3d);
+void	doorcaster(t_cub3d *cub3d);
 void	raycaster(t_cub3d *cub3d);
 void	finding_wall(t_cub3d *cub3d);
 void	wall_distance(t_cub3d *cub3d);
@@ -126,6 +157,8 @@ int		draw_sky(t_cub3d *cub3d);
 int		draw_ceiling(t_cub3d *cub3d);
 int		draw_floor(t_cub3d *cub3d);
 void	draw_line_textu(double line_height, int text_x_pos,
+			mlx_image_t *text, t_cub3d *cub3d);
+void	draw_door_line_textu(double line_height, int text_x_pos,
 			mlx_image_t *text, t_cub3d *cub3d);
 void	draw_game(t_cub3d *cub3d);
 

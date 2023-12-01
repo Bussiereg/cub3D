@@ -26,12 +26,16 @@ int	calc_pix_color(int steps, mlx_image_t *text, int x, int l_height)
 	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
+	uint8_t	a;
 
 	y = (steps * text->height / l_height);
 	r = text->pixels[((y * text->width + x) * (sizeof(int32_t)))];
 	g = text->pixels[((y * text->width + x) * (sizeof(int32_t)) + 1)];
 	b = text->pixels[((y * text->width + x) * (sizeof(int32_t)) + 2)];
-	return (r << 24 | g << 16 | b << 8 | 0xFF);
+	a = text->pixels[((y * text->width + x) * (sizeof(int32_t)) + 3)];
+	if (a == 0)
+		return (0);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 int	calc_grad_color(int steps, int cl_a, float rgba[4])

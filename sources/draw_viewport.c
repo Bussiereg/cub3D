@@ -69,15 +69,54 @@ void	draw_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
 	int	i;
 	int	a;
 	int	b;
+	int	col;
 
-	a = GHEIGHT / 2 - line_height / 2;
-	b = GHEIGHT / 2 + line_height / 2;
+	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
+	a = b - line_height;
 	i = 0;
 	while (a < b)
 	{
 		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
-			mlx_put_pixel(cub3d->viewport, cub3d->ray, a, calc_pix_color(i,
-					text, text_x_pos, line_height + 1));
+		{
+			col = calc_pix_color(i, text, text_x_pos, line_height + 1);
+			if (col != 0)
+				mlx_put_pixel(cub3d->viewport, cub3d->ray, a, col);
+		}
+		a++;
+		i++;
+	}
+}
+
+void	draw_door_line_textu(double line_height, int text_x_pos, mlx_image_t *text,
+		t_cub3d *cub3d)
+{
+	int	i;
+	int	a;
+	int	b;
+	int	y;
+	int	col;
+
+	y = 0;
+	if (cub3d->door_open == 1)
+	{
+		if (cub3d->door_open_start == 0)
+			cub3d->door_open_start = cub3d->frame;
+		y = cub3d->frame - cub3d->door_open_start;
+	}
+	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
+	a = b - line_height;
+	a += line_height * 0.008 * y;
+	if (a > b)
+		*cub3d->door = '0';
+	i = 0;
+	while (a < b)
+	{
+		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
+		{
+			col = calc_pix_color(i, text, text_x_pos, line_height + 1);
+			if (col != 0)
+				mlx_put_pixel(cub3d->viewport, cub3d->ray, a, col);
+		}
 		a++;
 		i++;
 	}
@@ -186,18 +225,18 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 			int spriteScreenX = (int)((WIDTH / 2) * (1 + transformX / transformY));
 
 			//calculate height of the sprite on screen
-			int spriteHeight = abs((int)(HEIGHT / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
+			int spriteHeight = abs((int)(GHEIGHT / (transformY))); //using 'transformY' instead of the real distance prevents fisheye
 			
 			//calculate lowest and highest pixel to fill in current stripe
-			int drawStartY = -spriteHeight / 2 + HEIGHT / 2;
+			int drawStartY = -spriteHeight / 2 + GHEIGHT / 2;
 /* 			if(drawStartY < 0)
 				drawStartY = 0; */
 			int drawEndY = spriteHeight / 2 + cub3d->viewport->height / 2;
-/* 			if(drawEndY >= HEIGHT)
-				drawEndY = HEIGHT - 1; */
+/* 			if(drawEndY >= GHEIGHT)
+				drawEndY = GHEIGHT - 1; */
 
 			//calculate width of the sprite
-			int spriteWidth = abs((int)(HEIGHT / (transformY)));
+			int spriteWidth = abs((int)(GHEIGHT / (transformY)));
 			int drawStartX = -spriteWidth / 2 + spriteScreenX;
 /* 			if(drawStartX < 0)
 				drawStartX = 0; */
@@ -216,12 +255,14 @@ void	sprite_casting(t_cub3d *cub3d, double *ZBuffer)
 					int k = 0;
 					while (a < b)
 					{
-						int color = calc_pix_color(k,	cub3d->coll, texx, (drawEndY - drawStartY) + 1);
-						if (color != 255)
+						int color = calc_pix_color(k, key_frame_selector(cub3d), texx, (drawEndY - drawStartY) + 1);
+						if (color != 0)
 						{
-							if (a >= HEIGHT)
-								a = HEIGHT;
-							 mlx_put_pixel(cub3d->viewport, stripe, a, color);
+							if (a >= GHEIGHT)
+								a = GHEIGHT;
+							else if (a <= 0)
+								a = 0;
+							 mlx_put_pixel(cub3d->sprite_img, stripe, a, color);
 						}
 						a++;
 						k++;
@@ -243,6 +284,7 @@ void	draw_game(t_cub3d *cub3d)
 		raycaster_calculus(cub3d);
 		wall_distance(cub3d);
 		raycaster(cub3d);
+		doorcaster(cub3d);
 		//SET THE ZBUFFER FOR THE SPRITE CASTING
 		ZBuffer[cub3d->ray] = cub3d->perp_wall_dist; //perpendicular distance is used
 		cub3d->ray++;

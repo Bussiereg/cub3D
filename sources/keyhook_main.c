@@ -15,6 +15,9 @@
 void	win_close(void *param)
 {
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->viewport);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->intro);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->background);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->minimap);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_n);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_e);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_s);
@@ -67,6 +70,18 @@ void	my_keyhook_rotate(mlx_key_data_t keydata, t_cub3d *cub3d)
 		cub3d->rotate_right = 0;
 }
 
+void	my_keyhook_other(mlx_key_data_t keydata, t_cub3d *cub3d)
+{
+	if (keydata.key == MLX_KEY_ESCAPE)
+		win_close(cub3d);
+	if ((keydata.key == MLX_KEY_M)
+		&& keydata.action == MLX_PRESS)
+		cub3d->minimap_on ++;
+	if ((keydata.key == MLX_KEY_SPACE)
+		&& keydata.action == MLX_PRESS && cub3d->key_nb == 3)
+		cub3d->door_open = 1;
+}
+
 void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
 	t_cub3d	*cub3d;
@@ -74,8 +89,7 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	cub3d = (t_cub3d *)param;
 	my_keyhook_move(keydata, cub3d);
 	my_keyhook_rotate(keydata, cub3d);
-	if (keydata.key == MLX_KEY_ESCAPE)
-		win_close(param);
+	my_keyhook_other(keydata, cub3d);
 }
 
 void	my_mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)

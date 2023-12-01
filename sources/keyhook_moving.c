@@ -27,6 +27,7 @@ void	moving_right(t_cub3d *cub3d)
 		{
 			cub3d->map[(int)cub3d->posy][(int)cub3d->posx] = '0';
 			cub3d->sprite[cub3d->flag2].flag = 0;
+			cub3d->key_nb++;
 		}
 	}
 }
@@ -46,6 +47,7 @@ void	moving_left(t_cub3d *cub3d)
 		{
 			cub3d->map[(int)cub3d->posy][(int)cub3d->posx] = '0';
 			cub3d->sprite[cub3d->flag2].flag = 0;
+			cub3d->key_nb++;
 		}
 	}
 }
@@ -65,6 +67,7 @@ void	moving_down(t_cub3d *cub3d)
 		{
 			cub3d->map[(int)cub3d->posy][(int)cub3d->posx] = '0';
 			cub3d->sprite[cub3d->flag2].flag = 0;
+			cub3d->key_nb++;
 		}
 	}
 }
@@ -84,6 +87,7 @@ void	moving_up(t_cub3d *cub3d)
 		{
 			cub3d->map[(int)cub3d->posy][(int)cub3d->posx] = '0';
 			cub3d->sprite[cub3d->flag2].flag = 0;
+			cub3d->key_nb++;
 		}
 	}
 }
