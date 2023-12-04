@@ -12,6 +12,25 @@
 
 #include "cub3d.h"
 
+void	finding_door(t_cub3d *cub3d)
+{
+	if (cub3d->side == 'W' || cub3d->side == 'E')
+		cub3d->door_perp_wall_dist = (cub3d->side_dist_x - cub3d->delta_dist_x);
+	else
+		cub3d->door_perp_wall_dist = (cub3d->side_dist_y - cub3d->delta_dist_y);
+	cub3d->door_hit = 1;
+	cub3d->door = &cub3d->map[cub3d->map_y][cub3d->map_x];
+	cub3d->door_line_height = (int)(GHEIGHT / cub3d->door_perp_wall_dist
+			* cub3d->wall_height * 1.15);
+	if (cub3d->side == 'E' || cub3d->side == 'W')
+		cub3d->door_wall_x = cub3d->posy + cub3d->door_perp_wall_dist
+			* cub3d->raydir_y;
+	else
+		cub3d->door_wall_x = (cub3d->posx + cub3d->door_perp_wall_dist
+				* cub3d->raydir_x) * 0.99999999;
+	cub3d->door_wall_x -= floor((cub3d->door_wall_x));
+}
+
 void	finding_wall(t_cub3d *cub3d)
 {
 	while (cub3d->hit == 0)
@@ -37,22 +56,7 @@ void	finding_wall(t_cub3d *cub3d)
 		if (cub3d->map[cub3d->map_y][cub3d->map_x] == '1')
 			cub3d->hit = 1;
 		if (cub3d->map[cub3d->map_y][cub3d->map_x] == 'D')
-		{
-			if (cub3d->side == 'W' || cub3d->side == 'E')
-				cub3d->door_perp_wall_dist = (cub3d->side_dist_x - cub3d->delta_dist_x);
-			else
-				cub3d->door_perp_wall_dist = (cub3d->side_dist_y - cub3d->delta_dist_y);
-			cub3d->door_hit = 1;
-			cub3d->door = &cub3d->map[cub3d->map_y][cub3d->map_x];
-
-			cub3d->door_line_height = (int)(GHEIGHT / cub3d->door_perp_wall_dist * cub3d->wall_height * 1.15);
-			if (cub3d->side == 'E' || cub3d->side == 'W')
-				cub3d->door_wall_x = cub3d->posy + cub3d->door_perp_wall_dist * cub3d->raydir_y;
-			else
-				cub3d->door_wall_x = (cub3d->posx + cub3d->door_perp_wall_dist * cub3d->raydir_x)
-				* 0.99999999;
-			cub3d->door_wall_x -= floor((cub3d->door_wall_x));
-		}
+			finding_door(cub3d);
 	}
 }
 
@@ -63,7 +67,8 @@ void	wall_distance(t_cub3d *cub3d)
 		cub3d->perp_wall_dist = (cub3d->side_dist_x - cub3d->delta_dist_x);
 	else
 		cub3d->perp_wall_dist = (cub3d->side_dist_y - cub3d->delta_dist_y);
-	cub3d->line_height = (int)(GHEIGHT / cub3d->perp_wall_dist * cub3d->wall_height * 1.15);
+	cub3d->line_height = (int)(GHEIGHT / cub3d->perp_wall_dist
+		* cub3d->wall_height * 1.15);
 	if (cub3d->side == 'E' || cub3d->side == 'W')
 		cub3d->wall_x = cub3d->posy + cub3d->perp_wall_dist * cub3d->raydir_y;
 	else
@@ -94,7 +99,7 @@ mlx_image_t	*key_frame_selector(t_cub3d *cub3d)
 		return (cub3d->key5);
 	if (cub3d->key_frame / 3 == 10)
 		return (cub3d->key4);
-	if (cub3d->key_frame / 3 ==11)
+	if (cub3d->key_frame / 3 == 11)
 		return (cub3d->key3);
 	if (cub3d->key_frame / 3 == 12)
 		return (cub3d->key2);

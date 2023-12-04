@@ -15,6 +15,7 @@
 void	win_close(void *param)
 {
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->viewport);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->sprite_img);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->intro);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->background);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->minimap);
@@ -92,11 +93,12 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	my_keyhook_other(keydata, cub3d);
 }
 
-void	my_mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
+void	my_mousehook(mouse_key_t button, action_t action, modifier_key_t mods,
+	void *param)
 {
 	t_cub3d	*cub3d;
-	int x;
-	int y;
+	int		x;
+	int		y;
 
 	(void)mods;
 	cub3d = (t_cub3d *)param;

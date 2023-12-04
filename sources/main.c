@@ -14,52 +14,21 @@
 
 int	cub3d_init(t_cub3d *cub3d)
 {
+	ft_bzero(cub3d, sizeof(*cub3d));
 	// mlx_set_setting(MLX_FULLSCREEN, true);
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "SUBMOON", false);
 	if (!cub3d->mlx)
 		return (1);
 	errno = 0;
-	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
-	if (!cub3d->background)
-		return (1);
-	cub3d->intro = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
-	if (!cub3d->intro)
-		return (1);
-
-	mlx_texture_t	*texture;
-	mlx_delete_image(cub3d->mlx, cub3d->intro);
-	texture = mlx_load_png("./texture/intro.png");
-	cub3d->intro = mlx_texture_to_image(cub3d->mlx, texture);
-	mlx_delete_texture(texture);
-
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
 	if (!cub3d->viewport)
 		return (1);
-	cub3d->sprite_img = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
-	if (!cub3d->sprite_img)
-		return (1);
-	cub3d->posx = 0;
-	cub3d->posy = 0;
 	cub3d->t_n = cub3d->viewport;
 	cub3d->t_s = cub3d->viewport;
 	cub3d->t_e = cub3d->viewport;
 	cub3d->t_w = cub3d->viewport;
-	cub3d->color_c = 0;
-	cub3d->color_f = 0;
-	cub3d->wall_height = 1;
-	cub3d->frame = 0;
 	cub3d->key_frame = 1;
-	cub3d->move_up = 0;
-	cub3d->move_down = 0;
-	cub3d->move_left = 0;
-	cub3d->move_right = 0;
-	cub3d->rotate_left = 0;
-	cub3d->rotate_right = 0;
-	cub3d->minimap_on = 0;
-	cub3d->door_open = 0;
-	cub3d->door_open_start = 0;
-	cub3d->nb_sprite = 0;
-	cub3d->key_nb = 0;
+	cub3d->wall_height = 1;
 	return (0);
 }
 
@@ -76,7 +45,6 @@ int	main(int argc, char *argv[])
 	if (!cub3d.minimap)
 		return (1);
 	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
-	// render(&cub3d);
 	mlx_mouse_hook(cub3d.mlx, &my_mousehook, &cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
 	mlx_close_hook(cub3d.mlx, &win_close, &cub3d);

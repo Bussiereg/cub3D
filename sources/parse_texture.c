@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	load_textures_bonus(mlx_texture_t	*texture, t_cub3d *cub3d, char **info)
+void	load_textures_bonus(mlx_texture_t *texture, t_cub3d *cub3d, char **info)
 {
 	if (ft_strncmp(info[0], "CO", 2) == 0)
 	{

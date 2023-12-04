@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color1,  unsigned int color2)
+void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color1, unsigned int color2)
 {
 	int	new_x;
 	int	new_y;

@@ -19,7 +19,8 @@ void	moving_right(t_cub3d *cub3d)
 
 	my = (cub3d->posy + (cub3d->plane_y) * STEP);
 	mx = (cub3d->posx + (cub3d->plane_x) * STEP);
-	if (cub3d->map[(int)my][(int)mx] == '0' || cub3d->map[(int)my][(int)mx] == 'c')
+	if (cub3d->map[(int)my][(int)mx] == '0'
+		|| cub3d->map[(int)my][(int)mx] == 'c')
 	{
 		cub3d->posy += cub3d->plane_y * STEP;
 		cub3d->posx += cub3d->plane_x * STEP;
@@ -39,7 +40,8 @@ void	moving_left(t_cub3d *cub3d)
 
 	my = (cub3d->posy - (cub3d->plane_y * STEP));
 	mx = (cub3d->posx - (cub3d->plane_x * STEP));
-	if (cub3d->map[(int)my][(int)mx] == '0' || cub3d->map[(int)my][(int)mx] == 'c')
+	if (cub3d->map[(int)my][(int)mx] == '0'
+		|| cub3d->map[(int)my][(int)mx] == 'c')
 	{
 		cub3d->posy -= cub3d->plane_y * STEP;
 		cub3d->posx -= cub3d->plane_x * STEP;
@@ -59,7 +61,8 @@ void	moving_down(t_cub3d *cub3d)
 
 	my = (cub3d->posy - (cub3d->dir_y * STEP));
 	mx = (cub3d->posx - (cub3d->dir_x * STEP));
-	if (cub3d->map[(int)my][(int)mx] == '0' || cub3d->map[(int)my][(int)mx] == 'c')
+	if (cub3d->map[(int)my][(int)mx] == '0'
+		|| cub3d->map[(int)my][(int)mx] == 'c')
 	{
 		cub3d->posy -= cub3d->dir_y * STEP;
 		cub3d->posx -= cub3d->dir_x * STEP ;
@@ -79,7 +82,8 @@ void	moving_up(t_cub3d *cub3d)
 
 	my = (cub3d->posy + (cub3d->dir_y * STEP));
 	mx = (cub3d->posx + (cub3d->dir_x * STEP));
-	if (cub3d->map[(int)my][(int)mx] == '0' || cub3d->map[(int)my][(int)mx] == 'c')
+	if (cub3d->map[(int)my][(int)mx] == '0'
+		|| cub3d->map[(int)my][(int)mx] == 'c')
 	{
 		cub3d->posy += (cub3d->dir_y * STEP);
 		cub3d->posx += (cub3d->dir_x * STEP);
