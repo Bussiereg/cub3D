@@ -98,6 +98,8 @@ void	render(void *param)
 
 	cub3d = (t_cub3d *)param;
 	cub3d->frame++;
+	if (key_frame_selector(cub3d) == NULL)
+		ft_printf("frame %d", cub3d->frame);
 	if (cub3d->frame < 255)
 		render_intro(cub3d);
 	move_around(cub3d);
