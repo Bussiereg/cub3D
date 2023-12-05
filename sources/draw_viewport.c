@@ -55,7 +55,7 @@ void	draw_door_line_textu(double line_height, int text_x_pos,
 	if (a > b)
 		*cub3d->door = '0';
 	i = 0;
-	while (a< b)
+	while (a < b)
 	{
 		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
 		{
