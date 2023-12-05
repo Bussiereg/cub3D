@@ -28,7 +28,7 @@
 # define STEP 0.2
 # define ROTSPD 0.04
 # define GHEIGHT 850
-# define numSprites 3
+# define numsprites 3
 
 typedef struct point
 {
@@ -93,8 +93,26 @@ typedef struct cub3d
 	int				key_frame;
 
 	t_sprite		sprite[3];
+	double			zbuffer[WIDTH];
+	int				spriteorder[3];
 	int				nb_sprite;
 	int				flag2;
+
+	double			sprite_x;
+	double			sprite_y;
+	double			invdet;
+	double			transform_x;
+	double			transform_y;
+	int				sprite_screen_x;
+	int				sprite_height;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				draw_start_x;
+	int				draw_end_x;
+	int				sprite_width;
+
+
+
 	
 	char			**map;
 	char			**map_check;
@@ -151,6 +169,23 @@ void	wall_distance(t_cub3d *cub3d);
 double	absol(double nombre);
 void	raycaster_init(t_cub3d *cub3d);
 void	raycaster_calculus(t_cub3d *cub3d);
+
+// draw_background.c
+int		draw_sky(t_cub3d *cub3d);
+int		draw_ceiling(t_cub3d *cub3d);
+int		draw_floor(t_cub3d *cub3d);
+
+// draw_sprite_sort.c
+int		max_double(double *spritedistance);
+int		min_double(double *spritedistance);
+void	sprite_find_order(t_cub3d *cub3d, int i, double *spritedistance, int j);
+void	sort_sprite(t_cub3d *cub3d);
+
+
+// draw_sprite.c
+void	draw_sprite(t_cub3d *cub3d, int a, int b);
+void	sprite_init(t_cub3d *cub3d, int i);
+void	sprite_casting(t_cub3d *cub3d);
 
 // draw_viewport.c
 int		draw_sky(t_cub3d *cub3d);
