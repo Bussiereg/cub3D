@@ -12,13 +12,6 @@
 
 #include "cub3d.h"
 
-void	parse_sprite(t_cub3d *cub3d, int i, int y)
-{
-	cub3d->sprite[cub3d->nb_sprite].x = i + 0.5;
-	cub3d->sprite[cub3d->nb_sprite].y = y + 0.5;
-	cub3d->sprite[cub3d->nb_sprite++].flag = 1;
-}
-
 int	copy_map(char *file, t_cub3d *cub3d)
 {
 	int		y;
@@ -49,8 +42,7 @@ void	floodfill(t_cub3d *cub3d, int y, int x, char new_val)
 {
 	if (x < 0 || x >= cub3d->m_size_x + 2 || y < 0 || y >= cub3d->m_size_y + 2)
 		return ;
-	if (cub3d->map_check[y][x] != '0' && cub3d->map_check[y][x] != 'c'
-		&& cub3d->map_check[y][x] != 'D')
+	if (cub3d->map_check[y][x] != '0')
 		return ;
 	cub3d->map_check[y][x] = new_val;
 	floodfill(cub3d, y - 1, x, new_val);
@@ -98,8 +90,5 @@ int	parse_map(char *file, t_cub3d *cub3d)
 		terminate("no player position", cub3d, 1, 1);
 	duplicate_map(cub3d);
 	check_wall(cub3d->map_check, cub3d);
-	load_key_text_1(cub3d);
-	load_key_text_2(cub3d);
-	load_key_text_3(cub3d);
 	return (0);
 }

@@ -73,64 +73,20 @@ typedef struct cub3d
 	double			perp_wall_dist;
 	double			wall_x;
 
-	char			*door;
-	int				door_hit;
-	int				door_line_height;
-	double			door_perp_wall_dist;
-	double			door_wall_x;
-	int				door_open;
-	int				door_open_start;
-	int				key_nb;
-
 	mlx_image_t		*viewport;
-	mlx_image_t		*intro;
 	mlx_image_t		*background;
-	mlx_image_t		*minimap;
-	mlx_image_t		*sprite_img;
 	mlx_t			*mlx;
-
-	int				frame;
-	int				key_frame;
-
-	t_sprite		sprite[3];
-	double			zbuffer[WIDTH];
-	int				spriteorder[3];
-	int				nb_sprite;
-	int				flag2;
-
-	double			sprite_x;
-	double			sprite_y;
-	double			invdet;
-	double			transform_x;
-	double			transform_y;
-	int				sprite_screen_x;
-	int				sprite_height;
-	int				draw_start_y;
-	int				draw_end_y;
-	int				draw_start_x;
-	int				draw_end_x;
-	int				sprite_width;
 
 	char			**map;
 	char			**map_check;
 	int				map_line;
 	int				m_size_x;
 	int				m_size_y;
-	int				wall_height;
-	int				minimap_on;
 
 	mlx_image_t		*t_n;
 	mlx_image_t		*t_s;
 	mlx_image_t		*t_e;
 	mlx_image_t		*t_w;
-
-	mlx_image_t		*key1;
-	mlx_image_t		*key2;
-	mlx_image_t		*key3;
-	mlx_image_t		*key4;
-	mlx_image_t		*key5;
-	mlx_image_t		*key6;
-	mlx_image_t		*key7;
 
 	int				color_c;
 	int				color_f;
@@ -143,16 +99,7 @@ typedef struct cub3d
 	int				rotate_right;
 }	t_cub3d;
 
-// draw_character.c
-void		draw_character(t_cub3d *cub3d, unsigned int color);
-
-// draw_minimap.c
-void		draw_minimap(t_cub3d *cub3d);
-void		init_minimap(t_cub3d *cub3d);
-
 // raycaster_main.c
-mlx_image_t	*key_frame_selector(t_cub3d *cub3d);
-void		doorcaster(t_cub3d *cub3d);
 void		raycaster(t_cub3d *cub3d);
 void		finding_wall(t_cub3d *cub3d);
 void		wall_distance(t_cub3d *cub3d);
@@ -167,37 +114,20 @@ int			draw_sky(t_cub3d *cub3d);
 int			draw_ceiling(t_cub3d *cub3d);
 int			draw_floor(t_cub3d *cub3d);
 
-// draw_sprite_sort.c
-int			max_double(double *spritedistance);
-int			min_double(double *spritedistance);
-void		sprite_find_order(t_cub3d *cub3d, int i,
-				double *spritedistance, int j);
-void		sort_sprite(t_cub3d *cub3d);
-
-// draw_sprite.c
-void		draw_sprite(t_cub3d *cub3d, int a, int b);
-void		sprite_init(t_cub3d *cub3d, int i);
-void		sprite_casting(t_cub3d *cub3d);
-
 // draw_viewport.c
 int			draw_sky(t_cub3d *cub3d);
 int			draw_ceiling(t_cub3d *cub3d);
 int			draw_floor(t_cub3d *cub3d);
 void		draw_line_textu(double line_height, int text_x_pos,
 				mlx_image_t *text, t_cub3d *cub3d);
-void		draw_door_line_textu(double line_height, int text_x_pos,
-				mlx_image_t *text, t_cub3d *cub3d);
 void		draw_game(t_cub3d *cub3d);
 
 /// render.c
 void		render_background(t_cub3d *cub3d);
-void		set_opacity(mlx_image_t *img, int alpha);
-void		render_intro(t_cub3d *cub3d);
 void		render_viewport(t_cub3d *cub3d);
 void		render(void *param);
 
 // parse_main.c
-void		parse_sprite(t_cub3d *cub3d, int i, int y);
 int			copy_map(char *file, t_cub3d *cub3d);
 void		floodfill(t_cub3d *cub3d, int y, int x, char new_val);
 int			check_wall(char **map, t_cub3d *cub3d);
@@ -211,9 +141,6 @@ int			all_info_read(t_cub3d *cub3d);
 int			read_info(char *file, t_cub3d *cub3d);
 
 // parse_textures.c
-void		load_key_text_1(t_cub3d *cub3d);
-void		load_key_text_2(t_cub3d *cub3d);
-void		load_key_text_3(t_cub3d *cub3d);
 void		load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
 void		set_player_position(char map_char, int x, int y, t_cub3d *cub3d);
 
@@ -229,7 +156,6 @@ void		calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
 int			calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 int			calc_grad_color(int steps, int cl_a, float rgba[4]);
 int			get_color_info(char *str);
-mlx_image_t	*key_frame_selector(t_cub3d *cub3d);
 
 // keyhook_rotate.c
 void		rotating_right(t_cub3d *cub3d);
@@ -245,10 +171,6 @@ void		move_around(t_cub3d *cub3d);
 // keyhook_main.c
 void		win_close(void *param);
 void		my_keyhook(mlx_key_data_t keydata, void *param);
-
-// mousehook.c
-void		my_mousehook(mouse_key_t button, action_t action,
-				modifier_key_t mods, void *param);
 
 // close.c
 void		ft_free_tab(char **tab);

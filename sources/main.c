@@ -27,8 +27,6 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->t_s = cub3d->background;
 	cub3d->t_e = cub3d->background;
 	cub3d->t_w = cub3d->background;
-	cub3d->key_frame = 1;
-	cub3d->wall_height = 1;
 	return (0);
 }
 
@@ -42,7 +40,6 @@ int	main(int argc, char *argv[])
 		terminate("Init cub3d  mlx42 error", &cub3d, 0, 0);
 	parse_map(argv[1], &cub3d);
 	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
-	mlx_mouse_hook(cub3d.mlx, &my_mousehook, &cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);
 	mlx_close_hook(cub3d.mlx, &win_close, &cub3d);
 	mlx_loop(cub3d.mlx);

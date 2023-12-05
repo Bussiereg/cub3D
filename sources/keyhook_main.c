@@ -15,21 +15,11 @@
 void	win_close(void *param)
 {
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->viewport);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->sprite_img);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->intro);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->background);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->minimap);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_n);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_e);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_s);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_w);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key1);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key2);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key3);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key4);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key5);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key6);
-	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key7);
 	mlx_terminate(((t_cub3d *)param)->mlx);
 	exit(EXIT_SUCCESS);
 }
@@ -82,12 +72,6 @@ void	my_keyhook_other(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 		win_close(cub3d);
-	if ((keydata.key == MLX_KEY_M)
-		&& keydata.action == MLX_PRESS)
-		cub3d->minimap_on ++;
-	if ((keydata.key == MLX_KEY_SPACE)
-		&& keydata.action == MLX_PRESS && cub3d->key_nb == 3)
-		cub3d->door_open = 1;
 }
 
 void	my_keyhook(mlx_key_data_t keydata, void *param)
