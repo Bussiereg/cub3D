@@ -46,28 +46,23 @@ void	draw_door_line_textu(double line_height, int text_x_pos,
 	int	col;
 
 	y = 0;
+	if (cub3d->door_open == 1 && cub3d->door_open_start == 0)
+		cub3d->door_open_start = cub3d->frame;
 	if (cub3d->door_open == 1)
-	{
-		if (cub3d->door_open_start == 0)
-			cub3d->door_open_start = cub3d->frame;
 		y = cub3d->frame - cub3d->door_open_start;
-	}
 	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
-	a = b - line_height;
-	a += line_height * 0.008 * y;
+	a = (b - line_height) + line_height * 0.008 * y;
 	if (a > b)
 		*cub3d->door = '0';
 	i = 0;
-	while (a < b)
+	while (a++ < b)
 	{
 		if (cub3d->ray >= 0 && a >= 0 && cub3d->ray < WIDTH && a < GHEIGHT)
 		{
-			col = calc_pix_color(i, text, text_x_pos, line_height + 1);
+			col = calc_pix_color(i++, text, text_x_pos, line_height + 1);
 			if (col != 0)
 				mlx_put_pixel(cub3d->viewport, cub3d->ray, a, col);
 		}
-		a++;
-		i++;
 	}
 }
 

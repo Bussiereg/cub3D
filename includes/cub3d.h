@@ -28,7 +28,7 @@
 # define STEP 0.2
 # define ROTSPD 0.04
 # define GHEIGHT 850
-# define numsprites 3
+# define NUMSPRITES 3
 
 typedef struct point
 {
@@ -39,9 +39,9 @@ typedef struct point
 
 typedef struct sprite
 {
-	double x;
-	double y;
-	int flag;
+	double	x;
+	double	y;
+	int		flag;
 }	t_sprite;
 
 typedef struct cub3d
@@ -111,9 +111,6 @@ typedef struct cub3d
 	int				draw_end_x;
 	int				sprite_width;
 
-
-
-	
 	char			**map;
 	char			**map_check;
 	int				map_line;
@@ -134,7 +131,6 @@ typedef struct cub3d
 	mlx_image_t		*key5;
 	mlx_image_t		*key6;
 	mlx_image_t		*key7;
-	
 
 	int				color_c;
 	int				color_f;

@@ -82,7 +82,7 @@ void	sprite_casting(t_cub3d *cub3d)
 
 	sort_sprite(cub3d);
 	i = 0;
-	while (i < numsprites)
+	while (i < NUMSPRITES)
 	{
 		if (cub3d->sprite[cub3d->spriteorder[i]].flag == 0)
 			i++;

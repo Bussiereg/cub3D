@@ -86,7 +86,7 @@ void	sort_sprite(t_cub3d *cub3d)
 	int		i;
 
 	i = 0;
-	while (i < numsprites)
+	while (i < NUMSPRITES)
 	{
 		spritedistance[i] = ((cub3d->posx - cub3d->sprite[i].x) * (cub3d->posx
 					- cub3d->sprite[i].x) + (cub3d->posy - cub3d->sprite[i].y)
