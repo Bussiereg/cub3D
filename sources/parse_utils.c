@@ -15,7 +15,7 @@
 int	right_map_char(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == 'N' || c == 'S' || c == 'E'
-		|| c == 'W')
+		|| c == 'W' || c == 'c' || c == 'D')
 		return (1);
 	else
 		return (0);

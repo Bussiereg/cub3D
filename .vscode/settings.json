@@ -10,7 +10,14 @@
         "stdio.h": "c",
         "get_next_line.h": "c",
         "libft.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "bit": "c",
+        "*.tcc": "c",
+        "functional": "c",
+        "string_view": "c",
+        "limits": "c",
+        "numeric": "c",
+        "algorithm": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/nfs/homes/jubernar/project/11_cub3D/lib/MLX42",

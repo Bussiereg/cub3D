@@ -40,7 +40,11 @@ void	terminate(char *str, t_cub3d *cub3d, int mlx, int map)
 		ft_free_tab(cub3d->map);
 	if (mlx == 1)
 	{
+		mlx_delete_image(cub3d->mlx, cub3d->background);
 		mlx_delete_image(cub3d->mlx, cub3d->viewport);
+		mlx_delete_image(cub3d->mlx, cub3d->sprite_img);
+		mlx_delete_image(cub3d->mlx, cub3d->minimap);
+		mlx_delete_image(cub3d->mlx, cub3d->intro);
 		if (cub3d->t_e != cub3d->viewport)
 			mlx_delete_image(cub3d->mlx, cub3d->t_e);
 		if (cub3d->t_s != cub3d->viewport)

@@ -42,7 +42,8 @@ void	floodfill(t_cub3d *cub3d, int y, int x, char new_val)
 {
 	if (x < 0 || x >= cub3d->m_size_x + 2 || y < 0 || y >= cub3d->m_size_y + 2)
 		return ;
-	if (cub3d->map_check[y][x] != '0')
+	if (cub3d->map_check[y][x] != '0' && cub3d->map_check[y][x] != 'c'
+		&& cub3d->map_check[y][x] != 'D')
 		return ;
 	cub3d->map_check[y][x] = new_val;
 	floodfill(cub3d, y - 1, x, new_val);
@@ -73,6 +74,53 @@ int	check_wall(char **map, t_cub3d *cub3d)
 	return (0);
 }
 
+void	load_key_text_1(t_cub3d *cub3d)
+{
+	mlx_texture_t	*texture;
+
+	texture = mlx_load_png("./texture/key-01.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key1 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-02.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key2 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-03.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key3 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-04.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key4 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+}
+
+void	load_key_text_2(t_cub3d *cub3d)
+{
+	mlx_texture_t	*texture;
+
+	texture = mlx_load_png("./texture/key-05.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key1 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-06.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key2 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-07.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key3 = mlx_texture_to_image(cub3d->mlx, texture);
+	mlx_delete_texture(texture);
+}
+
 int	parse_map(char *file, t_cub3d *cub3d)
 {
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
@@ -90,5 +138,7 @@ int	parse_map(char *file, t_cub3d *cub3d)
 		terminate("no player position", cub3d, 1, 1);
 	duplicate_map(cub3d);
 	check_wall(cub3d->map_check, cub3d);
+	load_key_text_1(cub3d);
+	load_key_text_2(cub3d);
 	return (0);
 }

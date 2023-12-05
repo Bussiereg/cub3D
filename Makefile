@@ -4,7 +4,7 @@ NAME	:= cub3D
 WIDTH := $(shell xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $$3}')
 HEIGHT := $(shell xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $$4}')
 WAV_FILE := $(PWD)/music.wav
-MAP_NAME := map/map_ice_maze.cub
+MAP_NAME := map/map_level1.cub
 
 # -----------\ Directories \-------------------------------------------------- #
 
@@ -18,6 +18,8 @@ OBJ_DIREC := build/
 
 CFLAGS	:= -Wextra -Wall -Werror -g -DWIDTH=$(WIDTH) -DHEIGHT=$(HEIGHT)
 MD		:= -mkdir -p
+WIDTHU = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $4}';
+HEIGHTU = xdpyinfo | awk -F'[ x]+' '/dimensions:/ {print $3}';
 
 # -----------\ Files & sources \---------------------------------------------- #
 

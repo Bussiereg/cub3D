@@ -23,6 +23,7 @@ double	absol(double nombre)
 void	raycaster_init(t_cub3d *cub3d)
 {
 	cub3d->hit = 0;
+	cub3d->door_hit = 0;
 	cub3d->line_height = 0;
 	cub3d->camera_x = 2 * cub3d->ray / (double)WIDTH - 1;
 	cub3d->raydir_x = cub3d->dir_x + cub3d->plane_x * cub3d->camera_x;
