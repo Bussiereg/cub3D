@@ -26,11 +26,21 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color1)
 			if (new_x % SIZEMINIMAP == 0 || new_y % SIZEMINIMAP == 0)
 				mlx_put_pixel(cub3d->minimap, new_x, new_y, 0x19b919FF);
 			else
-				mlx_put_pixel(cub3d->minimap, new_x, new_y, color1);
+				mlx_put_pixel(cub3d->minimap, new_x, new_y, c1);
 			new_x++;
 		}
 		new_y++;
 	}
+}
+
+void	init_minimap(t_cub3d *cub3d)
+{
+	if (cub3d->minimap)
+		mlx_delete_image(cub3d->mlx, cub3d->minimap);
+	cub3d->minimap = mlx_new_image(cub3d->mlx, cub3d->m_size_x * SIZEMINIMAP,
+			cub3d->m_size_y * SIZEMINIMAP);
+	if (!cub3d->minimap)
+		terminate("new rendering memory fail", cub3d, 1, 2);
 }
 
 void	draw_minimap(t_cub3d *cub3d)
@@ -38,15 +48,14 @@ void	draw_minimap(t_cub3d *cub3d)
 	int		x;
 	int		y;
 
-	mlx_delete_image(cub3d->mlx, cub3d->minimap);
-	cub3d->minimap = mlx_new_image(cub3d->mlx, cub3d->m_size_x * SIZEMINIMAP, cub3d->m_size_y * SIZEMINIMAP);
+	init_minimap(cub3d);
 	if (cub3d->minimap_on % 2 == 1)
 	{
-		y = 0;
-		while (y < cub3d->m_size_y)
+		y = -1;
+		while (++y < cub3d->m_size_y)
 		{
-			x = 0;
-			while (x < cub3d->m_size_x)
+			x = -1;
+			while (++x < cub3d->m_size_x)
 			{
 				if (cub3d->map[y][x] == '0')
 					draw_tile(cub3d, x, y, 0x00000000);
@@ -58,7 +67,6 @@ void	draw_minimap(t_cub3d *cub3d)
 					draw_tile(cub3d, x, y, 0x00FF00FF);
 				x++;
 			}
-			y++;
 		}
 		draw_character(cub3d, 0xFF0000FF);
 	}

@@ -12,13 +12,6 @@
 
 #include "cub3d.h"
 
-void	parse_sprite(t_cub3d *cub3d, int i, int y)
-{
-	cub3d->sprite[cub3d->nb_sprite].x = i + 0.5;
-	cub3d->sprite[cub3d->nb_sprite].y = y + 0.5;
-	cub3d->sprite[cub3d->nb_sprite++].flag = 1;
-}
-
 int	line_to_map(int y, char *line, t_cub3d *cub3d)
 {
 	int	i;
@@ -69,7 +62,6 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 	if (ft_strncmp(info[0], "H", 2) == 0)
 		cub3d->wall_height = ft_atoi(info[1]);
 	load_textures(NULL, cub3d, info);
-	load_textures_bonus(NULL, cub3d, info);
 	if (!cub3d->t_n || !cub3d->t_s || !cub3d->t_e || !cub3d->t_w)
 		terminate("texture Wall error", cub3d, 1, 0);
 	ft_free_tab(info);
@@ -78,8 +70,8 @@ int	info_to_struct(char *line, t_cub3d *cub3d)
 
 int	all_info_read(t_cub3d *cub3d)
 {
-	if (cub3d->t_n == cub3d->viewport || cub3d->t_s == cub3d->viewport
-		|| cub3d->t_e == cub3d->viewport || cub3d->t_w == cub3d->viewport
+	if (cub3d->t_n == cub3d->background || cub3d->t_s == cub3d->background
+		|| cub3d->t_e == cub3d->background || cub3d->t_w == cub3d->background
 		|| cub3d->color_c == 0 || cub3d->color_f == 0)
 		return (0);
 	return (1);

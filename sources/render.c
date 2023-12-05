@@ -20,6 +20,8 @@ void	render_background(t_cub3d *cub3d)
 	if (cub3d->background)
 		mlx_delete_image(cub3d->mlx, cub3d->background);
 	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	if (!cub3d->background)
+		terminate("new rendering memory fail", cub3d, 1, 2);
 	y = 0;
 	while (y < HEIGHT)
 	{
@@ -56,6 +58,8 @@ void	render_intro(t_cub3d *cub3d)
 		mlx_delete_image(cub3d->mlx, cub3d->intro);
 	texture = mlx_load_png("./texture/intro.png");
 	cub3d->intro = mlx_texture_to_image(cub3d->mlx, texture);
+	if (!cub3d->intro)
+		terminate("new rendering memory fail", cub3d, 1, 2);
 	mlx_delete_texture(texture);
 	if (255 - cub3d->frame * 2.5 >= 0)
 		set_opacity(cub3d->intro, alpha);
@@ -68,28 +72,16 @@ void	render_viewport(t_cub3d *cub3d)
 	if (cub3d->sprite_img)
 		mlx_delete_image(cub3d->mlx, cub3d->sprite_img);
 	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
+	if (!cub3d->viewport)
+		terminate("new rendering memory fail", cub3d, 1, 2);
 	cub3d->sprite_img = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
+	if (!cub3d->sprite_img)
+		terminate("new rendering memory fail", cub3d, 1, 2);
 	draw_ceiling(cub3d);
 	draw_floor(cub3d);
 	draw_game(cub3d);
 	if (++cub3d->key_frame > 36)
 		cub3d->key_frame = 1;
-}
-
-void	move_around(t_cub3d *cub3d)
-{
-	if (cub3d->move_up == 1)
-		moving_up(cub3d);
-	if (cub3d->move_down == 1)
-		moving_down(cub3d);
-	if (cub3d->move_left == 1)
-		moving_left(cub3d);
-	if (cub3d->move_right == 1)
-		moving_right(cub3d);
-	if (cub3d->rotate_right == 1)
-		rotating_right(cub3d);
-	if (cub3d->rotate_left == 1)
-		rotating_left(cub3d);
 }
 
 void	render(void *param)
@@ -98,8 +90,6 @@ void	render(void *param)
 
 	cub3d = (t_cub3d *)param;
 	cub3d->frame++;
-	if (key_frame_selector(cub3d) == NULL)
-		ft_printf("frame %d", cub3d->frame);
 	if (cub3d->frame < 255)
 		render_intro(cub3d);
 	move_around(cub3d);

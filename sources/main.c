@@ -20,13 +20,13 @@ int	cub3d_init(t_cub3d *cub3d)
 	if (!cub3d->mlx)
 		return (1);
 	errno = 0;
-	cub3d->viewport = mlx_new_image(cub3d->mlx, WIDTH, GHEIGHT);
-	if (!cub3d->viewport)
+	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	if (!cub3d->background)
 		return (1);
-	cub3d->t_n = cub3d->viewport;
-	cub3d->t_s = cub3d->viewport;
-	cub3d->t_e = cub3d->viewport;
-	cub3d->t_w = cub3d->viewport;
+	cub3d->t_n = cub3d->background;
+	cub3d->t_s = cub3d->background;
+	cub3d->t_e = cub3d->background;
+	cub3d->t_w = cub3d->background;
 	cub3d->key_frame = 1;
 	cub3d->wall_height = 1;
 	return (0);
@@ -41,9 +41,6 @@ int	main(int argc, char *argv[])
 	if (cub3d_init(&cub3d) == 1)
 		terminate("Init cub3d  mlx42 error", &cub3d, 0, 0);
 	parse_map(argv[1], &cub3d);
-	cub3d.minimap = mlx_new_image(cub3d.mlx, cub3d.m_size_x * SIZEMINIMAP, cub3d.m_size_y * SIZEMINIMAP);
-	if (!cub3d.minimap)
-		return (1);
 	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
 	mlx_mouse_hook(cub3d.mlx, &my_mousehook, &cub3d);
 	mlx_key_hook(cub3d.mlx, &my_keyhook, &cub3d);

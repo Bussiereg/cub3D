@@ -46,3 +46,47 @@ int	calc_grad_color(int steps, int cl_a, float rgba[4])
 		* rgba[2]) & 0xFF) << 8 | ((int)((uint8_t)(cl_a >> 0) + steps
 		* rgba[3]) & 0xFF) << 0);
 }
+
+int	get_color_info(char *str)
+{
+	char	**rgb;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+
+	rgb = ft_split(str, ',');
+	r = ft_atoi(rgb[0]);
+	g = ft_atoi(rgb[1]);
+	b = ft_atoi(rgb[2]);
+	ft_free_tab(rgb);
+	return (r << 24 | g << 16 | b << 8 | 0xFF);
+}
+
+mlx_image_t	*key_frame_selector(t_cub3d *cub3d)
+{
+	if (cub3d->key_frame / 3 == 1)
+		return (cub3d->key1);
+	if (cub3d->key_frame / 3 == 2)
+		return (cub3d->key2);
+	if (cub3d->key_frame / 3 == 3)
+		return (cub3d->key3);
+	if (cub3d->key_frame / 3 == 4)
+		return (cub3d->key4);
+	if (cub3d->key_frame / 3 == 5)
+		return (cub3d->key5);
+	if (cub3d->key_frame / 3 == 6)
+		return (cub3d->key6);
+	if (cub3d->key_frame / 3 == 7)
+		return (cub3d->key7);
+	if (cub3d->key_frame / 3 == 8)
+		return (cub3d->key6);
+	if (cub3d->key_frame / 3 == 9)
+		return (cub3d->key5);
+	if (cub3d->key_frame / 3 == 10)
+		return (cub3d->key4);
+	if (cub3d->key_frame / 3 == 11)
+		return (cub3d->key3);
+	if (cub3d->key_frame / 3 == 12)
+		return (cub3d->key2);
+	return (cub3d->key1);
+}
