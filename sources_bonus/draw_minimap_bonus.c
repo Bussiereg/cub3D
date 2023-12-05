@@ -57,7 +57,7 @@ void	draw_minimap(t_cub3d *cub3d)
 			x = -1;
 			while (++x < cub3d->m_size_x)
 			{
-				if (cub3d->map[y][x] == '0')
+				if (cub3d->map[y][x] == '0' || cub3d->map[y][x] == 'Z')
 					draw_tile(cub3d, x, y, 0x000000FF);
 				else if (cub3d->map[y][x] == '1')
 					draw_tile(cub3d, x, y, 0x19b919FF);

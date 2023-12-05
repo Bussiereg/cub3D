@@ -17,7 +17,15 @@
         "string_view": "c",
         "limits": "c",
         "numeric": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "array": "c",
+        "deque": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "initializer_list": "c",
+        "ranges": "c",
+        "span": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/nfs/homes/jubernar/project/11_cub3D/lib/MLX42",

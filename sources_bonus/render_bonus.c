@@ -53,6 +53,13 @@ void	render_intro(t_cub3d *cub3d)
 	mlx_texture_t	*texture;
 	int				alpha;
 
+	if (cub3d->mini_text == 0)
+	{
+		cub3d->text1 = mlx_put_string(cub3d->mlx, "press M to display minimap",
+				WIDTH / 2 - 130, HEIGHT / 2 + 10);
+		mlx_set_instance_depth(cub3d->text1->instances, 6);
+		cub3d->mini_text = 1;
+	}
 	alpha = 255 - cub3d->frame * 2.5;
 	if (cub3d->intro)
 		mlx_delete_image(cub3d->mlx, cub3d->intro);

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <fcntl.h>
 // # include <alsa/asoundlib.h>
@@ -131,6 +131,12 @@ typedef struct cub3d
 	mlx_image_t		*key5;
 	mlx_image_t		*key6;
 	mlx_image_t		*key7;
+
+	mlx_image_t		*text1;
+	int				mini_text;
+	mlx_image_t		*text2;
+	mlx_image_t		*text3;
+	int				end;
 
 	int				color_c;
 	int				color_f;

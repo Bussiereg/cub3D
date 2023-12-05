@@ -41,6 +41,9 @@ void	delete_img_cub3d(t_cub3d *cub3d)
 	mlx_delete_image(cub3d->mlx, cub3d->key4);
 	mlx_delete_image(cub3d->mlx, cub3d->key6);
 	mlx_delete_image(cub3d->mlx, cub3d->key7);
+	mlx_delete_image(cub3d->mlx, cub3d->text1);
+	mlx_delete_image(cub3d->mlx, cub3d->text2);
+	mlx_delete_image(cub3d->mlx, cub3d->text3);
 	if (cub3d->t_e != cub3d->background)
 		mlx_delete_image(cub3d->mlx, cub3d->t_e);
 	if (cub3d->t_s != cub3d->background)
