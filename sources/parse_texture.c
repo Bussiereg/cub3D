@@ -12,14 +12,71 @@
 
 #include "cub3d.h"
 
-void	load_textures_bonus(mlx_texture_t *texture, t_cub3d *cub3d, char **info)
+void	load_key_text_1(t_cub3d *cub3d)
 {
-	if (ft_strncmp(info[0], "CO", 2) == 0)
-	{
-		texture = mlx_load_png(info[1]);
-		cub3d->coll = mlx_texture_to_image(cub3d->mlx, texture);
-		mlx_delete_texture(texture);
-	}
+	mlx_texture_t	*texture;
+
+	texture = mlx_load_png("./texture/key-01.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key1 = mlx_texture_to_image(cub3d->mlx, texture);
+	if (!cub3d->key1)
+		terminate("key texture memory fail", cub3d, 1, 2);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-02.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key2 = mlx_texture_to_image(cub3d->mlx, texture);
+	if (!cub3d->key2)
+		terminate("key texture memory fail", cub3d, 1, 2);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-03.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key3 = mlx_texture_to_image(cub3d->mlx, texture);
+	if (!cub3d->key3)
+		terminate("key texture memory fail", cub3d, 1, 2);
+	mlx_delete_texture(texture);
+}
+
+void	load_key_text_2(t_cub3d *cub3d)
+{
+	mlx_texture_t	*texture;
+
+	texture = mlx_load_png("./texture/key-04.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key4 = mlx_texture_to_image(cub3d->mlx, texture);
+	if (!cub3d->key4)
+		terminate("key texture memory fail", cub3d, 1, 2);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-05.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key5 = mlx_texture_to_image(cub3d->mlx, texture);
+	if (!cub3d->key5)
+		terminate("key texture memory fail", cub3d, 1, 2);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png("./texture/key-06.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key6 = mlx_texture_to_image(cub3d->mlx, texture);
+	if (!cub3d->key6)
+		terminate("key texture memory fail", cub3d, 1, 2);
+	mlx_delete_texture(texture);
+}
+
+void	load_key_text_3(t_cub3d *cub3d)
+{
+	mlx_texture_t	*texture;
+
+	texture = mlx_load_png("./texture/key-07.png");
+	if (!texture)
+		terminate("key texture file missing", cub3d, 1, 2);
+	cub3d->key7 = mlx_texture_to_image(cub3d->mlx, texture);
+	if (!cub3d->key7)
+		terminate("key texture memory fail", cub3d, 1, 2);
+	mlx_delete_texture(texture);
 }
 
 void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info)
@@ -48,21 +105,6 @@ void	load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info)
 		cub3d->t_e = mlx_texture_to_image(cub3d->mlx, texture);
 		mlx_delete_texture(texture);
 	}
-}
-
-int	get_color_info(char *str)
-{
-	char	**rgb;
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-
-	rgb = ft_split(str, ',');
-	r = ft_atoi(rgb[0]);
-	g = ft_atoi(rgb[1]);
-	b = ft_atoi(rgb[2]);
-	ft_free_tab(rgb);
-	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
 
 void	set_player_position(char map_char, int x, int y, t_cub3d *cub3d)

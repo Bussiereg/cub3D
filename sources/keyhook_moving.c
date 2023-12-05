@@ -95,3 +95,19 @@ void	moving_up(t_cub3d *cub3d)
 		}
 	}
 }
+
+void	move_around(t_cub3d *cub3d)
+{
+	if (cub3d->move_up == 1)
+		moving_up(cub3d);
+	if (cub3d->move_down == 1)
+		moving_down(cub3d);
+	if (cub3d->move_left == 1)
+		moving_left(cub3d);
+	if (cub3d->move_right == 1)
+		moving_right(cub3d);
+	if (cub3d->rotate_right == 1)
+		rotating_right(cub3d);
+	if (cub3d->rotate_left == 1)
+		rotating_left(cub3d);
+}
