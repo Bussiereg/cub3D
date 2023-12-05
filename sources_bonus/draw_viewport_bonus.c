@@ -36,25 +36,30 @@ void	draw_line_textu(double line_height, int text_x_pos,
 	}
 }
 
+int	door_animation(t_cub3d *cub3d)
+{
+	int	y;
+
+	y = 0;
+	if (cub3d->door_open == 1 && cub3d->door_open_start == 0)
+		cub3d->door_open_start = cub3d->frame;
+	if (cub3d->door_open == 1)
+		y = cub3d->frame - cub3d->door_open_start;
+	return (y);
+}
+
 void	draw_door_line_textu(double line_height, int text_x_pos,
 		mlx_image_t *text, t_cub3d *cub3d)
 {
 	int	i;
 	int	a;
 	int	b;
-	int	y;
 	int	col;
+	int	y;
 
-	y = 0;
-	if (cub3d->door_open == 1)
-	{
-		if (cub3d->door_open_start == 0)
-			cub3d->door_open_start = cub3d->frame;
-		y = cub3d->frame - cub3d->door_open_start;
-	}
+	y = door_animation(cub3d);
 	b = GHEIGHT / 2 + line_height / cub3d->wall_height / 2;
-	a = b - line_height;
-	a += line_height * 0.008 * y;
+	a = (b - line_height) + line_height * 0.008 * y;
 	if (a > b)
 		*cub3d->door = '0';
 	i = 0;

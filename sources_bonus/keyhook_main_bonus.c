@@ -15,6 +15,7 @@
 void	win_close(void *param)
 {
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->viewport);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->sprite_img);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->intro);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->background);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->minimap);
@@ -22,6 +23,13 @@ void	win_close(void *param)
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_e);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_s);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->t_w);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key1);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key2);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key3);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key4);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key5);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key6);
+	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->key7);
 	mlx_terminate(((t_cub3d *)param)->mlx);
 	exit(EXIT_SUCCESS);
 }
@@ -90,31 +98,4 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	my_keyhook_move(keydata, cub3d);
 	my_keyhook_rotate(keydata, cub3d);
 	my_keyhook_other(keydata, cub3d);
-}
-
-void	my_mousehook(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
-{
-	t_cub3d	*cub3d;
-	int x;
-	int y;
-
-	(void)mods;
-	cub3d = (t_cub3d *)param;
-	mlx_get_mouse_pos(cub3d->mlx, &x, &y);
-	if ((button == MLX_MOUSE_BUTTON_LEFT)
-		&& action == MLX_PRESS)
-	{
-		if (x < WIDTH / 2)
-			cub3d->rotate_left = 1;
-		else
-			cub3d->rotate_right = 1;
-	}
-	if ((button == MLX_MOUSE_BUTTON_LEFT)
-		&& action == MLX_RELEASE)
-	{
-		if (cub3d->rotate_left == 1)
-			cub3d->rotate_left = 0;
-		if (cub3d->rotate_right == 1)
-			cub3d->rotate_right = 0;
-	}
 }
