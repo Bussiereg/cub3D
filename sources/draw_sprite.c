@@ -22,6 +22,9 @@ void	draw_sprite_motor(t_cub3d *cub3d, int stripe, int a, int b)
 		&& cub3d->transform_y < cub3d->zbuffer[stripe]
 		&& cub3d->draw_end_x > cub3d->draw_start_x)
 	{
+		/* texx = ((double)(stripe - cub3d->draw_start_x) / (cub3d->draw_end_x
+						- cub3d->draw_start_x))
+				* (850); */
 		texx = (((double)(stripe - cub3d->draw_start_x) / (cub3d->draw_end_x
 						- cub3d->draw_start_x))
 				* (key_frame_selector(cub3d))->width);
