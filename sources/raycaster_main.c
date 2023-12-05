@@ -112,6 +112,6 @@ void	raycaster(t_cub3d *cub3d)
 	{
 		texx = cub3d->wall_x * cub3d->t_w->width;
 		draw_line_textu(cub3d->line_height,
-			cub3d->t_e->height - texx - 1, cub3d->t_w, cub3d);
+			cub3d->t_w->height - texx - 1, cub3d->t_w, cub3d);
 	}
 }
