@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	right_map_char(char c)
 {
 	if (c == '0' || c == '1' || c == ' ' || c == 'N' || c == 'S' || c == 'E'
-		|| c == 'W' || c == 'c' || c == 'D')
+		|| c == 'W' || c == 'c' || c == 'D' || c == 'Z')
 		return (1);
 	else
 		return (0);

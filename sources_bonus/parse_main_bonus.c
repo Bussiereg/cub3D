@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	parse_sprite(t_cub3d *cub3d, int i, int y)
 {
@@ -50,7 +50,7 @@ void	floodfill(t_cub3d *cub3d, int y, int x, char new_val)
 	if (x < 0 || x >= cub3d->m_size_x + 2 || y < 0 || y >= cub3d->m_size_y + 2)
 		return ;
 	if (cub3d->map_check[y][x] != '0' && cub3d->map_check[y][x] != 'c'
-		&& cub3d->map_check[y][x] != 'D')
+		&& cub3d->map_check[y][x] != 'D'  && cub3d->map_check[y][x] != 'Z')
 		return ;
 	cub3d->map_check[y][x] = new_val;
 	floodfill(cub3d, y - 1, x, new_val);
