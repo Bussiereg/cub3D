@@ -14,7 +14,15 @@
 # define CUB3D_BONUS_H
 
 # include <fcntl.h>
-// # include <alsa/asoundlib.h>
+
+#include <sys/types.h>
+// #include <string.h>
+#include <signal.h>
+#include <pulse/simple.h>
+#include <pulse/error.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
@@ -48,6 +56,10 @@ typedef struct cub3d
 {
 	int				res_x;
 	int				res_y;
+
+	pid_t			music_pid;
+	FILE			*file;
+	pa_simple		*pa_stream;
 
 	double			posx;
 	double			posy;

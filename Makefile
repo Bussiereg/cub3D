@@ -64,7 +64,7 @@ $(OBJ_DIREC):
 	@echo "Creating folder $(OBJ_DIREC)"
 
 $(NAME_BONUS): $(OBJ_DIREC_BONUS) $(OBJS_BONUS)
-	@$(CC) $(OBJS_BONUS) -lm $(CFLAGS) $(LIBS) $(HEADERS_BONUS) -o $(NAME_BONUS)
+	@$(CC) $(OBJS_BONUS) -lm $(CFLAGS) -lpulse -lpulse-simple $(LIBS) $(HEADERS_BONUS) -o $(NAME_BONUS)
 	@echo "Cub3D bonus compilation: 100%"
 
 $(OBJ_DIREC_BONUS)%.o: $(SRC_DIREC_BONUS)%.c
