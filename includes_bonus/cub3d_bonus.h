@@ -60,6 +60,7 @@ typedef struct cub3d
 	pid_t			music_pid;
 	FILE			*file;
 	pa_simple		*pa_stream;
+	pa_sample_spec	sample_spec;
 
 	double			posx;
 	double			posy;
@@ -160,6 +161,10 @@ typedef struct cub3d
 	int				rotate_left;
 	int				rotate_right;
 }	t_cub3d;
+
+// music.c
+int		music_process(pa_simple *pa_stream, pa_sample_spec sample_spec);
+void	handle_custom_signal(int signum);
 
 // draw_character.c
 void		draw_character(t_cub3d *cub3d, unsigned int color);

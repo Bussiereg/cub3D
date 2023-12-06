@@ -12,7 +12,6 @@
 
 #include "cub3d.h"
 
-
 void	finding_wall(t_cub3d *cub3d)
 {
 	while (cub3d->hit == 0)

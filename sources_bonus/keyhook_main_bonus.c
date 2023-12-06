@@ -34,7 +34,7 @@ void	win_close(void *param)
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->text2);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->text3);
 	mlx_terminate(((t_cub3d *)param)->mlx);
-	kill(((t_cub3d *)param)->music_pid, SIGUSR1);
+	kill(((t_cub3d *)param)->music_pid, SIGKILL);
 	exit(EXIT_SUCCESS);
 }
 
@@ -86,7 +86,7 @@ void	my_keyhook_other(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
-		kill(cub3d->music_pid, SIGUSR1);
+		kill(cub3d->music_pid, SIGKILL);
 		win_close(cub3d);
 	}
 	if ((keydata.key == MLX_KEY_M)
