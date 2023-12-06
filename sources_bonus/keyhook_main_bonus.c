@@ -34,6 +34,8 @@ void	win_close(void *param)
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->text2);
 	mlx_delete_image(((t_cub3d *)param)->mlx, ((t_cub3d *)param)->text3);
 	mlx_terminate(((t_cub3d *)param)->mlx);
+	ft_free_tab(((t_cub3d *)param)->map_check);
+	ft_free_tab(((t_cub3d *)param)->map);
 	exit(EXIT_SUCCESS);
 }
 

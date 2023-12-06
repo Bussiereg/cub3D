@@ -77,7 +77,7 @@ int	parse_map(char *file, t_cub3d *cub3d)
 {
 	if (ft_strnstr(file, ".cub", ft_strlen(file)) == 0)
 		terminate("Wrong extension", cub3d, 1, 0);
-	read_info(file, cub3d);
+	read_info(file, cub3d, NULL, NULL);
 	read_map_size(file, cub3d, 0);
 	cub3d->map = allocate_map(cub3d->m_size_y + 1, cub3d->m_size_x + 1);
 	if (!cub3d->map)

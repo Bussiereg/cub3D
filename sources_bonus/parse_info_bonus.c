@@ -99,11 +99,10 @@ int	map_line(char *line)
 	return (0);
 }
 
-int	read_info(char *file, t_cub3d *cub3d)
+int	read_info(char *file, t_cub3d *cub3d, char *line, char *trim)
 {
 	int		fd;
 	int		l;
-	char	*line;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -114,14 +113,15 @@ int	read_info(char *file, t_cub3d *cub3d)
 		line = get_next_line(fd);
 		if (!line)
 			terminate("info map error", cub3d, 1, 0);
-		line = ft_strtrim(line, "\n");
-		info_to_struct(line, cub3d);
-		if (all_info_read(cub3d) == 1 && map_line(line) == 1)
+		trim = ft_strtrim(line, "\n");
+		free(line);
+		info_to_struct(trim, cub3d);
+		if (all_info_read(cub3d) == 1 && map_line(trim) == 1)
 		{
-			free(line);
+			free(trim);
 			break ;
 		}
-		free(line);
+		free(trim);
 		cub3d->map_line = ++l;
 	}
 	close(fd);
