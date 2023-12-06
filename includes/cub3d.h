@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # include <fcntl.h>
-// # include <alsa/asoundlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <math.h>
@@ -28,21 +27,6 @@
 # define STEP 0.2
 # define ROTSPD 0.04
 # define GHEIGHT 850
-# define NUMSPRITES 3
-
-typedef struct point
-{
-	int		x;
-	int		y;
-	int		color;
-}	t_point;
-
-typedef struct sprite
-{
-	double	x;
-	double	y;
-	int		flag;
-}	t_sprite;
 
 typedef struct cub3d
 {

@@ -36,6 +36,7 @@ void	win_close(void *param)
 	mlx_terminate(((t_cub3d *)param)->mlx);
 	ft_free_tab(((t_cub3d *)param)->map_check);
 	ft_free_tab(((t_cub3d *)param)->map);
+	kill(((t_cub3d *)param)->music_pid, SIGKILL);
 	exit(EXIT_SUCCESS);
 }
 
@@ -86,7 +87,10 @@ void	my_keyhook_rotate(mlx_key_data_t keydata, t_cub3d *cub3d)
 void	my_keyhook_other(mlx_key_data_t keydata, t_cub3d *cub3d)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
+	{
+		kill(cub3d->music_pid, SIGKILL);
 		win_close(cub3d);
+	}
 	if ((keydata.key == MLX_KEY_M)
 		&& keydata.action == MLX_PRESS)
 		cub3d->minimap_on ++;

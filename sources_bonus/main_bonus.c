@@ -29,6 +29,7 @@ int	cub3d_init(t_cub3d *cub3d)
 	cub3d->t_w = cub3d->background;
 	cub3d->key_frame = 1;
 	cub3d->wall_height = 1;
+	cub3d->pa_stream = NULL;
 	return (0);
 }
 
@@ -40,6 +41,15 @@ int	main(int argc, char *argv[])
 		terminate("Incorrect number of arguments!", &cub3d, 0, 0);
 	if (cub3d_init(&cub3d) == 1)
 		terminate("Init cub3d  mlx42 error", &cub3d, 0, 0);
+	cub3d.music_pid = fork();
+	if (cub3d.music_pid == 0)
+	{
+		cub3d.sample_spec.format = PA_SAMPLE_S16LE;
+		cub3d.sample_spec.channels = 2;
+		cub3d.sample_spec.rate = 45100;
+		if (music_process(cub3d.pa_stream, cub3d.sample_spec) == 1)
+			return (EXIT_FAILURE);
+	}
 	parse_map(argv[1], &cub3d);
 	mlx_loop_hook(cub3d.mlx, &render, &cub3d);
 	mlx_mouse_hook(cub3d.mlx, &my_mousehook, &cub3d);
