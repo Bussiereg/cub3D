@@ -64,12 +64,11 @@ int	get_color_info(char *str)
 
 void	draw_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
-	img->pixels[((y * img->width + x) * (sizeof(int32_t)))]
-		= (uint8_t)(color >> 24);
-	img->pixels[((y * img->width + x) * (sizeof(int32_t)) + 1)]
-		= (uint8_t)(color >> 16);
-	img->pixels[((y * img->width + x) * (sizeof(int32_t)) + 2)]
-		= (uint8_t)(color >> 8);
-	img->pixels[((y * img->width + x) * (sizeof(int32_t)) + 3)]
-		= (uint8_t)(color & 0xFF);
+	int pix;
+
+	pix = (y * img->width + x) * (sizeof(int32_t));
+	img->pixels[pix] = (uint8_t)(color >> 24);
+	img->pixels[pix + 1] = (uint8_t)(color >> 16);
+	img->pixels[pix + 2] = (uint8_t)(color >> 8);
+	img->pixels[pix + 3] = (uint8_t)(color & 0xFF);
 }

@@ -15,7 +15,7 @@
 int	cub3d_init(t_cub3d *cub3d)
 {
 	ft_bzero(cub3d, sizeof(*cub3d));
-	mlx_set_setting(MLX_FULLSCREEN, true);
+	// mlx_set_setting(MLX_FULLSCREEN, true);
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "SUBMOON", false);
 	if (!cub3d->mlx)
 		return (1);

@@ -26,7 +26,9 @@
 # define SIZEMINIMAP 10
 # define STEP 0.2
 # define ROTSPD 0.04
-# define GHEIGHT 850
+# define HEIGHT 700
+# define WIDTH 1400
+# define GHEIGHT (HEIGHT)
 
 typedef struct cub3d
 {
