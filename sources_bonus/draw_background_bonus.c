@@ -27,7 +27,7 @@ int	draw_sky(t_cub3d *cub3d)
 	while (y < GHEIGHT / 2)
 	{
 		x = 0;
-		while (x < WIDTH * 2)
+		while (x < WIDTH)
 		{
 			draw_pixel(cub3d->viewport, x, y, calc_grad_color(y, sky_darker,
 					&*rgba));
