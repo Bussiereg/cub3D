@@ -98,3 +98,32 @@ void	sort_sprite(t_cub3d *cub3d)
 	cub3d->spriteorder[2] = min_double(spritedistance);
 	cub3d->spriteorder[1] = 3 - cub3d->spriteorder[0] - cub3d->spriteorder[2];
 }
+
+mlx_image_t	*key_frame_selector(t_cub3d *cub3d)
+{
+	if (cub3d->key_frame / 3 == 1)
+		return (cub3d->key1);
+	if (cub3d->key_frame / 3 == 2)
+		return (cub3d->key2);
+	if (cub3d->key_frame / 3 == 3)
+		return (cub3d->key3);
+	if (cub3d->key_frame / 3 == 4)
+		return (cub3d->key4);
+	if (cub3d->key_frame / 3 == 5)
+		return (cub3d->key5);
+	if (cub3d->key_frame / 3 == 6)
+		return (cub3d->key6);
+	if (cub3d->key_frame / 3 == 7)
+		return (cub3d->key7);
+	if (cub3d->key_frame / 3 == 8)
+		return (cub3d->key6);
+	if (cub3d->key_frame / 3 == 9)
+		return (cub3d->key5);
+	if (cub3d->key_frame / 3 == 10)
+		return (cub3d->key4);
+	if (cub3d->key_frame / 3 == 11)
+		return (cub3d->key3);
+	if (cub3d->key_frame / 3 == 12)
+		return (cub3d->key2);
+	return (cub3d->key1);
+}

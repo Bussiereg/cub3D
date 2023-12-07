@@ -15,13 +15,13 @@
 
 # include <fcntl.h>
 
-#include <sys/types.h>
+# include <sys/types.h>
 // #include <string.h>
-#include <signal.h>
-#include <pulse/simple.h>
-#include <pulse/error.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+# include <signal.h>
+# include <pulse/simple.h>
+# include <pulse/error.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # include <stdio.h>
 # include <unistd.h>
@@ -163,8 +163,8 @@ typedef struct cub3d
 }	t_cub3d;
 
 // music.c
-int		music_process(pa_simple *pa_stream, pa_sample_spec sample_spec);
-void	handle_custom_signal(int signum);
+int			music_process(pa_simple *pa_stream, pa_sample_spec sample_spec);
+void		handle_custom_signal(int signum);
 
 // draw_character.c
 void		draw_character(t_cub3d *cub3d, unsigned int color);
@@ -196,6 +196,7 @@ int			min_double(double *spritedistance);
 void		sprite_find_order(t_cub3d *cub3d, int i,
 				double *spritedistance, int j);
 void		sort_sprite(t_cub3d *cub3d);
+mlx_image_t	*key_frame_selector(t_cub3d *cub3d);
 
 // draw_sprite.c
 void		draw_sprite(t_cub3d *cub3d, int a, int b);
@@ -252,7 +253,8 @@ void		calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
 int			calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 int			calc_grad_color(int steps, int cl_a, float rgba[4]);
 int			get_color_info(char *str);
-mlx_image_t	*key_frame_selector(t_cub3d *cub3d);
+void		draw_pixel(mlx_image_t *img, uint32_t x,
+				uint32_t y, uint32_t color);
 
 // keyhook_rotate.c
 void		rotating_right(t_cub3d *cub3d);

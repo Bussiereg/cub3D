@@ -28,7 +28,7 @@ void	render_background(t_cub3d *cub3d)
 		x = 0;
 		while (x < WIDTH)
 		{
-			mlx_put_pixel(cub3d->background, x, y, 0x000000FF);
+			draw_pixel(cub3d->background, x, y, 0x000000FF);
 			x++;
 		}
 		y++;

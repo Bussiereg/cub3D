@@ -17,6 +17,7 @@ int	copy_map(char *file, t_cub3d *cub3d)
 	int		y;
 	int		fd;
 	char	*line;
+	char	*trim;
 
 	fd = open_file_to_line(file, cub3d);
 	y = 0;
@@ -26,13 +27,14 @@ int	copy_map(char *file, t_cub3d *cub3d)
 		line = get_next_line(fd);
 		if (ft_strlen(line) > 0)
 		{
-			line = ft_strtrim(line, "\n");
-			if (!line)
+			trim = ft_strtrim(line, "\n");
+			free(line);
+			if (!trim)
 				terminate("parse alloc error", cub3d, 1, 1);
-			line_to_map(y, line, cub3d);
+			line_to_map(y, trim, cub3d);
 		}
 		y++;
-		free(line);
+		free(trim);
 	}
 	close(fd);
 	return (0);
