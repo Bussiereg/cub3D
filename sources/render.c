@@ -14,24 +14,20 @@
 
 void	render_background(t_cub3d *cub3d)
 {
-	int	x;
-	int	y;
+	unsigned int	i;
 
 	if (cub3d->background)
 		mlx_delete_image(cub3d->mlx, cub3d->background);
 	cub3d->background = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (!cub3d->background)
 		terminate("new rendering memory fail", cub3d, 1, 2);
-	y = 0;
-	while (y < HEIGHT)
+	ft_bzero(cub3d->background->pixels, cub3d->background->height
+		* cub3d->background->width * 4);
+	i = 0;
+	while (i < cub3d->background->height * cub3d->background->width)
 	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			draw_pixel(cub3d->background, x, y, 0x000000FF);
-			x++;
-		}
-		y++;
+		cub3d->background->pixels[((i) * (sizeof(int32_t)) + 3)] = 255;
+		i++;
 	}
 }
 
