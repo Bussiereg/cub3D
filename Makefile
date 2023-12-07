@@ -90,6 +90,8 @@ fclean: clean
 
 re: clean all
 
+re_bonus: clean bonus
+
 log:
 	git log -n 10 --pretty=format:"Author: %an - Date: %ad%nCommit ID: %H%nComment: %s%n%n" --date=format:"%d/%m/%Y à %H:%M"
 

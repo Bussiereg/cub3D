@@ -40,13 +40,13 @@ void	draw_character(t_cub3d *cub3d, unsigned int color)
 	int	i;
 	int	j;
 
-	new_x = cub3d->posx * SIZEMINIMAP - 1;
-	new_y = cub3d->posy * SIZEMINIMAP - 1;
+	new_x = cub3d->posx * SIZEMINIMAP;
+	new_y = cub3d->posy * SIZEMINIMAP;
 	i = 0;
-	while (i++ < 3)
+	while (i++ < 1)
 	{
 		j = 0;
-		while (j < 3)
+		while (j < 1)
 			draw_pixel(cub3d->minimap, new_x + i, new_y + j++, color);
 	}
 }
