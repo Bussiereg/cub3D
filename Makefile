@@ -31,8 +31,43 @@ HEADERS	:= -I $(INC_DIREC) -I $(LIBMLX)/include/MLX42 -I $(LIBFT_DIR)includes/
 HEADERS_BONUS	:= -I $(INC_DIREC_BONUS) -I $(LIBMLX)/include/MLX42 -I $(LIBFT_DIR)includes/
 LIBS	:= $(LIBMLX)/build/libmlx42.a  -lglfw -L"/opt/homebrew/Cellar/glfw/3.3.8/lib/" \
 		$(LIBFT_DIR)libft.a
-SRCS	:= $(shell find $(SRC_DIREC) -iname "*.c")
-SRCS_BONUS	:= $(shell find $(SRC_DIREC_BONUS) -iname "*.c")
+SRCS	:= 	$(SRC_DIREC)close.c \
+			$(SRC_DIREC)color.c \
+			$(SRC_DIREC)draw_background.c \
+			$(SRC_DIREC)draw_viewport.c \
+			$(SRC_DIREC)keyhook_main.c \
+			$(SRC_DIREC)keyhook_moving.c \
+			$(SRC_DIREC)keyhook_rotate.c \
+			$(SRC_DIREC)main.c \
+			$(SRC_DIREC)parse_info.c \
+			$(SRC_DIREC)parse_main.c \
+			$(SRC_DIREC)parse_texture.c \
+			$(SRC_DIREC)parse_utils.c \
+			$(SRC_DIREC)raycaster_calculus.c \
+			$(SRC_DIREC)raycaster_main.c \
+			$(SRC_DIREC)render.c
+SRCS_BONUS	:= 	$(SRC_DIREC_BONUS)close_bonus.c \
+			$(SRC_DIREC_BONUS)color_bonus.c \
+			$(SRC_DIREC_BONUS)draw_background_bonus.c \
+			$(SRC_DIREC_BONUS)draw_character_bonus.c \
+			$(SRC_DIREC_BONUS)draw_minimap_bonus.c \
+			$(SRC_DIREC_BONUS)draw_sprite_bonus.c \
+			$(SRC_DIREC_BONUS)draw_sprite_sort_bonus.c \
+			$(SRC_DIREC_BONUS)draw_viewport_bonus.c \
+			$(SRC_DIREC_BONUS)keyhook_main_bonus.c \
+			$(SRC_DIREC_BONUS)keyhook_moving_bonus.c \
+			$(SRC_DIREC_BONUS)keyhook_rotate_bonus.c \
+			$(SRC_DIREC_BONUS)main_bonus.c \
+			$(SRC_DIREC_BONUS)mousehook_bonus.c \
+			$(SRC_DIREC_BONUS)music_bonus.c \
+			$(SRC_DIREC_BONUS)parse_info_bonus.c \
+			$(SRC_DIREC_BONUS)parse_main_bonus.c \
+			$(SRC_DIREC_BONUS)parse_texture_bonus.c \
+			$(SRC_DIREC_BONUS)parse_texture_sprite_bonus.c \
+			$(SRC_DIREC_BONUS)parse_utils_bonus.c \
+			$(SRC_DIREC_BONUS)raycaster_calculus_bonus.c \
+			$(SRC_DIREC_BONUS)raycaster_main_bonus.c \
+			$(SRC_DIREC_BONUS)render_bonus.c
 OBJS := $(addprefix $(OBJ_DIREC), $(notdir $(SRCS:.c=.o)))
 OBJS_BONUS := $(addprefix $(OBJ_DIREC_BONUS), $(notdir $(SRCS_BONUS:.c=.o)))
 

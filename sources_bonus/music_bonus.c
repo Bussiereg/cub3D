@@ -37,7 +37,7 @@ int	music_process(pa_simple *pa_stream, pa_sample_spec sample_spec)
 	int			error;
 	FILE		*file;
 
-	file_path = "music.wav";
+	file_path = "./music_bonus/music.wav";
 	pa_stream = pa_simple_new(NULL, "PlayWav", PA_STREAM_PLAYBACK,
 			NULL, "playback", &sample_spec, NULL, NULL, &error);
 	if (!pa_stream)
