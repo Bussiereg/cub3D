@@ -75,16 +75,7 @@ char	**allocate_map(int y, int x)
 		return (NULL);
 	while (i < y - 1)
 	{
-		if (i == 0)
-			map[i] = malloc((x) * sizeof(char));
-		else if (i == y)
-			map[i] = malloc((x) * sizeof(char));
-		else if (i == y -1)
-			map[i] = malloc((x) * sizeof(char));
-		else if (i == y - 2)
-			map[i] = malloc((x) * sizeof(char));
-		else
-			map[i] = malloc((x) * sizeof(char));
+		map[i] = malloc((x) * sizeof(char));
 		if (!map[i])
 		{
 			while (--i >= 0)

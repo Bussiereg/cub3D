@@ -122,7 +122,8 @@ int			line_to_map(int y, char *line, t_cub3d *cub3d);
 int			map_line(char *line);
 int			info_to_struct(char *line, t_cub3d *cub3d);
 int			all_info_read(t_cub3d *cub3d);
-int			read_info(char *file, t_cub3d *cub3d);
+int			read_info(char *file, t_cub3d *cub3d, char *line, char *trim);
+
 
 // parse_textures.c
 void		load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
