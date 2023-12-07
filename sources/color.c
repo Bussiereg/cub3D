@@ -68,9 +68,9 @@ void	draw_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 	uint8_t		*byte_array;
 	uint32_t	*pixel_ptr;
 
-	byteArray = (uint8_t *)&color;
+	byte_array = (uint8_t *)&color;
 	pixel_ptr = (uint32_t *)(img->pixels + (y * img->width + x)
 			* sizeof(uint32_t));
-	pixel_ptr[0] = (byteArray[0] << 24) | (byteArray[1] << 16)
-		| (byteArray[2] << 8) | byteArray[3];
+	pixel_ptr[0] = (byte_array[0] << 24) | (byte_array[1] << 16)
+		| (byte_array[2] << 8) | byte_array[3];
 }
