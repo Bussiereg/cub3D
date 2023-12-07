@@ -30,8 +30,8 @@ void	moving_right(t_cub3d *cub3d)
 	float	my;
 
 	mlx_delete_image(cub3d->mlx, cub3d->text1);
-	my = (cub3d->posy + (cub3d->plane_y) * STEP);
-	mx = (cub3d->posx + (cub3d->plane_x) * STEP);
+	my = (cub3d->posy + 2 * (cub3d->plane_y) * STEP);
+	mx = (cub3d->posx + 2 * (cub3d->plane_x) * STEP);
 	if (cub3d->map[(int)my][(int)mx] == 'Z')
 		text_end(cub3d);
 	if (cub3d->map[(int)my][(int)mx] == '0'
@@ -55,8 +55,8 @@ void	moving_left(t_cub3d *cub3d)
 	float	my;
 
 	mlx_delete_image(cub3d->mlx, cub3d->text1);
-	my = (cub3d->posy - (cub3d->plane_y * STEP));
-	mx = (cub3d->posx - (cub3d->plane_x * STEP));
+	my = (cub3d->posy - 2 * (cub3d->plane_y * STEP));
+	mx = (cub3d->posx - 2 * (cub3d->plane_x * STEP));
 	if (cub3d->map[(int)my][(int)mx] == 'Z')
 		text_end(cub3d);
 	if (cub3d->map[(int)my][(int)mx] == '0'
@@ -80,8 +80,8 @@ void	moving_down(t_cub3d *cub3d)
 	float	my;
 
 	mlx_delete_image(cub3d->mlx, cub3d->text1);
-	my = (cub3d->posy - (cub3d->dir_y * STEP));
-	mx = (cub3d->posx - (cub3d->dir_x * STEP));
+	my = (cub3d->posy - 2 * (cub3d->dir_y * STEP));
+	mx = (cub3d->posx - 2 * (cub3d->dir_x * STEP));
 	if (cub3d->map[(int)my][(int)mx] == 'Z')
 		text_end(cub3d);
 	if (cub3d->map[(int)my][(int)mx] == '0'
@@ -105,8 +105,8 @@ void	moving_up(t_cub3d *cub3d)
 	float	my;
 
 	mlx_delete_image(cub3d->mlx, cub3d->text1);
-	my = (cub3d->posy + (cub3d->dir_y * STEP));
-	mx = (cub3d->posx + (cub3d->dir_x * STEP));
+	my = (cub3d->posy + 2 * (cub3d->dir_y * STEP));
+	mx = (cub3d->posx + 2 * (cub3d->dir_x * STEP));
 	if (cub3d->map[(int)my][(int)mx] == 'Z')
 		text_end(cub3d);
 	if (cub3d->map[(int)my][(int)mx] == '0'
