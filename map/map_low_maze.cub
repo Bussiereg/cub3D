@@ -2,7 +2,6 @@ NO ./texture/texture_N.png
 SO ./texture/texture_S.png
 WE ./texture/texture_W.png
 EA ./texture/texture_E.png
-CO ./texture/Fire.png
 
 F 138,206,226
 C 0,30,60

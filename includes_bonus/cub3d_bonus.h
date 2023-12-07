@@ -16,7 +16,6 @@
 # include <fcntl.h>
 
 # include <sys/types.h>
-// #include <string.h>
 # include <signal.h>
 # include <pulse/simple.h>
 # include <pulse/error.h>
@@ -37,13 +36,6 @@
 # define ROTSPD 0.04
 # define GHEIGHT 850
 # define NUMSPRITES 3
-
-typedef struct point
-{
-	int		x;
-	int		y;
-	int		color;
-}	t_point;
 
 typedef struct sprite
 {
@@ -234,10 +226,14 @@ int			info_to_struct(char *line, t_cub3d *cub3d);
 int			all_info_read(t_cub3d *cub3d);
 int			read_info(char *file, t_cub3d *cub3d, char *line, char *trim);
 
-// parse_textures.c
+// parse_textures_sprite.c
 void		load_key_text_1(t_cub3d *cub3d);
 void		load_key_text_2(t_cub3d *cub3d);
 void		load_key_text_3(t_cub3d *cub3d);
+
+// parse_textures.c
+void		load_textures_2(mlx_texture_t *texture,
+				mlx_image_t **text, t_cub3d *cub3d, char **info);
 void		load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
 void		set_player_position(char map_char, int x, int y, t_cub3d *cub3d);
 

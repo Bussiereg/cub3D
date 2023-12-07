@@ -125,6 +125,8 @@ int			all_info_read(t_cub3d *cub3d);
 int			read_info(char *file, t_cub3d *cub3d, char *line, char *trim);
 
 // parse_textures.c
+void		load_textures_2(mlx_texture_t *texture,
+				mlx_image_t **text, t_cub3d *cub3d, char **info);
 void		load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
 void		set_player_position(char map_char, int x, int y, t_cub3d *cub3d);
 
