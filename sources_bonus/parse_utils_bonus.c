@@ -73,7 +73,7 @@ char	**allocate_map(int y, int x)
 	map = malloc((y) * sizeof(char *));
 	if (!map)
 		return (NULL);
-	while (i < y)
+	while (i < y - 1)
 	{
 		if (i == 0)
 			map[i] = malloc((x) * sizeof(char));
