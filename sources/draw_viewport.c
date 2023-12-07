@@ -29,7 +29,7 @@ void	draw_line_textu(double line_height, int text_x_pos,
 		{
 			col = calc_pix_color(i, text, text_x_pos, line_height + 1);
 			if (col != 0)
-				mlx_put_pixel(cub3d->viewport, cub3d->ray, a, col);
+				draw_pixel(cub3d->viewport, cub3d->ray, a, col);
 		}
 		a++;
 		i++;

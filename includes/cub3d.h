@@ -124,7 +124,6 @@ int			info_to_struct(char *line, t_cub3d *cub3d);
 int			all_info_read(t_cub3d *cub3d);
 int			read_info(char *file, t_cub3d *cub3d, char *line, char *trim);
 
-
 // parse_textures.c
 void		load_textures(mlx_texture_t	*texture, t_cub3d *cub3d, char **info);
 void		set_player_position(char map_char, int x, int y, t_cub3d *cub3d);
@@ -141,6 +140,8 @@ void		calc_grad_steps(int i, int cl_a, int cl_b, float rgba[4]);
 int			calc_pix_color(int steps, mlx_image_t *text, int x, int l_height);
 int			calc_grad_color(int steps, int cl_a, float rgba[4]);
 int			get_color_info(char *str);
+void		draw_pixel(mlx_image_t *img, uint32_t x,
+				uint32_t y, uint32_t color);
 
 // keyhook_rotate.c
 void		rotating_right(t_cub3d *cub3d);

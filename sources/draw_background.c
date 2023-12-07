@@ -29,7 +29,7 @@ int	draw_sky(t_cub3d *cub3d)
 		x = 0;
 		while (x < WIDTH * 2)
 		{
-			mlx_put_pixel(cub3d->viewport, x, y, calc_grad_color(y, sky_darker,
+			draw_pixel(cub3d->viewport, x, y, calc_grad_color(y, sky_darker,
 					&*rgba));
 			x++;
 		}
@@ -55,7 +55,7 @@ int	draw_floor(t_cub3d *cub3d)
 		x = 0;
 		while (x < WIDTH)
 		{
-			mlx_put_pixel(cub3d->viewport, x, y, cub3d->color_f);
+			draw_pixel(cub3d->viewport, x, y, cub3d->color_f);
 			x++;
 		}
 		y++;

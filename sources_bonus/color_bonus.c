@@ -62,31 +62,14 @@ int	get_color_info(char *str)
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
 
-mlx_image_t	*key_frame_selector(t_cub3d *cub3d)
+void	draw_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
-	if (cub3d->key_frame / 3 == 1)
-		return (cub3d->key1);
-	if (cub3d->key_frame / 3 == 2)
-		return (cub3d->key2);
-	if (cub3d->key_frame / 3 == 3)
-		return (cub3d->key3);
-	if (cub3d->key_frame / 3 == 4)
-		return (cub3d->key4);
-	if (cub3d->key_frame / 3 == 5)
-		return (cub3d->key5);
-	if (cub3d->key_frame / 3 == 6)
-		return (cub3d->key6);
-	if (cub3d->key_frame / 3 == 7)
-		return (cub3d->key7);
-	if (cub3d->key_frame / 3 == 8)
-		return (cub3d->key6);
-	if (cub3d->key_frame / 3 == 9)
-		return (cub3d->key5);
-	if (cub3d->key_frame / 3 == 10)
-		return (cub3d->key4);
-	if (cub3d->key_frame / 3 == 11)
-		return (cub3d->key3);
-	if (cub3d->key_frame / 3 == 12)
-		return (cub3d->key2);
-	return (cub3d->key1);
+	img->pixels[((y * img->width + x) * (sizeof(int32_t)))]
+		= (uint8_t)(color >> 24);
+	img->pixels[((y * img->width + x) * (sizeof(int32_t)) + 1)]
+		= (uint8_t)(color >> 16);
+	img->pixels[((y * img->width + x) * (sizeof(int32_t)) + 2)]
+		= (uint8_t)(color >> 8);
+	img->pixels[((y * img->width + x) * (sizeof(int32_t)) + 3)]
+		= (uint8_t)(color & 0xFF);
 }

@@ -33,7 +33,7 @@ void	draw_sprite_motor(t_cub3d *cub3d, int stripe, int a, int b)
 			color = calc_pix_color(k, key_frame_selector(cub3d),
 					texx, (cub3d->draw_end_y - cub3d->draw_start_y) + 1);
 			if (color != 0)
-				mlx_put_pixel(cub3d->sprite_img, stripe, a, color);
+				draw_pixel(cub3d->sprite_img, stripe, a, color);
 			a++;
 			k++;
 		}

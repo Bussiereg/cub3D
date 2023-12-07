@@ -24,9 +24,9 @@ void	draw_tile(t_cub3d *cub3d, int x, int y, unsigned int color1)
 		while (new_x < (x * SIZEMINIMAP) + SIZEMINIMAP)
 		{
 			if (new_x % SIZEMINIMAP == 0 || new_y % SIZEMINIMAP == 0)
-				mlx_put_pixel(cub3d->minimap, new_x, new_y, 0x19b919FF);
+				draw_pixel(cub3d->minimap, new_x, new_y, 0x19b919FF);
 			else
-				mlx_put_pixel(cub3d->minimap, new_x, new_y, color1);
+				draw_pixel(cub3d->minimap, new_x, new_y, color1);
 			new_x++;
 		}
 		new_y++;
