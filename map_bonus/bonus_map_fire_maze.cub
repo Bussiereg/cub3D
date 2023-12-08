@@ -2,7 +2,6 @@ NO ./texture/fire2.png
 SO ./texture/fire2.png
 WE ./texture/fire2.png
 EA ./texture/fire2.png
-CO ./texture/Fire.png
 
 F 255,127,21
 C 223,13,11

@@ -1,9 +1,7 @@
-
 NO ./texture/moon_6.png
 SO ./texture/moon_8.png
 WE ./texture/moon_9.png
 EA ./texture/moon_7.png
-CO ./texture/collectible.png
 
 F 146,150,147
 C 42,45,56
