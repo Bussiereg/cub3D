@@ -19,8 +19,6 @@ The cub3D project is part of the 42 school curriculum and aims to introduce stud
 ## Features
 - **Basic Raycasting Engine**: Renders a 3D perspective of a maze-like environment using raycasting.
 - **Texture Mapping**: Walls are textured with images from external files.
-- **Sprite Rendering**: Supports sprite objects that can interact with the player.
-- **Collision Detection**: Prevents the player from moving through walls.
 - **Basic Game Mechanics**: Includes player movement, rotation, and interaction with the environment.
 - **Error Handling**: Checks for and handles various errors gracefully.
 
@@ -63,25 +61,21 @@ Run the program with a map file as argument:
 ```
 ### Special features
 
-#### Additional controls
-
-Mouse left click rotate the player.
+- **Sprite Rendering**: Supports sprite objects that can interact with the player.
+  ![Demo GIF](gif_and_image/turning_key.gif)
   
-#### Minimap
-Display a minimap pressing M
+- **Collision Detection**: Prevents the player from moving through walls.
+  
+- **Mouse left-click**: Additional controls with mouse to increase the immersion
+  
+- **Minimap**: Display a minimap by pressing M
+   ![cub3D screenshot](gif_and_image/minimap.png)
 
-![cub3D screenshot](gif_and_image/minimap.png)
+- **Interactive actions**: A door opens by pressing SPACE if all the collectibles have been collected
+   ![Demo GIF](gif_and_image/moving_door.gif)
 
-#### Collectibles
-Dynamic objets that are collectable
-![Demo GIF](gif_and_image/turning_key.gif)
+- **Music**: Ambiance music
 
-#### Interactive actions
-Door opens by pressing SPACE if all the keys are collected
-![Demo GIF](gif_and_image/moving_door.gif)
-
-#### Music
-Ambiance music.
 # Contributors
-- Guillaume Bussiere
+- [Guillaume Bussiere](https://github.com/Bussiereg)
 - [Jules Bernard](https://github.com/julesrb)
