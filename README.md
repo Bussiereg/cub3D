@@ -65,7 +65,7 @@ Run the program with a map file as argument:
 
 #### Additional controls
 
-- Mouse left click rotate the player.
+Mouse left click rotate the player.
   
 #### Minimap
 Display a minimap pressing M
@@ -80,6 +80,8 @@ Dynamic objets that are collectable
 Door opens by pressing SPACE if all the keys are collected
 ![Demo GIF](gif_and_image/moving_door.gif)
 
+#### Music
+Ambiance music.
 # Contributors
 - Guillaume Bussiere
 - [Jules Bernard](https://github.com/julesrb)
